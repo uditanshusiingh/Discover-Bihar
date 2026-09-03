@@ -2175,3 +2175,178 @@ body.lightbox-open {
         transition: none !important;
     }
 }
+
+/* =========================================================
+   GALLERY LIGHTBOX — FIXED RESPONSIVE
+   ========================================================= */
+
+.gallery-lightbox {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background: rgba(15, 12, 10, .96) !important;
+
+    z-index: 99999 !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Lightbox image wrapper */
+
+.gallery-lightbox-image {
+    position: relative !important;
+
+    width: min(90vw, 1100px) !important;
+    height: min(82vh, 750px) !important;
+
+    max-width: 90vw !important;
+    max-height: 82vh !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Actual image */
+
+.gallery-lightbox-image img,
+.gallery-lightbox img {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: contain !important;
+
+    margin: 0 auto !important;
+}
+
+
+/* Close button */
+
+.gallery-lightbox-close {
+    position: fixed !important;
+
+    top: 22px !important;
+    right: 22px !important;
+
+    width: 46px !important;
+    height: 46px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    z-index: 100001 !important;
+
+    cursor: pointer;
+}
+
+
+/* Previous / next buttons */
+
+.gallery-lightbox-prev,
+.gallery-lightbox-next {
+    position: fixed !important;
+
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+
+    z-index: 100001 !important;
+
+    width: 48px !important;
+    height: 48px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    cursor: pointer;
+}
+
+.gallery-lightbox-prev {
+    left: 20px !important;
+}
+
+.gallery-lightbox-next {
+    right: 20px !important;
+}
+
+
+/* =========================================================
+   MOBILE LIGHTBOX
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .gallery-lightbox {
+        width: 100vw !important;
+        height: 100dvh !important;
+
+        padding: 65px 12px !important;
+    }
+
+    .gallery-lightbox-image {
+        width: 100% !important;
+        height: 72vh !important;
+
+        max-width: 100% !important;
+        max-height: 72vh !important;
+    }
+
+    .gallery-lightbox-image img,
+    .gallery-lightbox img {
+        width: 100% !important;
+        height: 100% !important;
+
+        object-fit: contain !important;
+    }
+
+    .gallery-lightbox-close {
+        top: 14px !important;
+        right: 14px !important;
+
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .gallery-lightbox-prev,
+    .gallery-lightbox-next {
+        top: auto !important;
+        bottom: 18px !important;
+
+        transform: none !important;
+
+        width: 44px !important;
+        height: 44px !important;
+    }
+
+    .gallery-lightbox-prev {
+        left: 20px !important;
+    }
+
+    .gallery-lightbox-next {
+        right: 20px !important;
+    }
+}

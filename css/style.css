@@ -8867,3 +8867,267 @@ body.search-open {
     }
 
 }
+
+/* =========================================================
+   MOBILE RESPONSIVE + OVERFLOW FIX
+   ========================================================= */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+}
+
+body {
+    min-width: 0 !important;
+}
+
+/* Bootstrap rows should never create horizontal overflow */
+.row {
+    --bs-gutter-x: 1.5rem;
+    max-width: 100%;
+}
+
+/* Images must stay inside their containers */
+img {
+    max-width: 100%;
+}
+
+/* Links/cards should not force extra width */
+a,
+button,
+div,
+section,
+article {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   MOBILE — GENERAL SECTION FIX
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    section {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    [class*="col-"] {
+        min-width: 0 !important;
+        max-width: 100%;
+    }
+
+
+    /* ---------- HEADINGS ---------- */
+
+    h1 {
+        font-size: clamp(2.2rem, 10vw, 3.5rem);
+    }
+
+    h2 {
+        font-size: clamp(1.9rem, 8vw, 2.8rem);
+    }
+
+    h3 {
+        font-size: clamp(1.35rem, 6vw, 2rem);
+    }
+
+
+    /* ---------- NAVBAR ---------- */
+
+    .navbar {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .navbar .container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .navbar-brand {
+        max-width: calc(100% - 70px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    /* ---------- HERO ---------- */
+
+    .hero,
+    .hero-section {
+        width: 100%;
+        max-width: 100%;
+        min-height: 100svh;
+        overflow: hidden;
+    }
+
+    .hero-background {
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    /* ---------- COMMON CARDS ---------- */
+
+    .card,
+    .history-card,
+    .food-card,
+    .festival-card,
+    .culture-card,
+    .personality-card,
+    .gallery-item,
+    .experience-card {
+        min-width: 0 !important;
+        max-width: 100%;
+    }
+
+
+    /* ---------- GALLERY GRID ---------- */
+
+    .gallery-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .gallery-item,
+    .gallery-large,
+    .gallery-wide {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+
+    .gallery-item img {
+        width: 100% !important;
+        height: 260px !important;
+        max-width: 100% !important;
+        object-fit: cover;
+    }
+
+
+    /* ---------- EXPLORE SECTION ---------- */
+
+    .explore-section {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .explorer-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .explorer-map {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .explorer-map img {
+        display: block;
+        width: 90% !important;
+        max-width: 350px !important;
+        height: auto !important;
+        margin: 0 auto;
+    }
+
+    .explorer-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .experience-card {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    .site-footer {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .site-footer .row {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 575.98px) {
+
+    .container {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .explore-title {
+        font-size: 2.7rem;
+        line-height: 1.05;
+    }
+
+    .explore-intro {
+        max-width: 100%;
+        font-size: .82rem;
+        line-height: 1.8;
+    }
+
+    .explore-state-count {
+        margin-top: 25px;
+    }
+
+    .explorer-map img {
+        width: 88% !important;
+        max-width: 330px !important;
+    }
+
+    .gallery-item img {
+        height: 230px !important;
+    }
+}
