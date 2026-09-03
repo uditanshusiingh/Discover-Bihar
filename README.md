@@ -135,7 +135,7 @@ Discover-Bihar/
 ### 1. Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/uditanshusiingh/Discover-Bihar
 ```
 
 ### 2. Open the Project
