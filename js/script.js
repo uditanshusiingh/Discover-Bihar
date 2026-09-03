@@ -3245,3 +3245,92 @@ document.addEventListener(
     );
 
 });
+
+/* =========================================================
+   DISCOVER BIHAR — DARK MODE
+   ========================================================= */
+
+(function () {
+    const STORAGE_KEY = "discover-bihar-theme";
+
+    function applyTheme(theme) {
+        const isDark = theme === "dark";
+
+        document.documentElement.classList.toggle("dark-mode", isDark);
+
+        const button = document.getElementById("themeToggle");
+
+        if (button) {
+            button.setAttribute(
+                "aria-label",
+                isDark ? "Switch to light mode" : "Switch to dark mode"
+            );
+
+            button.setAttribute(
+                "title",
+                isDark ? "Light mode" : "Dark mode"
+            );
+        }
+    }
+
+    function addThemeToggle() {
+        const searchButton = document.getElementById("openSearch");
+
+        if (!searchButton || document.getElementById("themeToggle")) {
+            return;
+        }
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.id = "themeToggle";
+        button.className = "theme-toggle";
+
+        button.setAttribute("aria-label", "Switch to dark mode");
+        button.setAttribute("title", "Dark mode");
+
+        button.innerHTML = `
+            <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+            <i class="bi bi-sun-fill" aria-hidden="true"></i>
+        `;
+
+        searchButton.parentNode.insertBefore(button, searchButton);
+
+        button.addEventListener("click", function () {
+            const isDark =
+                document.documentElement.classList.contains("dark-mode");
+
+            const nextTheme = isDark ? "light" : "dark";
+
+            localStorage.setItem(STORAGE_KEY, nextTheme);
+
+            applyTheme(nextTheme);
+        });
+    }
+
+    /* Load saved theme */
+    const savedTheme = localStorage.getItem(STORAGE_KEY);
+
+    /* Use saved theme, otherwise use system preference */
+    const preferredTheme =
+        savedTheme ||
+        (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light"
+        );
+
+    /* Apply theme immediately */
+    applyTheme(preferredTheme);
+
+    /* Add toggle button after page loads */
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            addThemeToggle
+        );
+    } else {
+        addThemeToggle();
+    }
+})();

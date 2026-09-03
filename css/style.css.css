@@ -8546,3 +8546,285 @@ canvas {
         transform: none !important;
     }
 }
+
+/* =========================================================
+   DISCOVER BIHAR — DARK MODE
+   ========================================================= */
+
+html.dark-mode {
+    color-scheme: dark;
+}
+
+body,
+section,
+.card,
+.navbar,
+.site-footer,
+.explorer-wrapper,
+.explorer-map,
+.explorer-content,
+.travel-itinerary,
+.travel-itinerary-panel,
+.travel-day-tab,
+.gallery-page,
+.gallery-item {
+    transition: background-color .35s ease, color .35s ease, border-color .35s ease;
+}
+
+/* Theme toggle */
+.theme-toggle {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    padding: 0;
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .25s ease;
+}
+.theme-toggle:hover {
+    background: #D4A017;
+    color: #1B120C;
+    border-color: #D4A017;
+    transform: translateY(-2px);
+}
+.theme-toggle i { font-size: .95rem; }
+.theme-toggle .bi-sun-fill { display: none; }
+html.dark-mode .theme-toggle .bi-moon-stars-fill { display: none; }
+html.dark-mode .theme-toggle .bi-sun-fill { display: block; }
+
+/* Global */
+html.dark-mode body,
+html.dark-mode main {
+    background: #12100e;
+    color: #f4eee5;
+}
+html.dark-mode .bg-white,
+html.dark-mode .bg-light {
+    background-color: #12100e !important;
+}
+html.dark-mode .text-dark { color: #f4eee5 !important; }
+html.dark-mode .text-muted { color: #b9aea1 !important; }
+
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6,
+html.dark-mode .section-title,
+html.dark-mode .explore-title {
+    color: #f4eee5;
+}
+html.dark-mode p { color: #b9aea1; }
+
+/* Main light sections */
+html.dark-mode .intro-section,
+html.dark-mode .story-section,
+html.dark-mode .heritage-section,
+html.dark-mode .food-section,
+html.dark-mode .culture-section,
+html.dark-mode .personality-section,
+html.dark-mode .explore-section,
+html.dark-mode .travel-section,
+html.dark-mode .travel-page,
+html.dark-mode .travel-intro-section,
+html.dark-mode .travel-essentials-section,
+html.dark-mode .travel-styles-section,
+html.dark-mode .travel-itinerary-section,
+html.dark-mode .travel-tips-section,
+html.dark-mode .history-page,
+html.dark-mode .history-intro-section,
+html.dark-mode .history-stories-section,
+html.dark-mode .history-why-section,
+html.dark-mode .food-page,
+html.dark-mode .food-intro-section,
+html.dark-mode .food-stories-section,
+html.dark-mode .food-guide-section,
+html.dark-mode .festival-page,
+html.dark-mode .festival-intro-section,
+html.dark-mode .festival-stories-section,
+html.dark-mode .festival-calendar-section,
+html.dark-mode .festival-why-section,
+html.dark-mode .art-page,
+html.dark-mode .art-intro-section,
+html.dark-mode .art-signature-section,
+html.dark-mode .art-stories-section,
+html.dark-mode .art-expression-section,
+html.dark-mode .art-experience-section,
+html.dark-mode .art-why-section,
+html.dark-mode .personality-page,
+html.dark-mode .personality-intro-section,
+html.dark-mode .personality-stories-section,
+html.dark-mode .personality-legacy-section,
+html.dark-mode .personality-why-section,
+html.dark-mode .about-page,
+html.dark-mode .about-intro-section,
+html.dark-mode .about-story-section,
+html.dark-mode .about-pillars-section,
+html.dark-mode .about-philosophy-section,
+html.dark-mode .about-approach-section,
+html.dark-mode .about-technology-section,
+html.dark-mode .about-highlights-section {
+    background: #12100e;
+    color: #f4eee5;
+}
+
+/* Cards */
+html.dark-mode .heritage-card,
+html.dark-mode .hidden-place-card,
+html.dark-mode .food-card,
+html.dark-mode .food-feature-card,
+html.dark-mode .festival-feature-card,
+html.dark-mode .festival-small-card,
+html.dark-mode .culture-art-card,
+html.dark-mode .personality-card,
+html.dark-mode .travel-essential-card,
+html.dark-mode .travel-style-card,
+html.dark-mode .travel-tip,
+html.dark-mode .history-story,
+html.dark-mode .art-feature-card,
+html.dark-mode .art-story,
+html.dark-mode .art-expression-card,
+html.dark-mode .art-experience-item,
+html.dark-mode .personality-legacy-card,
+html.dark-mode .personality-why-card,
+html.dark-mode .about-pillar,
+html.dark-mode .about-highlight,
+html.dark-mode .about-technology-item {
+    background: #1b1713;
+    color: #f4eee5;
+    border-color: rgba(255,255,255,.10);
+}
+
+html.dark-mode .heritage-card p,
+html.dark-mode .hidden-place-card p,
+html.dark-mode .food-card p,
+html.dark-mode .food-feature-card p,
+html.dark-mode .festival-feature-card p,
+html.dark-mode .festival-small-card p,
+html.dark-mode .culture-art-card p,
+html.dark-mode .personality-card p,
+html.dark-mode .travel-essential-card p,
+html.dark-mode .travel-style-card p,
+html.dark-mode .travel-tip p,
+html.dark-mode .history-story p,
+html.dark-mode .art-story p,
+html.dark-mode .art-feature-card p,
+html.dark-mode .art-expression-card p,
+html.dark-mode .personality-legacy-card p,
+html.dark-mode .personality-why-card p,
+html.dark-mode .about-pillar p,
+html.dark-mode .about-highlight p {
+    color: #b9aea1;
+}
+
+/* Explore */
+html.dark-mode .explore-section { background: #15110e; }
+html.dark-mode .explorer-wrapper {
+    background: #1b1713;
+    border-color: rgba(255,255,255,.10);
+    box-shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+html.dark-mode .explorer-map {
+    background: radial-gradient(circle at center, rgba(212,160,23,.12), transparent 60%), #211b16;
+}
+html.dark-mode .explorer-content { background: #1b1713; }
+html.dark-mode .experience-card {
+    color: #f4eee5;
+    border-color: rgba(255,255,255,.10);
+}
+html.dark-mode .experience-card::before { background: #2a211a; }
+html.dark-mode .experience-content h3 { color: #f4eee5; }
+html.dark-mode .experience-content p { color: #b9aea1; }
+
+/* Travel itinerary */
+html.dark-mode .travel-day-tab {
+    color: #b9aea1;
+    border-color: rgba(255,255,255,.10);
+}
+html.dark-mode .travel-day-tab:hover {
+    color: #f4eee5;
+    background: rgba(255,255,255,.04);
+}
+html.dark-mode .travel-day-tab.active {
+    color: #D4A017;
+    background: rgba(212,160,23,.07);
+}
+html.dark-mode .travel-day-top h3,
+html.dark-mode .travel-itinerary-heading h2 {
+    color: #f4eee5 !important;
+}
+html.dark-mode .travel-day-intro,
+html.dark-mode .travel-day-list li { color: #b9aea1; }
+html.dark-mode .travel-itinerary-panel .travel-day-content,
+html.dark-mode .travel-day-footer {
+    border-color: rgba(255,255,255,.10);
+}
+
+/* District explorer */
+html.dark-mode .district-explorer-section { background: #12100e; }
+html.dark-mode .district-card,
+html.dark-mode .district-detail-panel {
+    background: #1b1713;
+    color: #f4eee5;
+    border-color: rgba(255,255,255,.10);
+}
+html.dark-mode .district-card:hover,
+html.dark-mode .district-card.active {
+    background: #2a211a;
+    border-color: #D4A017;
+}
+html.dark-mode #districtDetailTitle,
+html.dark-mode .district-detail-title { color: #f4eee5; }
+html.dark-mode #districtDetailText { color: #b9aea1; }
+html.dark-mode .district-modal-dialog {
+    background: #1b1713;
+    color: #f4eee5;
+}
+html.dark-mode .district-modal-description { color: #b9aea1; }
+
+/* Gallery */
+html.dark-mode .gallery-page,
+html.dark-mode .gallery-section { background: #0e0c0a; }
+
+/* Forms */
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea {
+    background: #211b17;
+    color: #f4eee5;
+    border-color: rgba(255,255,255,.12);
+}
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder { color: #81776c; }
+html.dark-mode select option { background: #211b17; color: #f4eee5; }
+
+/* Footer */
+html.dark-mode .site-footer {
+    background: #0b0907;
+    color: #f4eee5;
+}
+html.dark-mode .site-footer p,
+html.dark-mode .site-footer span { color: #b9aea1; }
+html.dark-mode .site-footer a { color: rgba(255,255,255,.72) !important; }
+html.dark-mode .site-footer a:hover { color: #D4A017 !important; }
+
+/* Search + lightbox */
+html.dark-mode .site-search-overlay { background: rgba(7,5,4,.98); }
+html.dark-mode .gallery-lightbox { background: rgba(4,3,2,.98) !important; }
+
+@media (max-width: 767.98px) {
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        margin-right: 7px;
+    }
+}
