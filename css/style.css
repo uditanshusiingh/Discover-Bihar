@@ -9290,3 +9290,35 @@ button.theme-toggle:focus-visible,
         font-size: 9px !important;
     }
 }
+
+/* =========================================================
+   THEME TOGGLE + SEARCH SPACING
+   ========================================================= */
+
+#themeToggle {
+    margin-right: 18px !important;
+}
+
+#openSearch {
+    margin-left: 0 !important;
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+
+    #themeToggle {
+        margin-right: 16px !important;
+    }
+
+    #openSearch {
+        margin-left: 0 !important;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+
+    #themeToggle {
+        margin-right: 13px !important;
+    }
+}
