@@ -1,0 +1,1499 @@
+/* =========================================================
+   DISCOVER BIHAR — FAMOUS PERSONALITIES
+   personalities.css
+   ========================================================= */
+
+
+/* =========================================================
+   1. PERSONALITIES NAVBAR
+   ========================================================= */
+
+.personality-navbar {
+    background: rgba(27, 18, 12, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.personality-navbar .navbar-brand {
+    color: #ffffff;
+}
+
+.personality-navbar .navbar-brand:hover {
+    color: #D4A017;
+}
+
+.personality-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.personality-navbar .nav-link:hover,
+.personality-navbar .nav-link.active {
+    color: #D4A017;
+}
+
+.personality-navbar .dropdown-menu {
+    background: #21160f;
+    border: 1px solid rgba(212, 160, 23, 0.18);
+}
+
+.personality-navbar .dropdown-item {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.personality-navbar .dropdown-item:hover,
+.personality-navbar .dropdown-item:focus {
+    background: rgba(212, 160, 23, 0.1);
+    color: #D4A017;
+}
+
+
+/* =========================================================
+   2. HERO
+   ========================================================= */
+
+.personality-hero {
+    position: relative;
+    width: 100%;
+    min-height: 88vh;
+    height: 88vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #1B120C;
+}
+
+
+/* Full-width hero image */
+
+.personality-hero-image {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.personality-hero-image img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+    transform: scale(1.01);
+}
+
+
+/* Hero dark overlay */
+
+.personality-hero-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 12, 7, 0.18) 0%,
+            rgba(20, 12, 7, 0.28) 38%,
+            rgba(20, 12, 7, 0.62) 72%,
+            rgba(20, 12, 7, 0.88) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(20, 12, 7, 0.72) 0%,
+            rgba(20, 12, 7, 0.08) 60%,
+            rgba(20, 12, 7, 0.20) 100%
+        );
+}
+
+
+/* HTML text remains visible above image */
+
+.personality-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    padding: 130px 0 70px;
+}
+
+
+/* Keep text visible */
+
+.personality-breadcrumb {
+    position: relative;
+    z-index: 3;
+    margin-bottom: 24px;
+    color: #D4A017;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.personality-breadcrumb span {
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 8px;
+}
+
+
+.personality-hero-content h1 {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    margin: 0;
+    color: #ffffff !important;
+    font-family: var(--font-heading);
+    font-size: clamp(3.8rem, 8vw, 7.8rem);
+    font-weight: 500;
+    line-height: 0.92;
+    letter-spacing: -2px;
+    text-shadow: 0 5px 25px rgba(0, 0, 0, 0.45);
+}
+
+.personality-hero-content h1 em {
+    color: #D4A017 !important;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+.personality-hero-content p {
+    position: relative;
+    z-index: 3;
+    max-width: 650px;
+    margin: 30px 0 0;
+    color: rgba(255, 255, 255, 0.90) !important;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.9;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+
+.personality-hero-scroll {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.personality-hero-scroll i {
+    color: #D4A017;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   3. COMMON TYPOGRAPHY
+   ========================================================= */
+
+.personality-eyebrow {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #A46B2C;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+}
+
+.personality-section-heading h2 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: clamp(2.7rem, 5vw, 4.8rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-section-heading h2 span {
+    color: #A46B2C;
+    font-style: italic;
+}
+
+.personality-section-heading p {
+    max-width: 650px;
+    margin: 22px auto 0;
+    color: #746A63;
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   4. INTRODUCTION
+   ========================================================= */
+
+.personality-intro-section {
+    padding: 120px 0 115px;
+    background: #F8F5EF;
+}
+
+.personality-intro-text {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.personality-intro-text h2 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-intro-text h2 em {
+    color: #A46B2C;
+    font-style: italic;
+}
+
+.personality-intro-text p {
+    max-width: 700px;
+    margin: 28px auto 0;
+    color: #746A63;
+    font-size: 0.88rem;
+    line-height: 1.95;
+}
+
+.personality-intro-line {
+    width: 70px;
+    height: 1px;
+    margin: 38px auto 0;
+    background: #D4A017;
+}
+
+
+/* =========================================================
+   5. PERSONALITY HIGHLIGHTS
+   ========================================================= */
+
+.personality-highlights-section {
+    padding: 115px 0 125px;
+    background: #ffffff;
+}
+
+.personality-highlights-heading {
+    margin-bottom: 65px;
+}
+
+.personality-highlights-heading h2 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-highlights-heading h2 span {
+    color: #A46B2C;
+    font-style: italic;
+}
+
+.personality-highlights-heading p {
+    max-width: 620px;
+    margin-top: 20px;
+    color: #746A63;
+    font-size: 0.84rem;
+    line-height: 1.85;
+}
+
+
+/* Bootstrap column protection */
+
+.personality-highlights-section .row {
+    align-items: stretch;
+}
+
+.personality-highlights-section .row > [class*="col-"] {
+    min-width: 0;
+    display: flex;
+}
+
+
+/* =========================================================
+   6. PERSONALITY FEATURE CARDS
+   ========================================================= */
+
+.personality-feature-card {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #F8F5EF;
+    border: 1px solid rgba(139, 69, 19, 0.09);
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.personality-feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(53, 31, 16, 0.12);
+}
+
+.personality-feature-image {
+    position: relative;
+    width: 100%;
+    height: 390px;
+    min-height: 390px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #D8D0C7;
+}
+
+.personality-feature-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.7s ease;
+}
+
+.personality-feature-card:hover .personality-feature-image img {
+    transform: scale(1.06);
+}
+
+.personality-feature-number {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D4A017;
+    color: #1B120C;
+    font-family: var(--font-body);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.personality-feature-content {
+    min-width: 0;
+    min-height: 315px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 38px 34px 34px;
+}
+
+.personality-feature-location {
+    margin-bottom: 13px;
+    color: #A46B2C;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.personality-feature-content h3 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: clamp(1.7rem, 2.4vw, 2.25rem);
+    font-weight: 500;
+    line-height: 1.08;
+}
+
+.personality-feature-content p {
+    margin: 18px 0 0;
+    color: #746A63;
+    font-size: 0.79rem;
+    line-height: 1.8;
+}
+
+.personality-feature-content .personality-story-link {
+    margin-top: auto;
+}
+
+
+/* =========================================================
+   7. STORY LINK
+   ========================================================= */
+
+.personality-story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    margin-top: 25px;
+    color: #8B4513;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.personality-story-link i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.personality-story-link:hover {
+    color: #D4A017;
+}
+
+.personality-story-link:hover i {
+    transform: translate(4px, -4px);
+}
+
+
+/* =========================================================
+   8. DETAILED PERSONALITY STORIES
+   ========================================================= */
+
+.personality-stories-section {
+    padding: 125px 0;
+    background: #21160F;
+}
+
+.personality-stories-heading {
+    margin-bottom: 75px;
+    text-align: center;
+}
+
+.personality-stories-heading .personality-eyebrow {
+    color: #D4A017;
+}
+
+.personality-stories-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-stories-heading h2 span {
+    color: #D4A017;
+    font-style: italic;
+}
+
+.personality-stories-heading p {
+    max-width: 650px;
+    margin: 22px auto 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.83rem;
+    line-height: 1.9;
+}
+
+
+/* Story wrapper */
+
+.personality-story {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-width: 0;
+    margin-bottom: 100px;
+    background: #2A1C13;
+    overflow: hidden;
+}
+
+.personality-story:last-child {
+    margin-bottom: 0;
+}
+
+.personality-story-reverse .personality-story-image {
+    order: 2;
+}
+
+.personality-story-reverse .personality-story-content {
+    order: 1;
+}
+
+.personality-story-image {
+    position: relative;
+    min-width: 0;
+    min-height: 560px;
+    overflow: hidden;
+}
+
+.personality-story-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.personality-story:hover .personality-story-image img {
+    transform: scale(1.04);
+}
+
+.personality-story-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 70px 65px;
+}
+
+.personality-story-number {
+    margin-bottom: 18px;
+    color: #D4A017;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+}
+
+.personality-story-content h3 {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    font-weight: 500;
+    line-height: 1;
+}
+
+.personality-story-lead {
+    margin: 25px 0 0;
+    color: rgba(255, 255, 255, 0.86);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    line-height: 1.55;
+}
+
+.personality-story-content > p:not(.personality-story-lead) {
+    margin: 20px 0 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.78rem;
+    line-height: 1.9;
+}
+
+.personality-story-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.personality-story-facts span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 7px 13px;
+    border: 1px solid rgba(212, 160, 23, 0.25);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.personality-story-content .personality-story-link {
+    margin-top: 32px;
+    color: #D4A017;
+}
+
+.personality-story-content .personality-story-link:hover {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   9. LEGACY / AREAS OF INFLUENCE
+   ========================================================= */
+
+.personality-legacy-section {
+    padding: 120px 0;
+    background: #F8F5EF;
+}
+
+.personality-legacy-heading {
+    margin-bottom: 65px;
+}
+
+.personality-legacy-heading h2 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-legacy-heading h2 span {
+    color: #A46B2C;
+    font-style: italic;
+}
+
+.personality-legacy-heading p {
+    max-width: 620px;
+    margin-top: 20px;
+    color: #746A63;
+    font-size: 0.83rem;
+    line-height: 1.85;
+}
+
+.personality-legacy-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.personality-legacy-card {
+    min-width: 0;
+    min-height: 250px;
+    padding: 35px 28px;
+    background: #ffffff;
+    border: 1px solid rgba(139, 69, 19, 0.08);
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.personality-legacy-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px rgba(53, 31, 16, 0.09);
+}
+
+.personality-legacy-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+    background: #F3E8D1;
+    color: #8B4513;
+    font-size: 20px;
+}
+
+.personality-legacy-card h3 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: 1.65rem;
+    font-weight: 500;
+}
+
+.personality-legacy-card p {
+    margin: 13px 0 0;
+    color: #746A63;
+    font-size: 0.72rem;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   10. TIMELINE
+   ========================================================= */
+
+.personality-timeline-section {
+    padding: 125px 0;
+    background: #ffffff;
+}
+
+.personality-timeline-heading {
+    margin-bottom: 75px;
+    text-align: center;
+}
+
+.personality-timeline-heading h2 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-timeline-heading h2 span {
+    color: #A46B2C;
+    font-style: italic;
+}
+
+.personality-timeline-heading p {
+    max-width: 650px;
+    margin: 22px auto 0;
+    color: #746A63;
+    font-size: 0.83rem;
+    line-height: 1.9;
+}
+
+.personality-timeline {
+    position: relative;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.personality-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: #D8CBBE;
+    transform: translateX(-50%);
+}
+
+.personality-timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 0 55px 65px;
+}
+
+.personality-timeline-item:nth-child(odd) {
+    padding-left: 0;
+    padding-right: 75px;
+    text-align: right;
+}
+
+.personality-timeline-item:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 75px;
+    padding-right: 0;
+}
+
+.personality-timeline-dot {
+    position: absolute;
+    top: 4px;
+    width: 13px;
+    height: 13px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    background: #D4A017;
+    box-shadow: 0 0 0 1px #D4A017;
+}
+
+.personality-timeline-item:nth-child(odd) .personality-timeline-dot {
+    right: -6px;
+}
+
+.personality-timeline-item:nth-child(even) .personality-timeline-dot {
+    left: -6px;
+}
+
+.personality-timeline-year {
+    margin-bottom: 10px;
+    color: #A46B2C;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.personality-timeline-item h3 {
+    margin: 0;
+    color: #1B120C;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.personality-timeline-item p {
+    margin: 12px 0 0;
+    color: #746A63;
+    font-size: 0.74rem;
+    line-height: 1.8;
+}
+
+.personality-timeline-end {
+    max-width: 500px;
+    margin: 25px auto 0;
+    padding: 35px 25px;
+    text-align: center;
+    border-top: 1px solid #D8CBBE;
+}
+
+.personality-timeline-end span {
+    display: block;
+    margin-bottom: 10px;
+    color: #A46B2C;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.personality-timeline-end p {
+    margin: 0;
+    color: #746A63;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-style: italic;
+}
+
+
+/* =========================================================
+   11. WHY THEY MATTER
+   ========================================================= */
+
+.personality-why-section {
+    padding: 120px 0;
+    background: #21160F;
+}
+
+.personality-why-heading {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.personality-why-heading .personality-eyebrow {
+    color: #D4A017;
+}
+
+.personality-why-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 500;
+    line-height: 1.02;
+}
+
+.personality-why-heading h2 span {
+    color: #D4A017;
+    font-style: italic;
+}
+
+.personality-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.personality-why-card {
+    min-width: 0;
+    padding: 45px 35px;
+    background: #2A1C13;
+    border: 1px solid rgba(212, 160, 23, 0.12);
+}
+
+.personality-why-number {
+    margin-bottom: 50px;
+    color: #D4A017;
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-style: italic;
+}
+
+.personality-why-card h3 {
+    margin: 0;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 500;
+}
+
+.personality-why-card p {
+    margin: 15px 0 0;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.73rem;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   12. FINAL CTA
+   ========================================================= */
+
+.personality-final-cta {
+    position: relative;
+    overflow: hidden;
+    padding: 135px 0;
+    background:
+        linear-gradient(
+            135deg,
+            #8B4513 0%,
+            #6E3517 48%,
+            #422316 100%
+        );
+}
+
+.personality-final-cta::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: -250px;
+    right: -180px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.personality-final-cta::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    bottom: -200px;
+    left: -120px;
+    border: 1px solid rgba(212, 160, 23, 0.2);
+    border-radius: 50%;
+}
+
+.personality-final-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.personality-final-content > span {
+    display: block;
+    margin-bottom: 22px;
+    color: #D4A017;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.personality-final-content h2 {
+    margin: 0;
+    color: #ffffff !important;
+    font-family: var(--font-heading);
+    font-size: clamp(3.2rem, 6vw, 6rem);
+    font-weight: 500;
+    line-height: 0.98;
+}
+
+.personality-final-content h2 em {
+    color: #F0C75E;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.personality-final-content p {
+    max-width: 620px;
+    margin: 25px auto 35px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.8rem;
+    line-height: 1.85;
+}
+
+
+/* Definitive CTA button */
+
+section.personality-final-cta a.personality-final-btn,
+.personality-final-cta .personality-final-content a.personality-final-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: fit-content !important;
+    min-width: 200px !important;
+    height: auto !important;
+    padding: 15px 27px !important;
+    margin: 0 !important;
+    background: #D4A017 !important;
+    background-color: #D4A017 !important;
+    color: #1B120C !important;
+    border: 1px solid #D4A017 !important;
+    border-radius: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 1.5px !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+section.personality-final-cta a.personality-final-btn:hover,
+.personality-final-cta .personality-final-content a.personality-final-btn:hover {
+    background: #E5B32C !important;
+    background-color: #E5B32C !important;
+    color: #1B120C !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+section.personality-final-cta a.personality-final-btn i,
+.personality-final-cta .personality-final-content a.personality-final-btn i {
+    color: #1B120C !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    transition: transform 0.3s ease !important;
+}
+
+section.personality-final-cta a.personality-final-btn:hover i,
+.personality-final-cta .personality-final-content a.personality-final-btn:hover i {
+    color: #1B120C !important;
+    transform: translate(4px, -4px) !important;
+}
+
+section.personality-final-cta a.personality-final-btn:link,
+section.personality-final-cta a.personality-final-btn:visited,
+section.personality-final-cta a.personality-final-btn:active {
+    color: #1B120C !important;
+    background-color: #D4A017 !important;
+    text-decoration: none !important;
+}
+
+
+/* =========================================================
+   13. FOOTER
+   ========================================================= */
+
+.personality-page .site-footer {
+    background: #120C08;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.personality-page .site-footer a {
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.personality-page .site-footer a:hover {
+    color: #D4A017;
+}
+
+
+/* =========================================================
+   14. TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .personality-hero {
+        min-height: 78vh;
+        height: 78vh;
+    }
+
+    .personality-hero-content {
+        min-height: 78vh;
+        padding: 120px 0 60px;
+    }
+
+    .personality-hero-content h1 {
+        font-size: clamp(3.5rem, 10vw, 6rem);
+    }
+
+    .personality-intro-section,
+    .personality-highlights-section,
+    .personality-legacy-section,
+    .personality-timeline-section,
+    .personality-why-section {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .personality-stories-section {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .personality-feature-image {
+        height: 320px;
+        min-height: 320px;
+    }
+
+    .personality-feature-content {
+        min-height: 300px;
+        padding: 30px 27px;
+    }
+
+    .personality-story-content {
+        padding: 50px 40px;
+    }
+
+    .personality-story-image {
+        min-height: 500px;
+    }
+
+    .personality-story-content h3 {
+        font-size: 2.7rem;
+    }
+
+    .personality-legacy-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .personality-why-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .personality-why-card {
+        padding: 35px 25px;
+    }
+}
+
+
+/* =========================================================
+   15. MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .personality-hero {
+        min-height: 82vh;
+        height: 82vh;
+    }
+
+    .personality-hero-image img {
+        object-position: 28% center;
+    }
+
+    .personality-hero-overlay {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(20, 12, 7, 0.40) 0%,
+                rgba(20, 12, 7, 0.62) 65%,
+                rgba(20, 12, 7, 0.86) 100%
+            ),
+            linear-gradient(
+                0deg,
+                rgba(20, 12, 7, 0.78) 0%,
+                rgba(20, 12, 7, 0.12) 70%
+            );
+    }
+
+    .personality-hero-content {
+        min-height: 82vh;
+        align-items: flex-end;
+        padding: 120px 0 55px;
+    }
+
+    .personality-hero-content h1 {
+        font-size: clamp(3.1rem, 15vw, 5rem);
+        letter-spacing: -1px;
+    }
+
+    .personality-hero-content p {
+        font-size: 0.78rem;
+        line-height: 1.8;
+    }
+
+    .personality-hero-scroll {
+        margin-top: 32px;
+    }
+
+    .personality-intro-section,
+    .personality-highlights-section,
+    .personality-legacy-section,
+    .personality-timeline-section,
+    .personality-why-section {
+        padding: 75px 0;
+    }
+
+    .personality-stories-section {
+        padding: 75px 0;
+    }
+
+    .personality-highlights-heading,
+    .personality-legacy-heading {
+        margin-bottom: 45px;
+    }
+
+
+    /* Stack Bootstrap cards safely */
+
+    .personality-highlights-section .row > [class*="col-"] {
+        width: 100%;
+        display: flex;
+    }
+
+    .personality-feature-card {
+        margin-bottom: 22px;
+    }
+
+    .personality-highlights-section .row > [class*="col-"]:last-child
+    .personality-feature-card {
+        margin-bottom: 0;
+    }
+
+    .personality-feature-image {
+        height: 330px;
+        min-height: 330px;
+    }
+
+    .personality-feature-content {
+        min-height: auto;
+        padding: 35px 28px 32px;
+    }
+
+
+    /* Story */
+
+    .personality-story {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 55px;
+    }
+
+    .personality-story-reverse .personality-story-image {
+        order: 1;
+    }
+
+    .personality-story-reverse .personality-story-content {
+        order: 2;
+    }
+
+    .personality-story-image {
+        min-height: 360px;
+        height: 360px;
+    }
+
+    .personality-story-content {
+        padding: 45px 28px;
+    }
+
+    .personality-story-content h3 {
+        font-size: 2.65rem;
+    }
+
+    .personality-story-lead {
+        font-size: 1rem;
+    }
+
+
+    /* Legacy */
+
+    .personality-legacy-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .personality-legacy-card {
+        min-height: auto;
+        padding: 30px 26px;
+    }
+
+    .personality-legacy-icon {
+        margin-bottom: 25px;
+    }
+
+
+    /* Timeline */
+
+    .personality-timeline {
+        padding-left: 35px;
+    }
+
+    .personality-timeline::before {
+        left: 10px;
+        transform: none;
+    }
+
+    .personality-timeline-item,
+    .personality-timeline-item:nth-child(odd),
+    .personality-timeline-item:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 0 50px 30px;
+        text-align: left;
+    }
+
+    .personality-timeline-item:nth-child(odd) .personality-timeline-dot,
+    .personality-timeline-item:nth-child(even) .personality-timeline-dot {
+        left: -30px;
+        right: auto;
+    }
+
+    .personality-timeline-item h3 {
+        font-size: 1.55rem;
+    }
+
+
+    /* Why */
+
+    .personality-why-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .personality-why-card {
+        padding: 35px 28px;
+    }
+
+    .personality-why-number {
+        margin-bottom: 30px;
+    }
+
+
+    /* CTA */
+
+    .personality-final-cta {
+        padding: 90px 0;
+    }
+
+    .personality-final-content h2 {
+        font-size: clamp(3rem, 13vw, 4.5rem);
+    }
+
+    .personality-final-content p {
+        font-size: 0.75rem;
+    }
+}
+
+
+/* =========================================================
+   16. SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 575px) {
+
+    .personality-hero {
+        min-height: 78vh;
+        height: 78vh;
+    }
+
+    .personality-hero-image img {
+        object-position: 25% center;
+    }
+
+    .personality-hero-content {
+        min-height: 78vh;
+        padding: 115px 0 45px;
+    }
+
+    .personality-breadcrumb {
+        font-size: 0.57rem;
+        letter-spacing: 1.8px;
+    }
+
+    .personality-hero-content h1 {
+        font-size: clamp(2.8rem, 15vw, 4.3rem);
+    }
+
+    .personality-hero-content p {
+        font-size: 0.73rem;
+        line-height: 1.75;
+    }
+
+    .personality-intro-text h2 {
+        font-size: 2.65rem;
+    }
+
+    .personality-section-heading h2,
+    .personality-highlights-heading h2,
+    .personality-legacy-heading h2,
+    .personality-timeline-heading h2,
+    .personality-why-heading h2 {
+        font-size: 2.65rem;
+    }
+
+    .personality-feature-image {
+        height: 290px;
+        min-height: 290px;
+    }
+
+    .personality-feature-content {
+        padding: 30px 24px;
+    }
+
+    .personality-feature-content h3 {
+        font-size: 1.9rem;
+    }
+
+    .personality-story-image {
+        height: 300px;
+        min-height: 300px;
+    }
+
+    .personality-story-content {
+        padding: 38px 23px;
+    }
+
+    .personality-story-content h3 {
+        font-size: 2.3rem;
+    }
+
+    .personality-story-facts {
+        gap: 7px;
+    }
+
+    .personality-story-facts span {
+        font-size: 0.53rem;
+    }
+
+    .personality-timeline {
+        padding-left: 30px;
+    }
+
+    .personality-timeline::before {
+        left: 7px;
+    }
+
+    .personality-timeline-item,
+    .personality-timeline-item:nth-child(odd),
+    .personality-timeline-item:nth-child(even) {
+        padding-left: 27px;
+    }
+
+    .personality-timeline-item:nth-child(odd) .personality-timeline-dot,
+    .personality-timeline-item:nth-child(even) .personality-timeline-dot {
+        left: -27px;
+    }
+
+    section.personality-final-cta a.personality-final-btn,
+    .personality-final-cta .personality-final-content a.personality-final-btn {
+        width: 100% !important;
+        max-width: 260px !important;
+        min-width: 0 !important;
+    }
+}
+
+
+/* =========================================================
+   17. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .personality-feature-card,
+    .personality-feature-image img,
+    .personality-story-image img,
+    .personality-story-link i,
+    .personality-final-btn,
+    .personality-final-btn i,
+    .personality-hero-image img {
+        transition: none !important;
+    }
+
+    .personality-feature-card:hover,
+    .personality-story:hover .personality-story-image img,
+    .personality-feature-card:hover .personality-feature-image img {
+        transform: none !important;
+    }
+}

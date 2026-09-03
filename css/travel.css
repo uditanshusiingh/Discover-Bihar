@@ -1,0 +1,2203 @@
+/* =========================================================
+   DISCOVER BIHAR — TRAVEL
+   travel.css
+   ========================================================= */
+
+
+/* =========================================================
+   1. TRAVEL NAVBAR
+   ========================================================= */
+
+.travel-navbar {
+    background: rgba(27, 18, 12, 0.96);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.travel-navbar .navbar-brand {
+    color: #ffffff !important;
+}
+
+.travel-navbar .navbar-brand:hover {
+    color: #D4A017 !important;
+}
+
+.travel-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.travel-navbar .nav-link:hover,
+.travel-navbar .nav-link.active {
+    color: #D4A017 !important;
+}
+
+.travel-navbar .dropdown-menu {
+    background: #21160F;
+
+    border: 1px solid rgba(212, 160, 23, 0.18);
+
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.travel-navbar .dropdown-item {
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.travel-navbar .dropdown-item:hover,
+.travel-navbar .dropdown-item:focus {
+    background: rgba(212, 160, 23, 0.10) !important;
+
+    color: #D4A017 !important;
+}
+
+
+/* Navbar CTA */
+
+.travel-navbar .nav-cta,
+.travel-navbar .nav-cta:link,
+.travel-navbar .nav-cta:visited,
+.travel-navbar .nav-cta:active {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 11px 18px;
+
+    background: #D4A017 !important;
+
+    color: #1B120C !important;
+
+    border: 1px solid #D4A017 !important;
+
+    border-radius: 0;
+
+    font-family: var(--font-body);
+
+    font-size: 0.61rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    text-decoration: none !important;
+
+    text-transform: uppercase;
+}
+
+.travel-navbar .nav-cta:hover {
+    background: #E5B32C !important;
+
+    color: #1B120C !important;
+}
+
+.travel-navbar .nav-cta i {
+    color: #1B120C !important;
+
+    font-size: 13px;
+}
+
+
+/* Mobile navbar icon */
+
+.travel-navbar .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 0;
+
+    padding: 7px 10px;
+
+    box-shadow: none !important;
+}
+
+.travel-navbar .navbar-toggler i {
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   2. HERO — FULL BACKGROUND
+   ========================================================= */
+
+.travel-hero {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 88vh;
+    height: 88vh;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #1B120C;
+}
+
+
+/* Full image container */
+
+.travel-hero-image {
+    position: absolute !important;
+
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 0;
+
+    overflow: hidden;
+}
+
+
+/* Actual hero image */
+
+.travel-hero-image img {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center center;
+
+    transform: scale(1.03);
+
+    transition:
+        transform 1.2s ease;
+}
+
+
+/* Full hero overlay */
+
+.travel-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 12, 7, 0.88) 0%,
+            rgba(20, 12, 7, 0.68) 35%,
+            rgba(20, 12, 7, 0.38) 68%,
+            rgba(20, 12, 7, 0.62) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(20, 12, 7, 0.88) 0%,
+            rgba(20, 12, 7, 0.10) 62%,
+            rgba(20, 12, 7, 0.30) 100%
+        );
+}
+
+
+/* =========================================================
+   3. HERO CONTENT
+   ========================================================= */
+
+.travel-hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    min-height: 88vh;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 125px 0 70px;
+}
+
+
+/* Eyebrow */
+
+.travel-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+    color: #D4A017;
+
+    font-family: var(--font-body);
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2.8px;
+
+    text-transform: uppercase;
+}
+
+
+/* Hero heading */
+
+.travel-hero-content h1 {
+    max-width: 900px;
+
+    margin: 0;
+
+    color: #ffffff !important;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        4rem,
+        8vw,
+        7.8rem
+    );
+
+    font-weight: 500;
+
+    line-height: 0.90;
+
+    letter-spacing: -2px;
+
+    text-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.50),
+        0 10px 35px rgba(0, 0, 0, 0.25);
+}
+
+.travel-hero-content h1 em {
+    display: block;
+
+    color: #D4A017 !important;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* Hero paragraph */
+
+.travel-hero-content p {
+    max-width: 620px;
+
+    margin: 30px 0 0;
+
+    color: rgba(255, 255, 255, 0.88) !important;
+
+    font-family: var(--font-body);
+
+    font-size: 0.84rem;
+
+    line-height: 1.9;
+
+    text-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.50);
+}
+
+
+/* Breadcrumb */
+
+.travel-breadcrumb {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 27px;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-family: var(--font-body);
+
+    font-size: 0.61rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+
+    text-transform: uppercase;
+}
+
+.travel-breadcrumb a,
+.travel-breadcrumb a:link,
+.travel-breadcrumb a:visited {
+    color: #D4A017 !important;
+
+    text-decoration: none !important;
+}
+
+.travel-breadcrumb a:hover {
+    color: #ffffff !important;
+}
+
+.travel-breadcrumb span {
+    color: rgba(255, 255, 255, 0.40);
+}
+
+
+/* Scroll */
+
+.travel-hero-scroll {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 40px;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 0.61rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.travel-hero-scroll i {
+    color: #D4A017;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   4. INTRODUCTION
+   ========================================================= */
+
+.travel-intro-section {
+    padding: 120px 0 115px;
+
+    background: #F8F5EF;
+}
+
+.travel-intro-content {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.travel-intro-content .travel-eyebrow {
+    color: #A46B2C;
+}
+
+.travel-intro-content h2 {
+    margin: 0;
+
+    color: #1B120C;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3rem,
+        5vw,
+        5rem
+    );
+
+    font-weight: 500;
+
+    line-height: 1.02;
+}
+
+.travel-intro-content h2 em {
+    color: #A46B2C;
+
+    font-style: italic;
+}
+
+.travel-intro-content p {
+    max-width: 700px;
+
+    margin: 28px auto 0;
+
+    color: #746A63;
+
+    font-size: 0.86rem;
+
+    line-height: 1.95;
+}
+
+.travel-intro-line {
+    width: 70px;
+
+    height: 1px;
+
+    margin: 38px auto 0;
+
+    background: #D4A017;
+}
+
+
+/* =========================================================
+   5. COMMON SECTION HEADING
+   ========================================================= */
+
+.travel-section-heading {
+    margin-bottom: 62px;
+}
+
+.travel-section-heading .travel-eyebrow {
+    color: #A46B2C;
+}
+
+.travel-section-heading h2 {
+    margin: 0;
+
+    color: #1B120C;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3rem,
+        5vw,
+        4.8rem
+    );
+
+    font-weight: 500;
+
+    line-height: 1.02;
+}
+
+.travel-section-heading h2 span {
+    color: #A46B2C;
+
+    font-style: italic;
+}
+
+.travel-section-heading p {
+    max-width: 620px;
+
+    margin: 20px 0 0;
+
+    color: #746A63;
+
+    font-size: 0.82rem;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   6. TRAVEL ESSENTIALS
+   ========================================================= */
+
+.travel-essentials-section {
+    padding: 125px 0;
+
+    background: #ffffff;
+}
+
+.travel-essential-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+.travel-essential-card {
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 390px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 35px 28px;
+
+    background: #F8F5EF;
+
+    border: 1px solid rgba(139, 69, 19, 0.08);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.travel-essential-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 22px 48px rgba(53, 31, 16, 0.10);
+}
+
+.travel-essential-number {
+    color: #A46B2C;
+
+    font-family: var(--font-heading);
+
+    font-size: 1.25rem;
+
+    font-style: italic;
+}
+
+.travel-essential-icon {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 38px;
+
+    background: #F3E8D1;
+
+    color: #8B4513;
+
+    font-size: 21px;
+}
+
+.travel-essential-card h3 {
+    margin: 25px 0 0;
+
+    color: #1B120C;
+
+    font-family: var(--font-heading);
+
+    font-size: 1.75rem;
+
+    font-weight: 500;
+
+    line-height: 1.08;
+}
+
+.travel-essential-card p {
+    margin: 15px 0 0;
+
+    color: #746A63;
+
+    font-size: 0.70rem;
+
+    line-height: 1.8;
+}
+
+.travel-essential-note {
+    margin-top: auto;
+
+    padding-top: 24px;
+
+    color: #A46B2C;
+
+    font-size: 0.53rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   7. TRAVEL STYLES
+   ========================================================= */
+
+.travel-styles-section {
+    padding: 125px 0;
+
+    background: #21160F;
+}
+
+.travel-styles-heading {
+    margin-bottom: 62px;
+
+    text-align: center;
+}
+
+.travel-styles-heading .travel-eyebrow {
+    color: #D4A017;
+}
+
+.travel-styles-heading h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3rem,
+        5vw,
+        4.8rem
+    );
+
+    font-weight: 500;
+
+    line-height: 1.02;
+}
+
+.travel-styles-heading h2 em {
+    color: #D4A017;
+
+    font-style: italic;
+}
+
+
+/* Style grid */
+
+.travel-style-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+/* Style card */
+
+.travel-style-card {
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 390px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 35px 28px;
+
+    background: #2A1C13;
+
+    border: 1px solid rgba(212, 160, 23, 0.13);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.travel-style-card:hover {
+    transform: translateY(-7px);
+
+    border-color: rgba(212, 160, 23, 0.35);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.20);
+}
+
+
+/* Top */
+
+.travel-style-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.travel-style-top span {
+    color: #D4A017;
+
+    font-family: var(--font-heading);
+
+    font-size: 1.15rem;
+
+    font-style: italic;
+}
+
+.travel-style-top i {
+    color: rgba(212, 160, 23, 0.85);
+
+    font-size: 20px;
+}
+
+
+/* Content */
+
+.travel-style-card h3 {
+    margin: 50px 0 0;
+
+    color: #ffffff;
+
+    font-family: var(--font-heading);
+
+    font-size: 1.75rem;
+
+    font-weight: 500;
+
+    line-height: 1.1;
+}
+
+.travel-style-card p {
+    margin: 16px 0 0;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 0.70rem;
+
+    line-height: 1.8;
+}
+
+
+/* Link */
+
+.travel-style-card a,
+.travel-style-card a:link,
+.travel-style-card a:visited,
+.travel-style-card a:active {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: fit-content;
+
+    margin-top: auto;
+
+    padding-top: 25px;
+
+    color: #D4A017 !important;
+
+    font-size: 0.57rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+
+    text-decoration: none !important;
+
+    text-transform: uppercase;
+}
+
+.travel-style-card a:hover {
+    color: #ffffff !important;
+}
+
+.travel-style-card a i {
+    color: inherit;
+
+    font-size: 13px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.travel-style-card a:hover i {
+    transform: translate(4px, -4px);
+}
+
+
+/* =========================================================
+   8. FEATURED JOURNEY
+   ========================================================= */
+
+.travel-feature-section {
+    padding: 125px 0;
+
+    background: #F8F5EF;
+}
+
+.travel-feature {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    min-width: 0;
+
+    background: #ffffff;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 65px rgba(53, 31, 16, 0.08);
+}
+
+
+/* Feature image */
+
+.travel-feature-image {
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 600px;
+
+    overflow: hidden;
+}
+
+.travel-feature-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.8s ease;
+}
+
+.travel-feature:hover
+.travel-feature-image img {
+    transform: scale(1.05);
+}
+
+
+/* Feature content */
+
+.travel-feature-content {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 70px 65px;
+}
+
+.travel-feature-content .travel-eyebrow {
+    color: #A46B2C;
+}
+
+.travel-feature-content h2 {
+    margin: 0;
+
+    color: #1B120C;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3rem,
+        5vw,
+        4.8rem
+    );
+
+    font-weight: 500;
+
+    line-height: 1;
+}
+
+.travel-feature-content h2 em {
+    color: #A46B2C;
+
+    font-style: italic;
+}
+
+.travel-feature-content > p {
+    max-width: 520px;
+
+    margin: 25px 0 0;
+
+    color: #746A63;
+
+    font-size: 0.78rem;
+
+    line-height: 1.9;
+}
+
+
+/* Feature facts */
+
+.travel-feature-facts {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 38px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #E3D9CF;
+}
+
+.travel-feature-facts div {
+    min-width: 0;
+}
+
+.travel-feature-facts strong {
+    display: block;
+
+    color: #8B4513;
+
+    font-family: var(--font-heading);
+
+    font-size: 1rem;
+
+    font-weight: 500;
+}
+
+.travel-feature-facts span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #978B82;
+
+    font-size: 0.48rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+
+/* Feature link */
+
+.travel-feature-link,
+.travel-feature-link:link,
+.travel-feature-link:visited,
+.travel-feature-link:active {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: fit-content;
+
+    margin-top: 35px;
+
+    color: #8B4513 !important;
+
+    font-size: 0.61rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-decoration: none !important;
+
+    text-transform: uppercase;
+}
+
+.travel-feature-link:hover {
+    color: #D4A017 !important;
+}
+
+.travel-feature-link i {
+    font-size: 14px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.travel-feature-link:hover i {
+    transform: translate(4px, -4px);
+}
+
+
+/* =========================================================
+   9. ITINERARY
+   ========================================================= */
+
+.travel-itinerary-section {
+    padding: 125px 0;
+
+    background: #ffffff;
+}
+
+.travel-itinerary-heading {
+    max-width: 850px;
+
+    margin-bottom: 75px;
+}
+
+.travel-itinerary-heading .travel-eyebrow {
+    color: #A46B2C;
+}
+
+.travel-itinerary-heading h2 {
+    margin: 0;
+
+    color: #1B120C;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3rem,
+        5vw,
+        5rem
+    );
+
+    font-weight: 500;
+
+    line-height: 1.02;
+}
+
+.travel-itinerary-heading h2 em {
+    color: #A46B2C;
+
+    font-style: italic;
+}
+
+.travel-itinerary-heading p {
+    max-width: 680px;
+
+    margin: 22px 0 0;
+
+    color: #746A63;
+
+    font-size: 0.80rem;
+
+    line-height: 1.9;
+}
+
+
+/* Itinerary */
+
+.travel-itinerary {
+    position: relative;
+
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+.travel-itinerary::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: 85px;
+
+    width: 1px;
+
+    background: #D8CBBE;
+}
+
+
+/* Day */
+
+.travel-day {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 170px minmax(0, 1fr);
+
+    gap: 45px;
+
+    min-width: 0;
+
+    padding-bottom: 65px;
+}
+
+.travel-day:last-child {
+    padding-bottom: 0;
+}
+
+
+/* Marker */
+
+.travel-day-marker {
+    position: relative;
+
+    z-index: 2;
+
+    width: 170px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    padding-right: 55px;
+
+    background: #ffffff;
+}
+
+.travel-day-marker span {
+    color: #A46B2C;
+
+    font-size: 0.55rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.travel-day-marker strong {
+    color: #D4A017;
+
+    font-family: var(--font-heading);
+
+    font-size: 3rem;
+
+    font-weight: 500;
+
+    line-height: 1;
+}
+
+
+/* Day content */
+
+.travel-day-content {
+    min-width: 0;
+
+    padding: 5px 0 0;
+}
+
+.travel-day-location {
+    color: #A46B2C;
+
+    font-size: 0.56rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.travel-day-content h3 {
+    margin: 14px 0 0;
+
+    color: #1B120C;
+
+    font-family: var(--font-heading);
+
+    font-size: 2rem;
+
+    font-weight: 500;
+
+    line-height: 1.08;
+}
+
+.travel-day-content > p {
+    max-width: 650px;
+
+    margin: 13px 0 0;
+
+    color: #746A63;
+
+    font-size: 0.70rem;
+
+    line-height: 1.85;
+}
+
+
+/* Day list */
+
+.travel-day-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 25px;
+}
+
+.travel-day-list span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 11px;
+
+    border: 1px solid #E1D7CE;
+
+    color: #746A63;
+
+    font-size: 0.53rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.4px;
+}
+
+.travel-day-list i {
+    color: #A46B2C;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   10. TRAVEL TIPS
+   ========================================================= */
+
+.travel-tips-section {
+    padding: 120px 0;
+
+    background: #21160F;
+}
+
+.travel-tips-heading {
+    margin-bottom: 60px;
+}
+
+.travel-tips-heading .travel-eyebrow {
+    color: #D4A017;
+}
+
+.travel-tips-heading h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3rem,
+        5vw,
+        4.8rem
+    );
+
+    font-weight: 500;
+
+    line-height: 1.02;
+}
+
+.travel-tips-heading h2 span {
+    color: #D4A017;
+
+    font-style: italic;
+}
+
+
+/* Tips grid */
+
+.travel-tips-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+/* Tip */
+
+.travel-tip {
+    min-width: 0;
+
+    min-height: 285px;
+
+    padding: 32px 26px;
+
+    background: #2A1C13;
+
+    border: 1px solid rgba(212, 160, 23, 0.12);
+}
+
+.travel-tip-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(212, 160, 23, 0.10);
+
+    color: #D4A017;
+
+    font-size: 19px;
+}
+
+.travel-tip h3 {
+    margin: 28px 0 0;
+
+    color: #ffffff;
+
+    font-family: var(--font-heading);
+
+    font-size: 1.55rem;
+
+    font-weight: 500;
+}
+
+.travel-tip p {
+    margin: 13px 0 0;
+
+    color: rgba(255, 255, 255, 0.52);
+
+    font-size: 0.67rem;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   11. FINAL CTA
+   ========================================================= */
+
+.travel-final-cta {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 135px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8B4513 0%,
+            #6E3517 48%,
+            #422316 100%
+        );
+}
+
+.travel-final-cta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    top: -270px;
+    right: -190px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 50%;
+}
+
+.travel-final-cta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    bottom: -210px;
+    left: -130px;
+
+    border: 1px solid rgba(212, 160, 23, 0.20);
+
+    border-radius: 50%;
+}
+
+.travel-final-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.travel-final-content > span {
+    display: block;
+
+    margin-bottom: 22px;
+
+    color: #D4A017;
+
+    font-size: 0.63rem;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.travel-final-content h2 {
+    margin: 0;
+
+    color: #ffffff !important;
+
+    font-family: var(--font-heading);
+
+    font-size: clamp(
+        3.2rem,
+        6vw,
+        6rem
+    );
+
+    font-weight: 500;
+
+    line-height: 0.98;
+}
+
+.travel-final-content h2 em {
+    color: #F0C75E;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+.travel-final-content p {
+    max-width: 650px;
+
+    margin: 25px auto 35px;
+
+    color: rgba(255, 255, 255, 0.72) !important;
+
+    font-size: 0.80rem;
+
+    line-height: 1.85;
+}
+
+
+/* Final CTA button */
+
+section.travel-final-cta a.travel-final-btn,
+.travel-final-cta .travel-final-content a.travel-final-btn {
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 12px !important;
+
+    width: fit-content !important;
+
+    min-width: 205px !important;
+
+    height: auto !important;
+
+    padding: 15px 27px !important;
+
+    margin: 0 !important;
+
+    background: #D4A017 !important;
+
+    background-color: #D4A017 !important;
+
+    color: #1B120C !important;
+
+    border: 1px solid #D4A017 !important;
+
+    border-radius: 0 !important;
+
+    font-family: 'Poppins', sans-serif !important;
+
+    font-size: 0.65rem !important;
+
+    font-weight: 700 !important;
+
+    line-height: 1.4 !important;
+
+    letter-spacing: 1.5px !important;
+
+    text-decoration: none !important;
+
+    text-transform: uppercase !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+    cursor: pointer !important;
+
+    box-shadow: none !important;
+
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease !important;
+}
+
+section.travel-final-cta a.travel-final-btn:hover,
+.travel-final-cta .travel-final-content a.travel-final-btn:hover {
+    background: #E5B32C !important;
+
+    background-color: #E5B32C !important;
+
+    color: #1B120C !important;
+
+    transform: translateY(-3px) !important;
+
+    box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+section.travel-final-cta a.travel-final-btn i,
+.travel-final-cta .travel-final-content a.travel-final-btn i {
+    color: #1B120C !important;
+
+    font-size: 15px !important;
+
+    line-height: 1 !important;
+
+    margin: 0 !important;
+
+    transition:
+        transform 0.3s ease !important;
+}
+
+section.travel-final-cta a.travel-final-btn:hover i,
+.travel-final-cta .travel-final-content a.travel-final-btn:hover i {
+    color: #1B120C !important;
+
+    transform: translate(4px, -4px) !important;
+}
+
+section.travel-final-cta a.travel-final-btn:link,
+section.travel-final-cta a.travel-final-btn:visited,
+section.travel-final-cta a.travel-final-btn:active {
+    color: #1B120C !important;
+
+    background-color: #D4A017 !important;
+
+    text-decoration: none !important;
+}
+
+
+/* =========================================================
+   12. FOOTER — BLUE LINK FIX
+   ========================================================= */
+
+.travel-page .site-footer {
+    background: #120C08 !important;
+
+    color: rgba(255, 255, 255, 0.70) !important;
+}
+
+
+/* Footer logo */
+
+.travel-page .site-footer .footer-logo,
+.travel-page .site-footer .footer-logo:link,
+.travel-page .site-footer .footer-logo:visited,
+.travel-page .site-footer .footer-logo:active {
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+}
+
+.travel-page .site-footer .footer-logo:hover {
+    color: #D4A017 !important;
+}
+
+.travel-page .site-footer .footer-logo i {
+    color: #D4A017 !important;
+}
+
+
+/* Footer headings */
+
+.travel-page .site-footer h4 {
+    color: rgba(255, 255, 255, 0.82) !important;
+
+    font-family: var(--font-body) !important;
+
+    font-size: 0.62rem !important;
+
+    font-weight: 700 !important;
+
+    letter-spacing: 2px !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* Footer paragraph */
+
+.travel-page .site-footer p {
+    color: rgba(255, 255, 255, 0.58) !important;
+}
+
+
+/* Footer ALL links */
+
+.travel-page .site-footer a,
+.travel-page .site-footer a:link,
+.travel-page .site-footer a:visited,
+.travel-page .site-footer a:active {
+    color: rgba(255, 255, 255, 0.68) !important;
+
+    text-decoration: none !important;
+}
+
+
+/* Footer hover */
+
+.travel-page .site-footer a:hover {
+    color: #D4A017 !important;
+}
+
+
+/* Footer social icons */
+
+.travel-page .site-footer .social-icons a,
+.travel-page .site-footer .social-icons a:link,
+.travel-page .site-footer .social-icons a:visited,
+.travel-page .site-footer .social-icons a:active {
+    color: rgba(255, 255, 255, 0.70) !important;
+
+    text-decoration: none !important;
+}
+
+.travel-page .site-footer .social-icons a:hover {
+    color: #D4A017 !important;
+}
+
+.travel-page .site-footer .social-icons i {
+    color: inherit !important;
+}
+
+
+/* Footer bottom */
+
+.travel-page .site-footer .footer-bottom {
+    border-top-color:
+        rgba(255, 255, 255, 0.14) !important;
+}
+
+.travel-page .site-footer .footer-bottom p {
+    color: rgba(255, 255, 255, 0.55) !important;
+}
+
+
+/* Back to top */
+
+.travel-page .site-footer .footer-bottom a,
+.travel-page .site-footer .footer-bottom a:link,
+.travel-page .site-footer .footer-bottom a:visited,
+.travel-page .site-footer .footer-bottom a:active {
+    color: rgba(255, 255, 255, 0.68) !important;
+
+    text-decoration: none !important;
+}
+
+.travel-page .site-footer .footer-bottom a:hover {
+    color: #D4A017 !important;
+}
+
+.travel-page .site-footer .footer-bottom a i {
+    color: inherit !important;
+}
+
+
+/* =========================================================
+   13. TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .travel-hero {
+        min-height: 78vh;
+        height: 78vh;
+    }
+
+    .travel-hero-content {
+        min-height: 78vh;
+
+        padding: 120px 0 60px;
+    }
+
+    .travel-hero-content h1 {
+        font-size: clamp(
+            3.5rem,
+            9vw,
+            6rem
+        );
+    }
+
+
+    .travel-intro-section,
+    .travel-essentials-section,
+    .travel-styles-section,
+    .travel-feature-section,
+    .travel-itinerary-section,
+    .travel-tips-section {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+
+    /* Essentials */
+
+    .travel-essential-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* Styles */
+
+    .travel-style-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* Feature */
+
+    .travel-feature {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+    }
+
+    .travel-feature-image {
+        min-height: 500px;
+    }
+
+    .travel-feature-content {
+        padding: 50px 40px;
+    }
+
+
+    /* Tips */
+
+    .travel-tips-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   14. MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* Hero */
+
+    .travel-hero {
+        min-height: 82vh;
+        height: 82vh;
+    }
+
+    .travel-hero-image img {
+        object-position: center center;
+    }
+
+    .travel-hero-overlay {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(20, 12, 7, 0.72) 0%,
+                rgba(20, 12, 7, 0.64) 50%,
+                rgba(20, 12, 7, 0.78) 100%
+            ),
+            linear-gradient(
+                0deg,
+                rgba(20, 12, 7, 0.88) 0%,
+                rgba(20, 12, 7, 0.08) 65%
+            );
+    }
+
+    .travel-hero-content {
+        min-height: 82vh;
+
+        align-items: flex-end;
+
+        padding: 120px 0 55px;
+    }
+
+    .travel-hero-content h1 {
+        font-size: clamp(
+            3rem,
+            14vw,
+            5rem
+        );
+
+        letter-spacing: -1px;
+    }
+
+    .travel-hero-content p {
+        font-size: 0.76rem;
+
+        line-height: 1.8;
+    }
+
+    .travel-hero-scroll {
+        margin-top: 30px;
+    }
+
+
+    /* Sections */
+
+    .travel-intro-section,
+    .travel-essentials-section,
+    .travel-styles-section,
+    .travel-feature-section,
+    .travel-itinerary-section,
+    .travel-tips-section {
+        padding: 75px 0;
+    }
+
+
+    /* Headings */
+
+    .travel-intro-content h2,
+    .travel-section-heading h2,
+    .travel-styles-heading h2,
+    .travel-itinerary-heading h2,
+    .travel-tips-heading h2 {
+        font-size: 2.8rem;
+    }
+
+
+    /* Essentials */
+
+    .travel-essential-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .travel-essential-card {
+        min-height: 330px;
+
+        padding: 32px 26px;
+    }
+
+
+    /* Styles */
+
+    .travel-style-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .travel-style-card {
+        min-height: 330px;
+
+        padding: 32px 26px;
+    }
+
+    .travel-style-card h3 {
+        margin-top: 38px;
+    }
+
+
+    /* Featured journey */
+
+    .travel-feature {
+        display: flex;
+
+        flex-direction: column;
+    }
+
+    .travel-feature-image {
+        width: 100%;
+
+        height: 360px;
+
+        min-height: 360px;
+    }
+
+    .travel-feature-content {
+        min-height: auto;
+
+        padding: 45px 30px;
+    }
+
+    .travel-feature-content h2 {
+        font-size: 3rem;
+    }
+
+    .travel-feature-facts {
+        gap: 15px;
+    }
+
+
+    /* Itinerary */
+
+    .travel-itinerary::before {
+        left: 14px;
+    }
+
+    .travel-day {
+        display: grid;
+
+        grid-template-columns: 40px minmax(0, 1fr);
+
+        gap: 25px;
+
+        padding-bottom: 50px;
+    }
+
+    .travel-day-marker {
+        width: 40px;
+
+        align-items: center;
+
+        padding-right: 0;
+
+        background: #ffffff;
+    }
+
+    .travel-day-marker span {
+        font-size: 0.46rem;
+
+        letter-spacing: 1px;
+    }
+
+    .travel-day-marker strong {
+        font-size: 1.8rem;
+    }
+
+    .travel-day-content {
+        padding-top: 0;
+    }
+
+    .travel-day-content h3 {
+        font-size: 1.65rem;
+    }
+
+
+    /* Tips */
+
+    .travel-tips-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .travel-tip {
+        min-height: auto;
+
+        padding: 30px 26px;
+    }
+
+
+    /* CTA */
+
+    .travel-final-cta {
+        padding: 90px 0;
+    }
+
+    .travel-final-content h2 {
+        font-size: clamp(
+            3rem,
+            13vw,
+            4.5rem
+        );
+    }
+
+    .travel-final-content p {
+        font-size: 0.75rem;
+    }
+}
+
+
+/* =========================================================
+   15. SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 575px) {
+
+    .travel-hero {
+        min-height: 78vh;
+        height: 78vh;
+    }
+
+    .travel-hero-content {
+        min-height: 78vh;
+
+        padding: 110px 0 45px;
+    }
+
+    .travel-eyebrow {
+        font-size: 0.56rem;
+
+        letter-spacing: 2px;
+    }
+
+    .travel-hero-content h1 {
+        font-size: clamp(
+            2.75rem,
+            14vw,
+            4.2rem
+        );
+
+        line-height: 0.94;
+    }
+
+    .travel-hero-content p {
+        margin-top: 22px;
+
+        font-size: 0.70rem;
+
+        line-height: 1.75;
+    }
+
+    .travel-breadcrumb {
+        margin-top: 22px;
+
+        font-size: 0.54rem;
+    }
+
+
+    /* Section headings */
+
+    .travel-intro-content h2,
+    .travel-section-heading h2,
+    .travel-styles-heading h2,
+    .travel-itinerary-heading h2,
+    .travel-tips-heading h2 {
+        font-size: 2.55rem;
+    }
+
+
+    /* Feature */
+
+    .travel-feature-image {
+        height: 290px;
+
+        min-height: 290px;
+    }
+
+    .travel-feature-content {
+        padding: 38px 23px;
+    }
+
+    .travel-feature-content h2 {
+        font-size: 2.65rem;
+    }
+
+    .travel-feature-content > p {
+        font-size: 0.70rem;
+    }
+
+    .travel-feature-facts strong {
+        font-size: 0.86rem;
+    }
+
+    .travel-feature-facts span {
+        font-size: 0.43rem;
+    }
+
+
+    /* Itinerary */
+
+    .travel-itinerary::before {
+        left: 11px;
+    }
+
+    .travel-day {
+        grid-template-columns: 32px minmax(0, 1fr);
+
+        gap: 20px;
+    }
+
+    .travel-day-marker {
+        width: 32px;
+    }
+
+    .travel-day-marker strong {
+        font-size: 1.55rem;
+    }
+
+    .travel-day-content h3 {
+        font-size: 1.48rem;
+    }
+
+    .travel-day-content > p {
+        font-size: 0.65rem;
+    }
+
+    .travel-day-list {
+        gap: 6px;
+    }
+
+    .travel-day-list span {
+        font-size: 0.48rem;
+
+        padding: 7px 9px;
+    }
+
+
+    /* Final CTA */
+
+    section.travel-final-cta a.travel-final-btn,
+    .travel-final-cta .travel-final-content a.travel-final-btn {
+        width: 100% !important;
+
+        max-width: 270px !important;
+
+        min-width: 0 !important;
+    }
+}
+
+
+/* =========================================================
+   16. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .travel-hero-image img,
+    .travel-essential-card,
+    .travel-style-card,
+    .travel-style-card a i,
+    .travel-feature-image img,
+    .travel-feature-link i,
+    .travel-final-btn,
+    .travel-final-btn i {
+        transition: none !important;
+    }
+
+    .travel-essential-card:hover,
+    .travel-style-card:hover,
+    .travel-feature:hover
+    .travel-feature-image img,
+    .travel-final-btn:hover {
+        transform: none !important;
+    }
+}
