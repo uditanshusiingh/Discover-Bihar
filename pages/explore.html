@@ -2629,16 +2629,7 @@ html.dark-mode .interactive-map-status {
 <script>
 (function () {
 
-    /* =========================================================
-       LOCAL BIHAR GEOJSON
-       ========================================================= */
-
     const DATA_URL = "../data/bihar-districts.geojson";
-
-
-    /* =========================================================
-       ELEMENTS
-       ========================================================= */
 
     const root = document.getElementById("interactiveBiharMap");
     const svg = document.getElementById("biharDistrictMap");
@@ -2648,56 +2639,143 @@ html.dark-mode .interactive-map-status {
     const tooltipName = document.getElementById("mapTooltipName");
     const status = document.getElementById("interactiveMapStatus");
 
-
-    if (!root || !svg || !loading || !tooltip || !tooltipName) {
-        return;
-    }
-
-
-    if (!window.d3) {
-        console.error("D3.js is not loaded.");
+    if (!root || !svg || !window.d3) {
+        console.error("Bihar map elements or D3.js missing.");
         return;
     }
 
 
     /* =========================================================
-       NORMALIZE DISTRICT NAMES
+       NORMALIZE NAMES
        ========================================================= */
 
-    function normalizeDistrictName(name) {
+    function normalize(value) {
 
-        return String(name || "")
+        return String(value || "")
             .toLowerCase()
             .trim()
             .replace(/[’']/g, "")
             .replace(/\([^)]*\)/g, "")
-            .replace(/district$/i, "")
-            .replace(/[^a-z0-9]+/g, "")
-            .trim();
+            .replace(/&/g, "and")
+            .replace(/[^a-z0-9]/g, "");
 
     }
 
 
     /* =========================================================
-       GEOJSON DISTRICT NAME
-       Supports multiple GeoJSON formats
+       SPECIAL DISTRICT ALIASES
+       ========================================================= */
+
+    const aliases = {
+
+        "purvichamparan": "eastchamparan",
+        "purvichamparanmotihari": "eastchamparan",
+        "easternchamparan": "eastchamparan",
+        "eastchamparanmotihari": "eastchamparan",
+
+        "paschimichamparan": "westchamparan",
+        "pashchimichamparan": "westchamparan",
+        "westernchamparan": "westchamparan",
+
+        "purnea": "purnia",
+        "purnea": "purnia",
+
+        "monghyr": "munger",
+
+        "bhabua": "kaimur",
+        "kaimurbhabua": "kaimur",
+
+        "aurangabadbihar": "aurangabad",
+
+        "jehanabad": "jehanabad",
+
+        "saranchapra": "saran",
+
+        "madhubani": "madhubani",
+
+        "darbhanga": "darbhanga",
+
+        "samastipur": "samastipur"
+
+    };
+
+
+    function canonicalName(name) {
+
+        const normalized =
+            normalize(name);
+
+        return aliases[normalized] ||
+            normalized;
+
+    }
+
+
+    /* =========================================================
+       BUILD LOOKUP FROM THE 38 DISTRICT CARDS
+       ========================================================= */
+
+    const districtLookup = {};
+
+
+    document
+        .querySelectorAll(".district-card")
+        .forEach(card => {
+
+            const key =
+                canonicalName(
+                    card.dataset.district
+                );
+
+
+            const strong =
+                card.querySelector(
+                    ".district-card-content strong"
+                );
+
+
+            const visibleName =
+                strong
+                    ? strong.textContent.trim()
+                    : card.dataset.district;
+
+
+            districtLookup[key] = {
+                card: card,
+                name: visibleName,
+                key: card.dataset.district
+            };
+
+        });
+
+
+    console.log(
+        "District cards available:",
+        Object.keys(districtLookup).length
+    );
+
+
+    /* =========================================================
+       GET DISTRICT NAME FROM GEOJSON
        ========================================================= */
 
     function getDistrictName(feature) {
 
-        const p = feature.properties || {};
+        const p =
+            feature.properties || {};
+
 
         return (
             p.Dist_Name ||
             p.DIST_NAME ||
-            p.District ||
-            p.DISTRICT ||
+            p.DISTRICT_NAME ||
+            p.district_name ||
+            p.District_Name ||
             p.district ||
+            p.DISTRICT ||
             p.name ||
             p.NAME ||
             p.Name ||
-            p.district_name ||
-            p.DISTRICT_NAME ||
             "Unknown District"
         );
 
@@ -2705,36 +2783,58 @@ html.dark-mode .interactive-map-status {
 
 
     /* =========================================================
-       FIND CARD BY VISIBLE DISTRICT NAME
+       FIND MATCHING CARD
        ========================================================= */
 
-    function findDistrictCard(districtName) {
+    function findDistrict(name) {
 
-        const target =
-            normalizeDistrictName(districtName);
-
-
-        const cards =
-            document.querySelectorAll(".district-card");
+        const exactKey =
+            canonicalName(name);
 
 
-        for (const card of cards) {
+        /* Exact match */
 
-            const strong =
-                card.querySelector(".district-card-content strong");
-
-
-            if (!strong) continue;
+        if (districtLookup[exactKey]) {
+            return districtLookup[exactKey];
+        }
 
 
-            const cardName =
-                normalizeDistrictName(
-                    strong.textContent
-                );
+        /*
+         * Second attempt:
+         * Compare against visible card names.
+         */
+
+        for (const key in districtLookup) {
+
+            const item =
+                districtLookup[key];
 
 
-            if (cardName === target) {
-                return card;
+            const cardKey =
+                canonicalName(item.name);
+
+
+            if (cardKey === exactKey) {
+                return item;
+            }
+
+        }
+
+
+        /*
+         * Third attempt:
+         * Partial matching for old GeoJSON names.
+         */
+
+        for (const key in districtLookup) {
+
+            if (
+                exactKey.includes(key) ||
+                key.includes(exactKey)
+            ) {
+
+                return districtLookup[key];
+
             }
 
         }
@@ -2746,13 +2846,13 @@ html.dark-mode .interactive-map-status {
 
 
     /* =========================================================
-       SHOW TOOLTIP
+       TOOLTIP
        ========================================================= */
 
     function showTooltip(event, districtName) {
 
         tooltipName.textContent =
-            districtName || "District";
+            districtName;
 
 
         if (tooltipDivision) {
@@ -2768,48 +2868,56 @@ html.dark-mode .interactive-map-status {
         let x =
             event.clientX -
             bounds.left +
-            16;
+            15;
 
 
         let y =
             event.clientY -
             bounds.top +
-            16;
+            15;
 
 
-        const tooltipWidth = 175;
-        const tooltipHeight = 85;
+        const width = 175;
+        const height = 82;
 
 
-        if (x + tooltipWidth > bounds.width) {
+        if (
+            x + width >
+            bounds.width
+        ) {
+
             x =
                 bounds.width -
-                tooltipWidth -
+                width -
                 10;
+
         }
 
 
-        if (y + tooltipHeight > bounds.height) {
+        if (
+            y + height >
+            bounds.height
+        ) {
+
             y =
                 bounds.height -
-                tooltipHeight -
+                height -
                 10;
+
         }
-
-
-        x = Math.max(8, x);
-        y = Math.max(8, y);
 
 
         tooltip.style.left =
-            x + "px";
+            Math.max(8, x) + "px";
 
 
         tooltip.style.top =
-            y + "px";
+            Math.max(8, y) + "px";
 
 
-        tooltip.classList.add("visible");
+        tooltip.classList.add(
+            "visible"
+        );
 
 
         tooltip.setAttribute(
@@ -2819,10 +2927,6 @@ html.dark-mode .interactive-map-status {
 
     }
 
-
-    /* =========================================================
-       HIDE TOOLTIP
-       ========================================================= */
 
     function hideTooltip() {
 
@@ -2840,28 +2944,40 @@ html.dark-mode .interactive-map-status {
 
 
     /* =========================================================
-       SELECT DISTRICT
+       OPEN DISTRICT
        ========================================================= */
 
-    function selectDistrict(districtName) {
+    function openDistrict(districtName) {
 
-        const card =
-            findDistrictCard(
+        const match =
+            findDistrict(
                 districtName
             );
+
+
+        console.log(
+            "Map district:",
+            districtName,
+            "→",
+            match
+                ? match.name
+                : "NO MATCH"
+        );
 
 
         /* Highlight map */
 
         document
-            .querySelectorAll(".bihar-district")
+            .querySelectorAll(
+                ".bihar-district"
+            )
             .forEach(path => {
 
                 const same =
-                    normalizeDistrictName(
+                    canonicalName(
                         path.dataset.districtName
                     ) ===
-                    normalizeDistrictName(
+                    canonicalName(
                         districtName
                     );
 
@@ -2874,15 +2990,9 @@ html.dark-mode .interactive-map-status {
             });
 
 
-        /* If no matching card */
+        /* No card match */
 
-        if (!card) {
-
-            console.warn(
-                "No district card found for:",
-                districtName
-            );
-
+        if (!match) {
 
             if (status) {
 
@@ -2895,23 +3005,33 @@ html.dark-mode .interactive-map-status {
 
             }
 
+            console.warn(
+                "No card found for district:",
+                districtName
+            );
 
             return;
 
         }
 
 
-        /* Activate existing district card */
+        /* =====================================================
+           TRIGGER EXISTING DISTRICT CARD
+           ===================================================== */
 
-        card.click();
+        match.card.click();
 
 
-        /* Scroll card into view */
+        /* Scroll selected card */
 
-        card.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+        setTimeout(() => {
+
+            match.card.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }, 100);
 
 
         /* Status */
@@ -2921,7 +3041,7 @@ html.dark-mode .interactive-map-status {
             status.innerHTML =
                 '<i class="bi bi-geo-alt-fill"></i>' +
                 "<span>" +
-                districtName +
+                match.name +
                 " selected" +
                 "</span>";
 
@@ -2938,25 +3058,30 @@ html.dark-mode .interactive-map-status {
 
         if (
             !data ||
-            !Array.isArray(data.features)
+            !Array.isArray(
+                data.features
+            )
         ) {
 
             throw new Error(
-                "Invalid GeoJSON format."
+                "Invalid GeoJSON."
             );
 
         }
 
 
         /*
-         * Local file is already Bihar-specific.
-         * Therefore DO NOT filter using p.state === Bihar.
+         * IMPORTANT:
+         * Do NOT filter using state === Bihar.
+         * This file is already Bihar-specific.
          */
 
         const features =
             data.features.filter(
                 feature =>
-                    getDistrictName(feature) !==
+                    getDistrictName(
+                        feature
+                    ) !==
                     "Unknown District"
             );
 
@@ -2964,15 +3089,11 @@ html.dark-mode .interactive-map-status {
         if (!features.length) {
 
             throw new Error(
-                "No district boundaries found."
+                "No Bihar districts found."
             );
 
         }
 
-
-        /* =====================================================
-           DIMENSIONS
-           ===================================================== */
 
         const width =
             Math.max(
@@ -2999,19 +3120,16 @@ html.dark-mode .interactive-map-status {
         );
 
 
-        /* =====================================================
-           GEOJSON COLLECTION
-           ===================================================== */
-
         const collection = {
-            type: "FeatureCollection",
-            features: features
+
+            type:
+                "FeatureCollection",
+
+            features:
+                features
+
         };
 
-
-        /* =====================================================
-           PROJECTION
-           ===================================================== */
 
         const projection =
             d3.geoMercator()
@@ -3029,17 +3147,13 @@ html.dark-mode .interactive-map-status {
 
         const path =
             d3.geoPath()
-                .projection(projection);
+                .projection(
+                    projection
+                );
 
-
-        /* Clear previous map */
 
         svg.innerHTML = "";
 
-
-        /* =====================================================
-           MAP GROUP
-           ===================================================== */
 
         const group =
             d3.select(svg)
@@ -3047,7 +3161,7 @@ html.dark-mode .interactive-map-status {
 
 
         /* =====================================================
-           DISTRICT SHAPES
+           DISTRICT BOUNDARIES
            ===================================================== */
 
         group
@@ -3098,35 +3212,25 @@ html.dark-mode .interactive-map-status {
                 "mouseenter",
                 function (event, d) {
 
-                    const name =
-                        getDistrictName(d);
-
-
                     showTooltip(
                         event,
-                        name
+                        getDistrictName(d)
                     );
 
                 }
             )
-
 
             .on(
                 "mousemove",
                 function (event, d) {
 
-                    const name =
-                        getDistrictName(d);
-
-
                     showTooltip(
                         event,
-                        name
+                        getDistrictName(d)
                     );
 
                 }
             )
-
 
             .on(
                 "mouseleave",
@@ -3144,12 +3248,9 @@ html.dark-mode .interactive-map-status {
 
                     event.preventDefault();
 
-
-                    const name =
-                        getDistrictName(d);
-
-
-                    selectDistrict(name);
+                    openDistrict(
+                        getDistrictName(d)
+                    );
 
                 }
             )
@@ -3170,8 +3271,7 @@ html.dark-mode .interactive-map-status {
 
                         event.preventDefault();
 
-
-                        selectDistrict(
+                        openDistrict(
                             getDistrictName(d)
                         );
 
@@ -3182,11 +3282,13 @@ html.dark-mode .interactive-map-status {
 
 
         /* =====================================================
-           DISTRICT LABELS
+           LABELS
            ===================================================== */
 
         group
-            .selectAll(".bihar-district-label")
+            .selectAll(
+                ".bihar-district-label"
+            )
             .data(
                 features.filter(
                     d =>
@@ -3227,17 +3329,9 @@ html.dark-mode .interactive-map-status {
                         getDistrictName(d);
 
 
-                    if (
-                        name.length > 14
-                    ) {
-
-                        return name
-                            .split(" ")[0];
-
-                    }
-
-
-                    return name;
+                    return name.length > 14
+                        ? name.split(" ")[0]
+                        : name;
 
                 }
             );
@@ -3265,7 +3359,7 @@ html.dark-mode .interactive-map-status {
 
 
         console.log(
-            "Bihar districts loaded:",
+            "Bihar map features:",
             features.length
         );
 
@@ -3283,8 +3377,7 @@ html.dark-mode .interactive-map-status {
             if (!response.ok) {
 
                 throw new Error(
-                    "GeoJSON file not found: " +
-                    DATA_URL
+                    "GeoJSON not found."
                 );
 
             }
@@ -3293,7 +3386,6 @@ html.dark-mode .interactive-map-status {
             return response.json();
 
         })
-
 
         .then(data => {
 
@@ -3305,7 +3397,6 @@ html.dark-mode .interactive-map-status {
 
         })
 
-
         .catch(error => {
 
             console.error(
@@ -3316,18 +3407,14 @@ html.dark-mode .interactive-map-status {
 
             loading.innerHTML =
                 '<i class="bi bi-exclamation-circle"></i>' +
-                "<span>" +
-                "Map could not be loaded" +
-                "</span>";
+                "<span>Map could not be loaded</span>";
 
 
             if (status) {
 
                 status.innerHTML =
                     '<i class="bi bi-folder2-open"></i>' +
-                    "<span>" +
-                    "Check data/bihar-districts.geojson" +
-                    "</span>";
+                    "<span>Check data/bihar-districts.geojson</span>";
 
             }
 
@@ -3335,7 +3422,7 @@ html.dark-mode .interactive-map-status {
 
 
     /* =========================================================
-       RESPONSIVE MAP
+       RESPONSIVE
        ========================================================= */
 
     let resizeTimer;
