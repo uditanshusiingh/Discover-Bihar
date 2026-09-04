@@ -2628,8 +2628,564 @@ html.dark-mode .interactive-map-status {
 
 <script>
 (function () {
-    const DATA_URL =
-        "https://mausam.imd.gov.in/imd_latest/contents/district_shapefiles/sd_boundary_rainfall.json";
+
+    const DATA_URL = "../data/bihar-districts.geojson";
+
+    const root = document.getElementById("interactiveBiharMap");
+    const svg = document.getElementById("biharDistrictMap");
+    const loading = document.getElementById("interactiveMapLoading");
+    const tooltip = document.getElementById("mapDistrictTooltip");
+    const tooltipName = document.getElementById("mapTooltipName");
+    const status = document.getElementById("interactiveMapStatus");
+
+    if (!root || !svg || !window.d3) {
+        return;
+    }
+
+
+    /* =========================================================
+       DISTRICT NAME NORMALIZATION
+       ========================================================= */
+
+    const aliases = {
+
+        "east champaran": "east-champaran",
+
+        "east champaran (motihari)": "east-champaran",
+
+        "west champaran": "west-champaran",
+
+        "kaimur (bhabua)": "kaimur",
+
+        "munger (monghyr)": "munger",
+
+        "purnia (purnea)": "purnia"
+
+    };
+
+
+    function districtKey(name) {
+
+        const value = String(name || "")
+            .trim()
+            .toLowerCase()
+            .replace(/[’']/g, "")
+            .replace(/\s+/g, " ");
+
+        if (aliases[value]) {
+            return aliases[value];
+        }
+
+        return value
+            .replace(/\([^)]*\)/g, "")
+            .trim()
+            .replace(/[^a-z0-9]+/g, "-");
+    }
+
+
+    function getDistrictName(feature) {
+
+        return (
+            feature.properties?.Dist_Name ||
+            feature.properties?.district ||
+            feature.properties?.DISTRICT ||
+            feature.properties?.name ||
+            feature.properties?.NAME ||
+            "Unknown District"
+        );
+
+    }
+
+
+    /* =========================================================
+       FIND DISTRICT CARD
+       ========================================================= */
+
+    function cardFor(districtKeyValue) {
+
+        return Array.from(
+            document.querySelectorAll(".district-card")
+        ).find(
+            card => card.dataset.district === districtKeyValue
+        );
+
+    }
+
+
+    /* =========================================================
+       SELECT DISTRICT
+       ========================================================= */
+
+    function selectDistrict(districtKeyValue) {
+
+        const card = cardFor(districtKeyValue);
+
+        if (!card) {
+
+            status.innerHTML =
+                '<i class="bi bi-exclamation-circle"></i>' +
+                "<span>District details unavailable</span>";
+
+            return;
+
+        }
+
+
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+
+
+        card.click();
+
+
+        document
+            .querySelectorAll(".bihar-district")
+            .forEach(path => {
+
+                path.classList.toggle(
+                    "selected",
+                    path.dataset.district === districtKeyValue
+                );
+
+            });
+
+
+        const cardTitle =
+            card.querySelector("strong")?.textContent.trim()
+            || "District";
+
+
+        status.innerHTML =
+            '<i class="bi bi-geo-alt-fill"></i>' +
+            "<span>" +
+            cardTitle +
+            " selected</span>";
+
+    }
+
+
+    /* =========================================================
+       TOOLTIP
+       ========================================================= */
+
+    function showTooltip(event, name) {
+
+        tooltipName.textContent = name || "District";
+
+
+        const bounds =
+            root.getBoundingClientRect();
+
+
+        const x = Math.max(
+            8,
+            Math.min(
+                event.clientX - bounds.left,
+                bounds.width - 170
+            )
+        );
+
+
+        const y = Math.max(
+            8,
+            Math.min(
+                event.clientY - bounds.top,
+                bounds.height - 85
+            )
+        );
+
+
+        tooltip.style.left = x + "px";
+        tooltip.style.top = y + "px";
+
+        tooltip.classList.add("visible");
+
+    }
+
+
+    function hideTooltip() {
+
+        tooltip.classList.remove("visible");
+
+    }
+
+
+    /* =========================================================
+       RENDER MAP
+       ========================================================= */
+
+    function render(data) {
+
+        if (!data || !Array.isArray(data.features)) {
+
+            throw new Error(
+                "Invalid Bihar GeoJSON file."
+            );
+
+        }
+
+
+        const features = data.features.filter(
+            feature => {
+
+                const name =
+                    getDistrictName(feature);
+
+                return (
+                    name &&
+                    name !== "Unknown District"
+                );
+
+            }
+        );
+
+
+        if (!features.length) {
+
+            throw new Error(
+                "No district boundaries found."
+            );
+
+        }
+
+
+        const collection = {
+
+            type: "FeatureCollection",
+
+            features: features
+
+        };
+
+
+        const width =
+            Math.max(
+                300,
+                root.clientWidth
+            );
+
+
+        const height =
+            window.innerWidth <= 767
+                ? 420
+                : 560;
+
+
+        svg.setAttribute(
+            "viewBox",
+            `0 0 ${width} ${height}`
+        );
+
+
+        svg.setAttribute(
+            "preserveAspectRatio",
+            "xMidYMid meet"
+        );
+
+
+        const projection =
+            d3.geoMercator()
+                .fitExtent(
+                    [
+                        [20, 20],
+                        [width - 20, height - 25]
+                    ],
+                    collection
+                );
+
+
+        const path =
+            d3.geoPath()
+                .projection(projection);
+
+
+        svg.innerHTML = "";
+
+
+        const group =
+            d3.select(svg)
+                .append("g");
+
+
+        group
+            .selectAll("path")
+            .data(features)
+            .enter()
+            .append("path")
+            .attr(
+                "class",
+                "bihar-district"
+            )
+            .attr(
+                "d",
+                path
+            )
+            .attr(
+                "data-district",
+                d => districtKey(
+                    getDistrictName(d)
+                )
+            )
+            .attr(
+                "tabindex",
+                "0"
+            )
+            .attr(
+                "aria-label",
+                d =>
+                    getDistrictName(d) +
+                    ". Click to explore."
+            )
+
+
+            /* HOVER */
+
+            .on(
+                "mouseenter",
+                (event, d) => {
+
+                    showTooltip(
+                        event,
+                        getDistrictName(d)
+                    );
+
+                }
+            )
+
+
+            .on(
+                "mousemove",
+                (event, d) => {
+
+                    showTooltip(
+                        event,
+                        getDistrictName(d)
+                    );
+
+                }
+            )
+
+
+            .on(
+                "mouseleave",
+                hideTooltip
+            )
+
+
+            /* FOCUS */
+
+            .on(
+                "focus",
+                (event, d) => {
+
+                    showTooltip(
+                        event,
+                        getDistrictName(d)
+                    );
+
+                }
+            )
+
+
+            .on(
+                "blur",
+                hideTooltip
+            )
+
+
+            /* CLICK */
+
+            .on(
+                "click",
+                (event, d) => {
+
+                    event.preventDefault();
+
+                    selectDistrict(
+                        districtKey(
+                            getDistrictName(d)
+                        )
+                    );
+
+                }
+            )
+
+
+            /* KEYBOARD */
+
+            .on(
+                "keydown",
+                (event, d) => {
+
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+
+                        event.preventDefault();
+
+                        selectDistrict(
+                            districtKey(
+                                getDistrictName(d)
+                            )
+                        );
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           DISTRICT LABELS
+           ===================================================== */
+
+        group
+            .selectAll("text")
+            .data(
+                features.filter(
+                    d => path.area(d) > 80
+                )
+            )
+            .enter()
+            .append("text")
+            .attr(
+                "class",
+                "bihar-district-label"
+            )
+            .attr(
+                "transform",
+                d => {
+
+                    const point =
+                        path.centroid(d);
+
+                    return `
+                        translate(
+                            ${point[0]},
+                            ${point[1]}
+                        )
+                    `;
+
+                }
+            )
+            .text(
+                d => {
+
+                    const name =
+                        getDistrictName(d);
+
+                    if (name.length > 13) {
+
+                        return name
+                            .split(" ")[0];
+
+                    }
+
+                    return name;
+
+                }
+            );
+
+
+        /* =====================================================
+           LOADING COMPLETE
+           ===================================================== */
+
+        loading.classList.add("loaded");
+
+
+        status.innerHTML =
+            '<i class="bi bi-hand-index"></i>' +
+            "<span>" +
+            features.length +
+            " mapped districts · click to explore" +
+            "</span>";
+
+    }
+
+
+    /* =========================================================
+       LOAD LOCAL GEOJSON
+       ========================================================= */
+
+    fetch(DATA_URL)
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Local GeoJSON file not found."
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+        .then(data => {
+
+            window.__biharDistrictMapData = data;
+
+            render(data);
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "Bihar map error:",
+                error
+            );
+
+
+            loading.innerHTML =
+                '<i class="bi bi-exclamation-circle"></i>' +
+                "<span>" +
+                "Map unavailable — check data/bihar-districts.geojson" +
+                "</span>";
+
+
+            status.innerHTML =
+                '<i class="bi bi-list-ul"></i>' +
+                "<span>" +
+                "Use the district cards below" +
+                "</span>";
+
+        });
+
+
+    /* =========================================================
+       RESPONSIVE RE-RENDER
+       ========================================================= */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.__biharDistrictMapData
+            ) {
+
+                render(
+                    window.__biharDistrictMapData
+                );
+
+            }
+
+        }
+    );
+
+})();
+</script>
+
+<script>
+(function () {
+    const DATA_URL = "../data/bihar-districts.geojson";
 
     const root = document.getElementById("interactiveBiharMap");
     const svg = document.getElementById("biharDistrictMap");
@@ -2754,31 +3310,31 @@ html.dark-mode .interactive-map-status {
             .append("path")
             .attr("class", "bihar-district")
             .attr("d", path)
-            .attr("data-district", d => key(d.properties?.district))
+            .attr("data-district", d => key(d.properties?.Dist_Name))
             .attr("tabindex", "0")
             .attr("aria-label", d =>
-                (d.properties?.district || "Bihar district") +
+                (d.properties?.Dist_Name || "Bihar district") +
                 ". Click to explore."
             )
             .on("mouseenter", (event, d) =>
-                showTooltip(event, d.properties?.district)
+                showTooltip(event, d.properties?.Dist_Name)
             )
             .on("mousemove", (event, d) =>
-                showTooltip(event, d.properties?.district)
+                showTooltip(event, d.properties?.Dist_Name)
             )
             .on("mouseleave", hideTooltip)
             .on("focus", (event, d) =>
-                showTooltip(event, d.properties?.district)
+                showTooltip(event, d.properties?.Dist_Name)
             )
             .on("blur", hideTooltip)
             .on("click", (event, d) => {
                 event.preventDefault();
-                selectDistrict(key(d.properties?.district));
+                selectDistrict(key(d.properties?.Dist_Name));
             })
             .on("keydown", (event, d) => {
                 if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    selectDistrict(key(d.properties?.district));
+                    selectDistrict(key(d.properties?.Dist_Name));
                 }
             });
 
@@ -2792,7 +3348,7 @@ html.dark-mode .interactive-map-status {
                 return `translate(${point[0]},${point[1]})`;
             })
             .text(d => {
-                const name = d.properties?.district || "";
+                const name = d.properties?.Dist_Name || "";
                 return name.length > 13
                     ? name.split(" ")[0]
                     : name;
