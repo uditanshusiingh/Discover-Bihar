@@ -48,6 +48,222 @@
 
     <link rel="stylesheet" href="../css/explore.css">
 
+
+<style>
+/* =========================================================
+   STEP 13 — INTERACTIVE BIHAR DISTRICT MAP
+   ========================================================= */
+
+.interactive-bihar-map {
+    position: relative;
+    width: min(100%, 620px);
+    min-height: 560px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bihar-district-map {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    height: 560px;
+    overflow: visible;
+}
+
+.bihar-district {
+    fill: rgba(139,69,19,.10);
+    stroke: rgba(139,69,19,.48);
+    stroke-width: .8;
+    vector-effect: non-scaling-stroke;
+    cursor: pointer;
+    transition: fill .2s ease, stroke .2s ease, filter .2s ease;
+}
+
+.bihar-district:hover,
+.bihar-district:focus {
+    fill: rgba(212,160,23,.70);
+    stroke: #8B4513;
+    stroke-width: 1.6;
+    outline: none;
+    filter: drop-shadow(0 4px 8px rgba(139,69,19,.22));
+}
+
+.bihar-district.selected {
+    fill: #D4A017;
+    stroke: #6f360f;
+    stroke-width: 1.8;
+    filter: drop-shadow(0 5px 10px rgba(139,69,19,.28));
+}
+
+.bihar-district-label {
+    pointer-events: none;
+    fill: #5a351e;
+    font-family: Poppins, sans-serif;
+    font-size: 7px;
+    font-weight: 600;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.interactive-map-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #8B4513;
+    background: radial-gradient(circle at center,rgba(212,160,23,.12),transparent 62%),#f1eadf;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+.interactive-map-loading.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.interactive-map-loading i {
+    font-size: 2rem;
+    animation: step13MapSpin 1.5s linear infinite;
+}
+
+.interactive-map-loading span {
+    font-size: .63rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+@keyframes step13MapSpin {
+    to { transform: rotate(360deg); }
+}
+
+.map-district-tooltip {
+    position: absolute;
+    z-index: 10;
+    min-width: 150px;
+    padding: 12px 15px;
+    background: #21160F;
+    color: #fff;
+    border-left: 2px solid #D4A017;
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .15s ease, visibility .15s ease;
+}
+
+.map-district-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.map-district-tooltip span,
+.map-district-tooltip small {
+    display: block;
+    color: #D4A017;
+    font-size: .47rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.map-district-tooltip strong {
+    display: block;
+    margin: 4px 0;
+    color: #fff;
+    font-family: Playfair Display,serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.map-district-tooltip small {
+    color: rgba(255,255,255,.52);
+    letter-spacing: .7px;
+}
+
+.interactive-map-status {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    z-index: 6;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 13px;
+    background: rgba(255,255,255,.84);
+    color: #777;
+    border: 1px solid rgba(139,69,19,.12);
+    border-radius: 30px;
+    transform: translateX(-50%);
+    font-size: .53rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    white-space: nowrap;
+    backdrop-filter: blur(6px);
+}
+
+.interactive-map-status i {
+    color: #8B4513;
+}
+
+html.dark-mode .interactive-map-loading {
+    color: #D4A017;
+    background: radial-gradient(circle at center,rgba(212,160,23,.10),transparent 62%),#211b16;
+}
+
+html.dark-mode .bihar-district {
+    fill: rgba(212,160,23,.10);
+    stroke: rgba(212,160,23,.48);
+}
+
+html.dark-mode .bihar-district:hover,
+html.dark-mode .bihar-district:focus {
+    fill: rgba(212,160,23,.55);
+    stroke: #D4A017;
+}
+
+html.dark-mode .bihar-district.selected {
+    fill: #D4A017;
+    stroke: #f5d36b;
+}
+
+html.dark-mode .bihar-district-label {
+    fill: #eadbc8;
+}
+
+html.dark-mode .interactive-map-status {
+    background: rgba(27,23,19,.90);
+    color: #b9aea1;
+    border-color: rgba(255,255,255,.10);
+}
+
+@media (max-width:767.98px) {
+    .interactive-bihar-map {
+        width: 100%;
+        min-height: 420px;
+    }
+
+    .bihar-district-map {
+        height: 420px;
+    }
+
+    .bihar-district-label {
+        font-size: 5px;
+    }
+
+    .map-district-tooltip {
+        min-width: 130px;
+    }
+}
+</style>
+
 </head>
 
 
@@ -387,10 +603,24 @@
                     </span>
 
 
-                    <!-- IMAGE: Bihar Map -->
-
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwZQUmiB7iutPYoLrRcN1_azTQ6IQ-SlKLbmqdoRNWSQ&s=10"
-                        alt="Map of Bihar showing its location in India">
+                    <!-- INTERACTIVE MAP: Bihar district boundaries -->
+                    <div class="interactive-bihar-map" id="interactiveBiharMap">
+                        <div class="interactive-map-loading" id="interactiveMapLoading">
+                            <i class="bi bi-compass"></i>
+                            <span>Loading Bihar map...</span>
+                        </div>
+                        <svg id="biharDistrictMap" class="bihar-district-map"
+                            role="img" aria-label="Interactive map of Bihar districts"></svg>
+                        <div class="map-district-tooltip" id="mapDistrictTooltip" aria-hidden="true">
+                            <span id="mapTooltipDivision">BIHAR</span>
+                            <strong id="mapTooltipName">District</strong>
+                            <small>Click to explore</small>
+                        </div>
+                        <div class="interactive-map-status" id="interactiveMapStatus">
+                            <i class="bi bi-hand-index"></i>
+                            <span>Select a district</span>
+                        </div>
+                    </div>
 
 
                     <div class="explore-map-caption">
@@ -2392,6 +2622,219 @@
         <i class="bi bi-arrow-up"></i>
     </a>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+
+<script>
+(function () {
+    const DATA_URL =
+        "https://mausam.imd.gov.in/imd_latest/contents/district_shapefiles/sd_boundary_rainfall.json";
+
+    const root = document.getElementById("interactiveBiharMap");
+    const svg = document.getElementById("biharDistrictMap");
+    const loading = document.getElementById("interactiveMapLoading");
+    const tooltip = document.getElementById("mapDistrictTooltip");
+    const tooltipName = document.getElementById("mapTooltipName");
+    const status = document.getElementById("interactiveMapStatus");
+
+    if (!root || !svg || !window.d3) return;
+
+    const aliases = {
+        "east champaran": "east-champaran",
+        "east champaran (motihari)": "east-champaran",
+        "west champaran": "west-champaran",
+        "kaimur (bhabua)": "kaimur",
+        "munger (monghyr)": "munger"
+    };
+
+    function key(name) {
+        const value = String(name || "")
+            .trim()
+            .toLowerCase()
+            .replace(/[’']/g, "")
+            .replace(/\s+/g, " ");
+
+        return aliases[value] ||
+            value.replace(/\([^)]*\)/g, "")
+                 .trim()
+                 .replace(/[^a-z0-9]+/g, "-");
+    }
+
+    function cardFor(districtKey) {
+        return Array.from(document.querySelectorAll(".district-card"))
+            .find(card => card.dataset.district === districtKey);
+    }
+
+    function selectDistrict(districtKey) {
+        const card = cardFor(districtKey);
+        if (!card) return;
+
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+
+        card.click();
+
+        document.querySelectorAll(".bihar-district")
+            .forEach(path => {
+                path.classList.toggle(
+                    "selected",
+                    path.dataset.district === districtKey
+                );
+            });
+
+        status.innerHTML =
+            '<i class="bi bi-geo-alt-fill"></i>' +
+            "<span>" +
+            card.querySelector("strong").textContent.trim() +
+            " selected</span>";
+    }
+
+    function showTooltip(event, name) {
+        tooltipName.textContent = name || "District";
+
+        const bounds = root.getBoundingClientRect();
+        const x = Math.max(8, Math.min(
+            event.clientX - bounds.left,
+            bounds.width - 170
+        ));
+        const y = Math.max(8, Math.min(
+            event.clientY - bounds.top,
+            bounds.height - 85
+        ));
+
+        tooltip.style.left = x + "px";
+        tooltip.style.top = y + "px";
+        tooltip.classList.add("visible");
+    }
+
+    function hideTooltip() {
+        tooltip.classList.remove("visible");
+    }
+
+    function render(data) {
+        const features = data.features.filter(feature =>
+            String(feature.properties?.state || "")
+                .trim()
+                .toLowerCase() === "bihar"
+        );
+
+        if (!features.length) {
+            throw new Error("Bihar boundaries not found.");
+        }
+
+        const collection = {
+            type: "FeatureCollection",
+            features
+        };
+
+        const width = Math.max(300, root.clientWidth);
+        const height = window.innerWidth <= 767 ? 420 : 560;
+
+        svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+        const projection = d3.geoMercator()
+            .fitExtent(
+                [[20, 20], [width - 20, height - 25]],
+                collection
+            );
+
+        const path = d3.geoPath().projection(projection);
+
+        svg.innerHTML = "";
+
+        const group = d3.select(svg).append("g");
+
+        const paths = group.selectAll("path")
+            .data(features)
+            .enter()
+            .append("path")
+            .attr("class", "bihar-district")
+            .attr("d", path)
+            .attr("data-district", d => key(d.properties?.district))
+            .attr("tabindex", "0")
+            .attr("aria-label", d =>
+                (d.properties?.district || "Bihar district") +
+                ". Click to explore."
+            )
+            .on("mouseenter", (event, d) =>
+                showTooltip(event, d.properties?.district)
+            )
+            .on("mousemove", (event, d) =>
+                showTooltip(event, d.properties?.district)
+            )
+            .on("mouseleave", hideTooltip)
+            .on("focus", (event, d) =>
+                showTooltip(event, d.properties?.district)
+            )
+            .on("blur", hideTooltip)
+            .on("click", (event, d) => {
+                event.preventDefault();
+                selectDistrict(key(d.properties?.district));
+            })
+            .on("keydown", (event, d) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    selectDistrict(key(d.properties?.district));
+                }
+            });
+
+        group.selectAll("text")
+            .data(features.filter(d => path.area(d) > 80))
+            .enter()
+            .append("text")
+            .attr("class", "bihar-district-label")
+            .attr("transform", d => {
+                const point = path.centroid(d);
+                return `translate(${point[0]},${point[1]})`;
+            })
+            .text(d => {
+                const name = d.properties?.district || "";
+                return name.length > 13
+                    ? name.split(" ")[0]
+                    : name;
+            });
+
+        loading.classList.add("loaded");
+
+        status.innerHTML =
+            '<i class="bi bi-hand-index"></i>' +
+            "<span>" +
+            features.length +
+            " mapped districts · click to explore</span>";
+    }
+
+    fetch(DATA_URL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Map data unavailable.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.__biharDistrictMapData = data;
+            render(data);
+        })
+        .catch(() => {
+            loading.innerHTML =
+                '<i class="bi bi-exclamation-circle"></i>' +
+                "<span>Map unavailable — use the district explorer below.</span>";
+
+            status.innerHTML =
+                '<i class="bi bi-list-ul"></i>' +
+                "<span>Use the district cards below</span>";
+        });
+
+    window.addEventListener("resize", () => {
+        if (window.__biharDistrictMapData) {
+            render(window.__biharDistrictMapData);
+        }
+    });
+})();
+</script>
 
 </body>
 
