@@ -36,10 +36,9 @@ const openai = new OpenAI({
 
 function findRelevantKnowledge(message) {
 
-    const text =
-        message
-            .toLowerCase()
-            .trim();
+    const text = message
+        .toLowerCase()
+        .trim();
 
     const results = [];
 
@@ -52,12 +51,15 @@ function findRelevantKnowledge(message) {
     ];
 
 
+    /* ================================================
+       NORMAL KNOWLEDGE
+       ================================================ */
+
     categories.forEach(category => {
 
         if (!Array.isArray(biharKnowledge[category])) {
             return;
         }
-
 
         biharKnowledge[category].forEach(item => {
 
@@ -65,28 +67,18 @@ function findRelevantKnowledge(message) {
                 return;
             }
 
-
-            const matched =
-                item.keywords.some(keyword =>
-                    text.includes(
-                        keyword.toLowerCase()
-                    )
-                );
-
+            const matched = item.keywords.some(keyword =>
+                text.includes(keyword.toLowerCase())
+            );
 
             if (matched) {
 
-                const alreadyAdded =
-                    results.some(
-                        result =>
-                            result.name === item.name
-                    );
+                const exists = results.some(
+                    result => result.name === item.name
+                );
 
-
-                if (!alreadyAdded) {
-
+                if (!exists) {
                     results.push(item);
-
                 }
 
             }
@@ -96,8 +88,70 @@ function findRelevantKnowledge(message) {
     });
 
 
-    return results;
+    /* ================================================
+       DISTRICT INTELLIGENCE
+       ================================================ */
 
+    if (Array.isArray(biharKnowledge.districts)) {
+
+        biharKnowledge.districts.forEach(district => {
+
+            if (!Array.isArray(district.keywords)) {
+                return;
+            }
+
+            const matched = district.keywords.some(keyword =>
+                text.includes(keyword.toLowerCase())
+            );
+
+            if (!matched) {
+                return;
+            }
+
+
+            const exists = results.some(
+                result => result.name === district.name
+            );
+
+
+            if (!exists) {
+
+                results.push({
+
+                    name: district.name,
+
+                    location:
+                        `${district.division} Division`,
+
+                    information: `
+${district.description}
+
+Division:
+${district.division}
+
+Major attractions:
+${district.attractions.join(", ")}
+
+Food and culture:
+${district.foodCulture.join(", ")}
+
+Tourism categories:
+${district.tourismTags.join(", ")}
+
+Official tourism resource:
+${district.website}
+                    `.trim()
+
+                });
+
+            }
+
+        });
+
+    }
+
+
+    return results;
 }
 
 
@@ -282,7 +336,8 @@ const fallbackKnowledge = {
 
 function getFallbackResponse(
     message,
-    relevantKnowledge = []
+    relevantKnowledge = [],
+    district = ""
 ) {
 
     const text =
@@ -291,10 +346,396 @@ function getFallbackResponse(
             .trim();
 
 
-    /* -----------------------------------------------------
-       FIRST PRIORITY:
-       REAL DISCOVER BIHAR KNOWLEDGE BASE
-       ----------------------------------------------------- */
+    /* =====================================================
+       HELPER — FIND DISTRICT
+       ===================================================== */
+
+    function findDistrict() {
+
+        if (!Array.isArray(biharKnowledge.districts)) {
+            return null;
+        }
+
+
+        /* First priority:
+           district selected from website */
+
+        if (district) {
+
+            const selected =
+                biharKnowledge.districts.find(item =>
+                    item.name.toLowerCase() ===
+                    district.toLowerCase()
+                );
+
+            if (selected) {
+                return selected;
+            }
+
+        }
+
+
+        /* Second priority:
+           district mentioned in question */
+
+        for (
+            const item of biharKnowledge.districts
+        ) {
+
+            if (
+                Array.isArray(item.keywords) &&
+                item.keywords.some(keyword =>
+                    text.includes(
+                        keyword.toLowerCase()
+                    )
+                )
+            ) {
+
+                return item;
+
+            }
+
+        }
+
+
+        return null;
+
+    }
+
+
+    /* =====================================================
+       DISTRICT
+       ===================================================== */
+
+    const detectedDistrict =
+        findDistrict();
+
+
+    /* =====================================================
+       QUESTION TYPE DETECTION
+       ===================================================== */
+
+    const asksAboutPlaces =
+        text.includes("place") ||
+        text.includes("places") ||
+        text.includes("ghum") ||
+        text.includes("ghoom") ||
+        text.includes("dekhe") ||
+        text.includes("dekhna") ||
+        text.includes("explore") ||
+        text.includes("visit") ||
+        text.includes("attraction") ||
+        text.includes("kaha") ||
+        text.includes("where");
+
+
+    const asksAboutFood =
+        text.includes("food") ||
+        text.includes("khana") ||
+        text.includes("khaana") ||
+        text.includes("eat") ||
+        text.includes("dish") ||
+        text.includes("sweet") ||
+        text.includes("mithai");
+
+
+    const asksAboutCulture =
+        text.includes("culture") ||
+        text.includes("art") ||
+        text.includes("craft") ||
+        text.includes("tradition") ||
+        text.includes("painting");
+
+
+    const asksAboutHistory =
+        text.includes("history") ||
+        text.includes("historical") ||
+        text.includes("heritage") ||
+        text.includes("ancient") ||
+        text.includes("old") ||
+        text.includes("historic");
+
+
+    const asksForTrip =
+        text.includes("trip") ||
+        text.includes("itinerary") ||
+        text.includes("plan") ||
+        text.includes("day") ||
+        text.includes("days") ||
+        text.includes("din");
+
+
+    /* =====================================================
+       SMART DISTRICT RESPONSE
+       ===================================================== */
+
+    if (detectedDistrict) {
+
+        const item =
+            detectedDistrict;
+
+
+        /* -------------------------------------------------
+           FOOD QUESTION
+           ------------------------------------------------- */
+
+        if (
+            asksAboutFood &&
+            Array.isArray(item.foodCulture) &&
+            item.foodCulture.length
+        ) {
+
+            return `
+📍 ${item.name}
+${item.division} Division
+
+🍴 Food & Culture
+
+${item.name} mein aap in local food aur cultural
+experiences ko explore kar sakte hain:
+
+${item.foodCulture
+    .map(food => `• ${food}`)
+    .join("\n")}
+
+Agar aap chahen, main ${item.name} ke liye
+food-focused itinerary bhi suggest kar sakta hoon.
+            `.trim();
+
+        }
+
+
+        /* -------------------------------------------------
+           CULTURE QUESTION
+           ------------------------------------------------- */
+
+        if (
+            asksAboutCulture &&
+            Array.isArray(item.foodCulture) &&
+            item.foodCulture.length
+        ) {
+
+            return `
+📍 ${item.name}
+${item.division} Division
+
+🎨 Culture & Local Identity
+
+${item.description}
+
+Local cultural highlights:
+
+${item.foodCulture
+    .map(culture => `• ${culture}`)
+    .join("\n")}
+
+🏷️ Experience:
+${item.tourismTags.join(" • ")}
+            `.trim();
+
+        }
+
+
+        /* -------------------------------------------------
+           HISTORY / HERITAGE QUESTION
+           ------------------------------------------------- */
+
+        if (
+            asksAboutHistory &&
+            Array.isArray(item.attractions) &&
+            item.attractions.length
+        ) {
+
+            return `
+📍 ${item.name}
+${item.division} Division
+
+🏛️ Heritage & History
+
+${item.description}
+
+Important heritage-related places:
+
+${item.attractions
+    .map(place => `• ${place}`)
+    .join("\n")}
+
+🏷️ Themes:
+${item.tourismTags.join(" • ")}
+            `.trim();
+
+        }
+
+
+        /* -------------------------------------------------
+           TRIP / ITINERARY QUESTION
+           ------------------------------------------------- */
+
+        if (asksForTrip) {
+
+            const places =
+                item.attractions || [];
+
+
+            const firstPlaces =
+                places.slice(0, 5);
+
+
+            return `
+📍 ${item.name}
+${item.division} Division
+
+🧳 Smart District Plan
+
+${item.description}
+
+Aapke available time ke according
+priority places:
+
+${firstPlaces
+    .map(
+        (place, index) =>
+            `${index + 1}. ${place}`
+    )
+    .join("\n")}
+
+🍴 Food & Culture:
+
+${(item.foodCulture || [])
+    .map(food => `• ${food}`)
+    .join("\n")}
+
+🏷️ Experience:
+
+${(item.tourismTags || [])
+    .join(" • ")}
+
+Ye ek knowledge-based suggestion hai.
+Exact travel time, opening hours aur
+current availability ke liye official
+sources check karein.
+            `.trim();
+
+        }
+
+
+        /* -------------------------------------------------
+           PLACES QUESTION
+           ------------------------------------------------- */
+
+        if (
+            asksAboutPlaces &&
+            Array.isArray(item.attractions) &&
+            item.attractions.length
+        ) {
+
+            return `
+📍 ${item.name}
+${item.division} Division
+
+${item.description}
+
+⭐ Major places to explore:
+
+${item.attractions
+    .map(place => `• ${place}`)
+    .join("\n")}
+
+🍴 Local food & culture:
+
+${(item.foodCulture || [])
+    .map(item => `• ${item}`)
+    .join("\n")}
+
+🏷️ Best for:
+${(item.tourismTags || []).join(" • ")}
+            `.trim();
+
+        }
+
+
+        /* -------------------------------------------------
+           GENERAL DISTRICT QUESTION
+           ------------------------------------------------- */
+
+        return `
+📍 ${item.name}
+${item.division} Division
+
+${item.description}
+
+⭐ Major attractions:
+
+${(item.attractions || [])
+    .map(place => `• ${place}`)
+    .join("\n")}
+
+🍴 Food & culture:
+
+${(item.foodCulture || [])
+    .map(item => `• ${item}`)
+    .join("\n")}
+
+🏷️ Tourism themes:
+
+${(item.tourismTags || [])
+    .join(" • ")}
+
+Aap ${item.name} ke places, food,
+culture ya trip plan ke baare mein
+aur specific question pooch sakte hain.
+        `.trim();
+
+    }
+
+
+    /* =====================================================
+       THREE DAY BIHAR TRIP
+       ===================================================== */
+
+    if (
+        text.includes("3 day") ||
+        text.includes("3 days") ||
+        text.includes("three day") ||
+        text.includes("3 din")
+    ) {
+
+        return `
+🧳 3-Day Bihar Heritage Trip
+
+Day 1 — Patna
+• Golghar
+• Gandhi Ghat
+• Bihar Museum
+• Takht Sri Patna Sahib
+
+Day 2 — Nalanda + Rajgir
+• Nalanda Mahavihara
+• Rajgir
+• Vishwa Shanti Stupa
+• Rajgir Hills
+
+Day 3 — Bodh Gaya
+• Mahabodhi Temple
+• Great Buddha Statue
+• Buddhist monasteries
+
+🍴 Try:
+• Litti Chokha
+• Thekua
+• Khaja
+
+Aap apna budget, starting city aur
+travel preference bata den, to route
+ko aur personalize kiya ja sakta hai.
+        `.trim();
+
+    }
+
+
+    /* =====================================================
+       RELEVANT KNOWLEDGE BASE RESPONSE
+       ===================================================== */
 
     if (relevantKnowledge.length > 0) {
 
@@ -303,12 +744,13 @@ function getFallbackResponse(
 
 
         let answer =
-            `${firstMatch.name}`;
+            `📍 ${firstMatch.name}`;
+
 
         if (firstMatch.location) {
 
             answer +=
-                ` (${firstMatch.location})`;
+                ` — ${firstMatch.location}`;
 
         }
 
@@ -317,10 +759,12 @@ function getFallbackResponse(
             `\n\n${firstMatch.information}`;
 
 
-        if (relevantKnowledge.length > 1) {
+        if (
+            relevantKnowledge.length > 1
+        ) {
 
             answer +=
-                "\n\nRelated Bihar places/topics:";
+                "\n\n🔎 Related Bihar topics:";
 
 
             relevantKnowledge
@@ -340,84 +784,68 @@ function getFallbackResponse(
     }
 
 
-    /* -----------------------------------------------------
-       THREE DAY TRIP
-       ----------------------------------------------------- */
+    /* =====================================================
+       GENERIC BIHAR RESPONSE
+       ===================================================== */
 
     if (
-        text.includes("3 day") ||
-        text.includes("3 days") ||
-        text.includes("three day") ||
-        text.includes("3 din")
+        asksAboutPlaces ||
+        asksAboutHistory
     ) {
 
         return `
-Agar aap Bihar ko 3 din mein explore karna chahte hain, ek simple route ho sakta hai:
+🏛️ Bihar is a rich heritage destination
+with Buddhist, Jain, Hindu and
+historical traditions.
 
-Day 1 — Patna
-• Golghar
-• Gandhi Ghat
-• Bihar Museum
+Some important places include:
 
-Day 2 — Nalanda + Rajgir
-• Nalanda Mahavihara
-• Rajgir Hills
-• Vishwa Shanti Stupa
+• Mahabodhi Temple — Bodh Gaya
+• Nalanda Mahavihara — Nalanda
+• Rajgir
+• Golghar — Patna
+• Vikramshila — Bhagalpur
 
-Day 3 — Bodh Gaya
-• Mahabodhi Temple
-• Great Buddha Statue
-• Buddhist monasteries
-
-Aap apne budget aur interests bata den, to main route ko aur personalize kar sakta hoon.
+Aap kisi specific district ya place
+ka naam bataiye, main uske baare mein
+detail mein bata sakta hoon.
         `.trim();
 
     }
 
 
-    /* -----------------------------------------------------
-       OLD FALLBACK KNOWLEDGE
-       ----------------------------------------------------- */
-
-    for (
-        const category
-        of Object.values(fallbackKnowledge)
-    ) {
-
-        const matched =
-            category.keywords.some(
-                keyword =>
-                    text.includes(keyword)
-            );
-
-
-        if (matched) {
-
-            return category.answer;
-
-        }
-
-    }
-
-
-    /* -----------------------------------------------------
+    /* =====================================================
        DEFAULT RESPONSE
-       ----------------------------------------------------- */
+       ===================================================== */
 
     return `
 Namaste! 👋
 
-Main Ask Bihar hoon — Discover Bihar ka heritage assistant.
+Main Ask Bihar hoon —
+Discover Bihar ka heritage assistant.
 
-Aap mujhse Bihar ke baare mein pooch sakte hain, jaise:
+Aap mujhse pooch sakte hain:
 
-• Bihar mein kya explore karein?
-• Bodh Gaya mein kya dekhein?
-• Nalanda ka history kya hai?
-• Bihar ke famous foods kaun se hain?
+🏛️ Historical Places
+• Nalanda mein kya dekhein?
+• Bodh Gaya mein kya explore karein?
+
+🗺️ Districts
+• West Champaran mein kya hai?
+• Gaya mein kaun se places hain?
+
+🍴 Food
+• Bihar ka famous food kya hai?
+• Litti Chokha kya hai?
+
+🎉 Festivals
 • Chhath Puja ke baare mein batao.
-• 3 din ka Bihar trip plan karo.
-• Bihar ke hidden places kaun se hain?
+
+🎨 Culture
+• Madhubani painting kya hai?
+
+🧳 Travel
+• Bihar ka 3-day trip plan karo.
 
 Apna question poochhiye. 😊
     `.trim();
@@ -720,7 +1148,8 @@ IMPORTANT RULES
             const fallback =
                 getFallbackResponse(
                     message,
-                    relevantKnowledge
+                    relevantKnowledge,
+                    district
                 );
 
 
