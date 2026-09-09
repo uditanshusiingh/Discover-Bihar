@@ -58,7 +58,178 @@
     <!-- Our own CSS file -->
     <link rel="stylesheet" href="css/style.css">
 
+
+    <!-- =========================================
+         Ask Bihar CSS
+    ========================================== -->
+
+    <link rel="stylesheet" href="css/ask-bihar.css">
+
 </head>
+
+<!-- ASK BIHAR AI CHATBOT -->
+
+<button
+    type="button"
+    class="ask-bihar-launcher"
+    id="askBiharLauncher"
+    aria-label="Open Ask Bihar AI"
+    title="Ask Bihar AI">
+
+    <i class="bi bi-stars"></i>
+
+</button>
+
+
+<div
+    class="ask-bihar-window"
+    id="askBiharWindow"
+    aria-hidden="true">
+
+    <!-- HEADER -->
+
+    <div class="ask-bihar-header">
+
+        <div class="ask-bihar-header-top">
+
+            <div class="ask-bihar-brand">
+
+                <div class="ask-bihar-icon">
+                    <i class="bi bi-stars"></i>
+                </div>
+
+                <div>
+
+                    <strong>Ask Bihar</strong>
+
+                    <div class="ask-bihar-status">
+
+                        <span class="ask-bihar-status-dot"></span>
+
+                        AI Heritage Assistant
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="ask-bihar-close"
+                id="askBiharClose"
+                aria-label="Close Ask Bihar">
+
+                <i class="bi bi-x-lg"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGES -->
+
+    <div
+        class="ask-bihar-messages"
+        id="askBiharMessages">
+
+        <div class="ask-bihar-message ai">
+
+            <div class="ask-bihar-bubble">
+
+                Namaste! 👋
+
+                Main <strong>Ask Bihar</strong> hoon —
+                Discover Bihar ka AI heritage assistant.
+
+                Bihar ke heritage, culture, food,
+                festivals aur travel destinations
+                ke baare mein mujhse poochhiye.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK QUESTIONS -->
+
+    <div class="ask-bihar-quick">
+
+        <button type="button"
+            data-question="Bodh Gaya mein kya dekhna chahiye?">
+
+            Bodh Gaya
+
+        </button>
+
+
+        <button type="button"
+            data-question="Bihar ke famous foods kaun se hain?">
+
+            Bihar Food
+
+        </button>
+
+
+        <button type="button"
+            data-question="Bihar ke famous historical places batao.">
+
+            Heritage
+
+        </button>
+
+
+        <button type="button"
+            data-question="Bihar ke famous festivals kaun se hain?">
+
+            Festivals
+
+        </button>
+
+    </div>
+
+
+    <!-- INPUT -->
+
+    <div class="ask-bihar-input-area">
+
+        <div class="ask-bihar-input-wrapper">
+
+            <textarea
+                class="ask-bihar-input"
+                id="askBiharInput"
+                rows="1"
+                placeholder="Ask something about Bihar..."
+                aria-label="Ask something about Bihar"></textarea>
+
+
+            <button
+                type="button"
+                class="ask-bihar-send"
+                id="askBiharSend"
+                aria-label="Send message">
+
+                <i class="bi bi-arrow-up"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="ask-bihar-note">
+
+            Ask about Bihar's heritage, culture, food & travel
+
+        </div>
+
+    </div>
+
+</div>
 
 
 <body>

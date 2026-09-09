@@ -3403,3 +3403,517 @@ document.addEventListener(
     }
 
 })();
+
+/* =========================================================
+   ASK BIHAR AI CHATBOT
+   ========================================================= */
+
+(function () {
+
+    const launcher =
+        document.getElementById(
+            "askBiharLauncher"
+        );
+
+    const windowBox =
+        document.getElementById(
+            "askBiharWindow"
+        );
+
+    const closeButton =
+        document.getElementById(
+            "askBiharClose"
+        );
+
+    const messages =
+        document.getElementById(
+            "askBiharMessages"
+        );
+
+    const input =
+        document.getElementById(
+            "askBiharInput"
+        );
+
+    const sendButton =
+        document.getElementById(
+            "askBiharSend"
+        );
+
+    const quickButtons =
+        document.querySelectorAll(
+            ".ask-bihar-quick button"
+        );
+
+
+    if (
+        !launcher ||
+        !windowBox ||
+        !closeButton ||
+        !messages ||
+        !input ||
+        !sendButton
+    ) {
+        return;
+    }
+
+
+    /* =====================================================
+       OPEN
+       ===================================================== */
+
+    function openChat() {
+
+        windowBox.classList.add(
+            "active"
+        );
+
+        windowBox.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        setTimeout(() => {
+            input.focus();
+        }, 250);
+
+    }
+
+
+    /* =====================================================
+       CLOSE
+       ===================================================== */
+
+    function closeChat() {
+
+        windowBox.classList.remove(
+            "active"
+        );
+
+        windowBox.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    launcher.addEventListener(
+        "click",
+        openChat
+    );
+
+
+    closeButton.addEventListener(
+        "click",
+        closeChat
+    );
+
+
+    /* =====================================================
+       ADD USER MESSAGE
+       ===================================================== */
+
+    function addUserMessage(text) {
+
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+        wrapper.className =
+            "ask-bihar-message user";
+
+
+        const bubble =
+            document.createElement(
+                "div"
+            );
+
+        bubble.className =
+            "ask-bihar-bubble";
+
+
+        bubble.textContent =
+            text;
+
+
+        wrapper.appendChild(
+            bubble
+        );
+
+
+        messages.appendChild(
+            wrapper
+        );
+
+
+        scrollToBottom();
+
+    }
+
+
+    /* =====================================================
+       ADD AI MESSAGE
+       ===================================================== */
+
+    function addAIMessage(
+        text,
+        source = "ai"
+    ) {
+
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+        wrapper.className =
+            "ask-bihar-message ai";
+
+
+        const container =
+            document.createElement(
+                "div"
+            );
+
+
+        container.className =
+            "ask-bihar-bubble";
+
+
+        container.textContent =
+            text;
+
+
+        wrapper.appendChild(
+            container
+        );
+
+
+        if (source === "fallback") {
+
+            const sourceText =
+                document.createElement(
+                    "div"
+                );
+
+            sourceText.className =
+                "ask-bihar-source";
+
+
+            sourceText.innerHTML =
+                '<i class="bi bi-lightbulb"></i> ' +
+                "Demo knowledge mode";
+
+
+            container.appendChild(
+                sourceText
+            );
+
+        }
+
+
+        messages.appendChild(
+            wrapper
+        );
+
+
+        scrollToBottom();
+
+    }
+
+
+    /* =====================================================
+       TYPING
+       ===================================================== */
+
+    function showTyping() {
+
+        const wrapper =
+            document.createElement(
+                "div"
+            );
+
+        wrapper.className =
+            "ask-bihar-message ai";
+
+        wrapper.id =
+            "askBiharTyping";
+
+
+        wrapper.innerHTML = `
+            <div class="ask-bihar-typing">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        `;
+
+
+        messages.appendChild(
+            wrapper
+        );
+
+
+        scrollToBottom();
+
+    }
+
+
+    function removeTyping() {
+
+        const typing =
+            document.getElementById(
+                "askBiharTyping"
+            );
+
+
+        if (typing) {
+            typing.remove();
+        }
+
+    }
+
+
+    /* =====================================================
+       SCROLL
+       ===================================================== */
+
+    function scrollToBottom() {
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    }
+
+
+    /* =====================================================
+       ASK API
+       ===================================================== */
+
+    async function askBihar(question) {
+
+        const text =
+            question.trim();
+
+
+        if (!text) {
+            return;
+        }
+
+
+        addUserMessage(
+            text
+        );
+
+
+        input.value = "";
+
+        input.style.height =
+            "auto";
+
+
+        sendButton.disabled =
+            true;
+
+
+        showTyping();
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/ask-bihar",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: text
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            removeTyping();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.error ||
+                    "AI request failed."
+                );
+
+            }
+
+
+            addAIMessage(
+                data.reply,
+                data.source
+            );
+
+        }
+
+
+        catch (error) {
+
+            removeTyping();
+
+
+            addAIMessage(
+                "Sorry, Ask Bihar is temporarily unavailable. Please try again in a moment."
+            );
+
+
+            console.error(
+                "Ask Bihar frontend error:",
+                error
+            );
+
+        }
+
+
+        finally {
+
+            sendButton.disabled =
+                false;
+
+            input.focus();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SEND BUTTON
+       ===================================================== */
+
+    sendButton.addEventListener(
+        "click",
+        function () {
+
+            askBihar(
+                input.value
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ENTER TO SEND
+       ===================================================== */
+
+    input.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                askBihar(
+                    input.value
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       AUTO RESIZE TEXTAREA
+       ===================================================== */
+
+    input.addEventListener(
+        "input",
+        function () {
+
+            this.style.height =
+                "auto";
+
+            this.style.height =
+                Math.min(
+                    this.scrollHeight,
+                    90
+                ) + "px";
+
+        }
+    );
+
+
+    /* =====================================================
+       QUICK QUESTIONS
+       ===================================================== */
+
+    quickButtons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const question =
+                        this.dataset.question;
+
+
+                    if (!question) {
+                        return;
+                    }
+
+
+                    openChat();
+
+
+                    askBihar(
+                        question
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ESCAPE
+       ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                windowBox.classList.contains(
+                    "active"
+                )
+            ) {
+
+                closeChat();
+
+            }
+
+        }
+    );
+
+})();
