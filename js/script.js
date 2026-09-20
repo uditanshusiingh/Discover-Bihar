@@ -950,7 +950,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /*
-         * Change panel content
+                                message: text,
+                                district: typeof activeDistrict === "string"
+                                    ? activeDistrict
+                                    : ""
          */
 
         exploreTitle.textContent =
@@ -3247,6 +3250,69 @@ document.addEventListener(
 });
 
 /* =========================================================
+   SIMPLE FOOTER
+   ========================================================= */
+
+(function () {
+
+    function normalizeFooter() {
+
+        const footer =
+            document.querySelector(".site-footer");
+
+        if (!footer) return;
+
+        const footerMain =
+            footer.querySelector(".footer-main");
+
+        const footerQuote =
+            footer.querySelector(".footer-quote");
+
+        const footerBottom =
+            footer.querySelector(".footer-bottom");
+
+        if (footerMain) footerMain.remove();
+        if (footerQuote) footerQuote.remove();
+        if (!footerBottom) return;
+
+        const isInnerPage =
+            window.location.pathname.includes("/pages/");
+
+        const homeHref =
+            isInnerPage ? "../index.html" : "index.html";
+
+        const aboutHref =
+            isInnerPage ? "about.html" : "pages/about.html";
+
+        footerBottom.innerHTML = `
+            <div class="footer-copyright">
+                &copy; 2026 Discover Bihar.
+                <span>Built with curiosity &amp; code.</span>
+            </div>
+
+            <span class="footer-created-by">
+                Created with ❤️ by Uditanshu Kumar
+            </span>
+
+            <div class="footer-bottom-links">
+                <a href="${homeHref}">Home</a>
+                <a href="${aboutHref}">About</a>
+            </div>
+        `;
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            normalizeFooter
+        );
+    } else {
+        normalizeFooter();
+    }
+
+})();
+
+/* =========================================================
    DISCOVER BIHAR — PREMIUM DARK MODE
    ========================================================= */
 
@@ -3287,11 +3353,11 @@ document.addEventListener(
 
     function createThemeToggle() {
 
-        const searchButton =
-            document.getElementById("openSearch");
+        const navbarList =
+            document.querySelector(".navbar .navbar-nav");
 
         if (
-            !searchButton ||
+            !navbarList ||
             document.getElementById("themeToggle")
         ) {
             return;
@@ -3327,11 +3393,27 @@ document.addEventListener(
                aria-hidden="true"></i>
         `;
 
+        const toggleItem =
+            document.createElement("li");
 
-        searchButton.parentNode.insertBefore(
-            button,
-            searchButton
-        );
+        toggleItem.className =
+            "nav-item theme-toggle-item ms-lg-2 mt-3 mt-lg-0";
+
+        toggleItem.appendChild(button);
+
+        const cta =
+            navbarList.querySelector(
+                ".nav-cta, .btn-heritage"
+            );
+
+        if (cta && cta.parentElement) {
+            navbarList.insertBefore(
+                toggleItem,
+                cta.parentElement
+            );
+        } else {
+            navbarList.appendChild(toggleItem);
+        }
 
 
         button.addEventListener(
@@ -3473,6 +3555,11 @@ document.addEventListener(
             "false"
         );
 
+        launcher.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
         setTimeout(() => {
             input.focus();
         }, 250);
@@ -3495,12 +3582,23 @@ document.addEventListener(
             "true"
         );
 
+        launcher.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
     }
 
 
     launcher.addEventListener(
         "click",
-        openChat
+        function () {
+            if (windowBox.classList.contains("active")) {
+                closeChat();
+            } else {
+                openChat();
+            }
+        }
     );
 
 
@@ -3914,6 +4012,68 @@ document.addEventListener(
             }
 
         }
+    );
+
+})();
+
+/* =========================================================
+   INNER PAGES — STICKY BACK ARROW
+   ========================================================= */
+
+(function () {
+
+    const backButton =
+        document.querySelector(".inner-back-button");
+
+    if (!backButton) {
+        return;
+    }
+
+    let hideTimer;
+
+    function showBackButton() {
+
+        backButton.classList.remove(
+            "is-idle-hidden"
+        );
+
+        backButton.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        window.clearTimeout(hideTimer);
+
+        hideTimer = window.setTimeout(
+            function () {
+
+                backButton.classList.add(
+                    "is-idle-hidden"
+                );
+
+                backButton.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            },
+            3000
+        );
+    }
+
+    window.addEventListener(
+        "scroll",
+        showBackButton,
+        { passive: true }
+    );
+
+    backButton.classList.remove(
+        "is-idle-hidden"
+    );
+
+    backButton.setAttribute(
+        "aria-hidden",
+        "false"
     );
 
 })();

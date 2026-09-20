@@ -52,6 +52,47 @@
     color: #D4A017;
 }
 
+.explore-navbar .nav-cta {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-width: 150px;
+    padding: 10px 18px;
+
+    background: transparent !important;
+    color: #ffffff !important;
+
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+
+    line-height: 1.2;
+    letter-spacing: 0;
+
+    text-decoration: none !important;
+    white-space: nowrap;
+
+    transition: all 0.3s ease;
+}
+
+.explore-navbar .nav-cta:hover {
+    background: #D4A017 !important;
+    border-color: #D4A017 !important;
+    color: #1B120C !important;
+
+    transform: translateY(-2px);
+}
+
+.explore-navbar .nav-cta i {
+    color: inherit !important;
+}
+
 
 /* =========================================================
    2. HERO
@@ -430,7 +471,7 @@
 
     min-width: 0;
 
-    min-height: 600px;
+    min-height: 0;
 
     display: flex;
 
@@ -438,9 +479,9 @@
 
     justify-content: center;
 
-    padding: 50px;
+    padding: 28px;
 
-    overflow: hidden;
+    overflow: visible;
 
     background:
         radial-gradient(
@@ -1689,7 +1730,8 @@ section.explore-final-cta a.explore-final-btn:active {
     }
 
     .explore-map {
-        min-height: 520px;
+        min-height: 0;
+        padding: 28px;
     }
 
 
@@ -1800,7 +1842,7 @@ section.explore-final-cta a.explore-final-btn:active {
     /* Map */
 
     .explore-map {
-        min-height: 440px;
+        min-height: 0;
 
         padding: 30px 20px;
     }
@@ -2653,6 +2695,86 @@ section.explore-final-cta a.explore-final-btn:active {
 }
 
 
+/* Final theme and control overrides */
+
+.explore-page .inner-back-button,
+.explore-page .navbar-toggler,
+.explore-page button,
+.explore-page .nav-cta,
+.explore-page .explore-personality-btn,
+.explore-page .explore-final-btn,
+.explore-page .district-detail-link {
+    border-radius: 12px !important;
+}
+
+.explore-page .district-search input,
+.explore-page .district-filter select {
+    border-radius: 12px !important;
+}
+
+section.explore-final-cta a.explore-final-btn,
+.explore-final-cta .explore-final-content a.explore-final-btn {
+    border-radius: 12px !important;
+}
+
+html:not(.dark-mode) .explore-intro-section,
+html:not(.dark-mode) .explore-experiences-section,
+html:not(.dark-mode) .explore-destinations-section,
+html:not(.dark-mode) .district-explorer-section,
+html:not(.dark-mode) .explore-experience-card,
+html:not(.dark-mode) .explore-destination-card,
+html:not(.dark-mode) .district-search input,
+html:not(.dark-mode) .district-filter select,
+html:not(.dark-mode) .district-card,
+html:not(.dark-mode) .district-no-result,
+html:not(.dark-mode) .district-modal-dialog {
+    background: #ffffff !important;
+}
+
+html.dark-mode .explore-intro-section,
+html.dark-mode .explore-experiences-section,
+html.dark-mode .explore-destinations-section,
+html.dark-mode .district-explorer-section {
+    background: #12100e !important;
+}
+
+html.dark-mode .explore-experience-card,
+html.dark-mode .explore-destination-card,
+html.dark-mode .district-card,
+html.dark-mode .district-no-result,
+html.dark-mode .district-modal-dialog {
+    background: #1b1713 !important;
+    color: #f4eee5;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+html.dark-mode .explore-intro-content h2,
+html.dark-mode .explore-section-heading h2,
+html.dark-mode .explore-destination-heading h2,
+html.dark-mode .explore-experience-card h3,
+html.dark-mode .district-heading h2,
+html.dark-mode .district-card,
+html.dark-mode .district-no-result h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .explore-intro-content p,
+html.dark-mode .explore-section-heading p,
+html.dark-mode .explore-destination-heading p,
+html.dark-mode .explore-experience-card p,
+html.dark-mode .district-heading p,
+html.dark-mode .district-no-result p {
+    color: #b9aea1 !important;
+}
+
+html.dark-mode .district-search input,
+html.dark-mode .district-filter select {
+    background: #241d17 !important;
+    color: #f4eee5 !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+
 .district-detail-number {
     display: flex;
 
@@ -3060,6 +3182,96 @@ section.explore-final-cta a.explore-final-btn:active {
 
     color: #1B120C;
 
+
+
+/* =========================================================
+   EXPLORE THEME SURFACES AND CONTROLS
+   ========================================================= */
+
+.explore-page .inner-back-button,
+.explore-page .navbar-toggler,
+.explore-page button,
+.explore-page .nav-cta,
+.explore-page .explore-personality-btn,
+.explore-page .explore-final-btn,
+.explore-page .district-detail-link {
+    border-radius: 12px !important;
+}
+
+.explore-page .district-search input,
+.explore-page .district-filter select {
+    border-radius: 12px;
+}
+
+.explore-page .district-modal-dialog {
+    border-radius: 18px;
+}
+
+html:not(.dark-mode) .explore-intro-section,
+html:not(.dark-mode) .explore-experiences-section,
+html:not(.dark-mode) .explore-destinations-section,
+html:not(.dark-mode) .district-explorer-section,
+html:not(.dark-mode) .explore-experience-card,
+html:not(.dark-mode) .explore-destination-card,
+html:not(.dark-mode) .district-search input,
+html:not(.dark-mode) .district-filter select,
+html:not(.dark-mode) .district-card,
+html:not(.dark-mode) .district-no-result,
+html:not(.dark-mode) .district-modal-dialog {
+    background: #ffffff;
+}
+
+html.dark-mode .explore-intro-section,
+html.dark-mode .explore-experiences-section,
+html.dark-mode .explore-destinations-section,
+html.dark-mode .district-explorer-section {
+    background: #12100e !important;
+    color: #f4eee5;
+}
+
+html.dark-mode .explore-experience-card,
+html.dark-mode .explore-destination-card,
+html.dark-mode .district-card,
+html.dark-mode .district-no-result,
+html.dark-mode .district-modal-dialog {
+    background: #1b1713 !important;
+    color: #f4eee5;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+html.dark-mode .explore-intro-content h2,
+html.dark-mode .explore-section-heading h2,
+html.dark-mode .explore-destination-heading h2,
+html.dark-mode .explore-experience-card h3,
+html.dark-mode .district-heading h2,
+html.dark-mode .district-card,
+html.dark-mode .district-no-result h3 {
+    color: #f4eee5;
+}
+
+html.dark-mode .explore-intro-content p,
+html.dark-mode .explore-section-heading p,
+html.dark-mode .explore-destination-heading p,
+html.dark-mode .explore-experience-card p,
+html.dark-mode .district-heading p,
+html.dark-mode .district-no-result p {
+    color: #b9aea1;
+}
+
+html.dark-mode .district-search input,
+html.dark-mode .district-filter select {
+    background: #241d17 !important;
+    color: #f4eee5;
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark-mode .district-search input::placeholder {
+    color: #9c9083;
+}
+
+html.dark-mode .district-grid {
+    border-color: rgba(255, 255, 255, 0.12);
+}
     transform:
         rotate(90deg);
 }

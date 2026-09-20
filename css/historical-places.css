@@ -76,6 +76,39 @@
     border-color: var(--color-secondary) !important;
 }
 
+.historical-navbar .nav-cta,
+.historical-navbar .nav-cta:link,
+.historical-navbar .nav-cta:visited,
+.historical-navbar .nav-cta:active {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 150px;
+    padding: 10px 18px;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
+    background: transparent !important;
+    color: #ffffff !important;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.historical-navbar .nav-cta:hover {
+    border-color: #d4a017 !important;
+    background: #d4a017 !important;
+    color: #1b120c !important;
+}
+
+.historical-navbar .nav-cta i {
+    color: inherit !important;
+}
+
 
 /* ========================================
    HERO
@@ -540,6 +573,18 @@
     line-height: 1.9;
 }
 
+html.dark-mode .history-stories-section {
+    background: #12100e !important;
+}
+
+html.dark-mode .history-stories-heading h2 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .history-stories-heading p {
+    color: #c9bdb0 !important;
+}
+
 
 /* STORY */
 
@@ -574,6 +619,7 @@
 .history-story-image {
     position: relative;
     min-height: 540px;
+    height: 100%;
     overflow: hidden;
     background: #e8e1d6;
 }
@@ -593,6 +639,18 @@
     display: block;
     object-fit: cover;
     transition: transform 0.8s ease;
+}
+
+.history-story-image,
+.history-story-image img {
+    min-height: 100%;
+}
+
+.history-story-content {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
 }
 
 .history-story:hover .history-story-image img {
@@ -657,6 +715,8 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
+    width: 100%;
+    min-width: 0;
     margin: 35px 0 32px;
     border-top: 1px solid rgba(27, 27, 27, 0.12);
     border-bottom: 1px solid rgba(27, 27, 27, 0.12);
@@ -664,6 +724,7 @@
 
 .history-story-facts div {
     min-height: 88px;
+    min-width: 0;
     padding: 18px 14px 18px 0;
     border-right: 1px solid rgba(27, 27, 27, 0.12);
 }
@@ -688,6 +749,7 @@
 
 .history-story-facts span {
     display: block;
+    overflow-wrap: anywhere;
     color: #333333 !important;
     font-size: 0.72rem;
     line-height: 1.5;
@@ -2281,4 +2343,120 @@ section.history-final-cta a.history-final-btn:active {
     background-color: #D4A017 !important;
 
     text-decoration: none !important;
+}
+
+/* =========================================================
+   DARK MODE — HISTORICAL PAGE SURFACES
+   ========================================================= */
+
+html.dark-mode .history-intro-section,
+html.dark-mode .historical-destinations,
+html.dark-mode .history-stories-section,
+html.dark-mode .history-why-section {
+    background: #12100e !important;
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .history-destination,
+html.dark-mode .history-why-card {
+    background: #1b1713 !important;
+    border-color: rgba(255, 255, 255, .10) !important;
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .history-intro-section h2,
+html.dark-mode .historical-section-heading h2,
+html.dark-mode .history-stories-heading h2,
+html.dark-mode .history-why-heading h2,
+html.dark-mode .history-story-content h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .history-intro-text,
+html.dark-mode .historical-section-heading > p,
+html.dark-mode .history-stories-heading p,
+html.dark-mode .history-story-lead,
+html.dark-mode .history-story-content > p:not(.history-story-lead),
+html.dark-mode .history-why-card p {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .history-intro-section h2 span,
+html.dark-mode .historical-section-heading h2 em,
+html.dark-mode .history-why-heading h2 em,
+html.dark-mode .history-story-content .section-eyebrow,
+html.dark-mode .history-story-facts strong,
+html.dark-mode .history-story-link {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .history-story-facts {
+    border-color: rgba(255, 255, 255, .12);
+}
+
+html.dark-mode .history-story-facts div {
+    border-right-color: rgba(255, 255, 255, .12);
+}
+
+html.dark-mode .history-story-facts span {
+    color: #c9bdb0 !important;
+}
+
+/* =========================================================
+   FOOTER — STRUCTURED BRAND COLUMN
+   ========================================================= */
+
+.site-footer .footer-brand {
+    display: block !important;
+    align-items: initial;
+}
+
+.site-footer .footer-logo {
+    white-space: nowrap;
+}
+
+/* Keep story content readable before the full mobile breakpoint. */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+
+    .history-story,
+    .history-story-reverse {
+        grid-template-columns: 1fr;
+        gap: 42px;
+    }
+
+    .history-story-reverse .history-story-image {
+        order: 1;
+    }
+
+    .history-story-reverse .history-story-content {
+        order: 2;
+    }
+
+    .history-story-image,
+    .history-story-image img {
+        width: 100%;
+        min-height: 460px;
+        height: 460px;
+    }
+
+    .history-story-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .history-story-image,
+    .history-story-image img {
+        min-height: 620px;
+        height: 620px;
+    }
+
+    .history-story-content {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
 }

@@ -1,3 +1,35 @@
+/* Navbar CTA */
+.personalities-navbar .nav-cta,
+.personalities-navbar .nav-cta:link,
+.personalities-navbar .nav-cta:visited,
+.personalities-navbar .nav-cta:active {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 150px;
+    padding: 10px 18px;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
+    background: transparent !important;
+    color: #ffffff !important;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.personalities-navbar .nav-cta:hover {
+    border-color: #d4a017 !important;
+    background: #d4a017 !important;
+    color: #1b120c !important;
+}
+
+.personalities-navbar .nav-cta i {
+    color: inherit !important;
+}
 /* =========================================================
    DISCOVER BIHAR — FAMOUS PERSONALITIES
    personalities.css
@@ -1496,4 +1528,58 @@ section.personality-final-cta a.personality-final-btn:active {
     .personality-feature-card:hover .personality-feature-image img {
         transform: none !important;
     }
+}
+
+
+/* Personalities theme surfaces */
+
+html:not(.dark-mode) .personality-intro-section,
+html:not(.dark-mode) .personality-highlights-section,
+html:not(.dark-mode) .personality-legacy-section,
+html:not(.dark-mode) .personality-timeline-section,
+html:not(.dark-mode) .personality-feature-card,
+html:not(.dark-mode) .personality-legacy-card {
+    background: #ffffff !important;
+}
+
+html.dark-mode .personality-intro-section,
+html.dark-mode .personality-highlights-section,
+html.dark-mode .personality-legacy-section,
+html.dark-mode .personality-timeline-section {
+    background: #12100e !important;
+    color: #f4eee5;
+}
+
+html.dark-mode .personality-feature-card,
+html.dark-mode .personality-legacy-card {
+    background: #1b1713 !important;
+    color: #f4eee5;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+html.dark-mode .personality-intro-text h2,
+html.dark-mode .personality-section-heading h2,
+html.dark-mode .personality-highlights-heading h2,
+html.dark-mode .personality-timeline-heading h2,
+html.dark-mode .personality-feature-content h3,
+html.dark-mode .personality-legacy-card h3,
+html.dark-mode .personality-timeline-item h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .personality-intro-text p,
+html.dark-mode .personality-section-heading p,
+html.dark-mode .personality-highlights-heading p,
+html.dark-mode .personality-timeline-heading p,
+html.dark-mode .personality-feature-content p,
+html.dark-mode .personality-legacy-card p,
+html.dark-mode .personality-timeline-item p,
+html.dark-mode .personality-timeline-end p {
+    color: #b9aea1 !important;
+}
+
+html.dark-mode .personality-timeline::before,
+html.dark-mode .personality-timeline-end {
+    border-color: rgba(255, 255, 255, 0.14);
+    background-color: transparent;
 }

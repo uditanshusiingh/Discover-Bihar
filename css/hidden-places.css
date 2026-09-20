@@ -1992,6 +1992,78 @@
     line-height: 1.9;
 }
 
+/* =========================================================
+   DARK MODE — HIDDEN PAGE SURFACES
+   ========================================================= */
+
+html.dark-mode .hidden-intro-section,
+html.dark-mode .hidden-destinations,
+html.dark-mode .hidden-experience-section,
+html.dark-mode .hidden-season-section {
+    background: #12100e !important;
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .hidden-destination,
+html.dark-mode .hidden-experience-card,
+html.dark-mode .hidden-season-note,
+html.dark-mode .hidden-season-card {
+    background: #1b1713 !important;
+    border-color: rgba(255, 255, 255, .10) !important;
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .hidden-intro-section h2,
+html.dark-mode .hidden-section-heading h2,
+html.dark-mode .hidden-experience-heading h2,
+html.dark-mode .hidden-season-section h2,
+html.dark-mode .hidden-experience-card h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .hidden-intro-text,
+html.dark-mode .hidden-section-heading > p,
+html.dark-mode .hidden-experience-heading p,
+html.dark-mode .hidden-season-section > .container > .row > .col-lg-6:first-child > p,
+html.dark-mode .hidden-experience-card p,
+html.dark-mode .hidden-season-note span {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .hidden-intro-section h2 span,
+html.dark-mode .hidden-section-heading h2 em,
+html.dark-mode .hidden-experience-heading h2 em,
+html.dark-mode .hidden-season-section h2 em,
+html.dark-mode .hidden-season-card span,
+html.dark-mode .hidden-season-note > i {
+    color: #d4a017 !important;
+}
+
+.hidden-navbar .btn-heritage {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+.hidden-navbar .btn-heritage:hover {
+    border-color: #d4a017 !important;
+    background: #d4a017 !important;
+    color: #1b120c !important;
+}
+
+.hidden-navbar .btn-heritage {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 10px 18px !important;
+    background: transparent !important;
+    border-radius: 50px !important;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
 
 /* =========================================================
    FOOTER HEADINGS
@@ -2203,6 +2275,68 @@
     .site-footer .footer-socials a {
         width: 39px;
         height: 39px;
+    }
+
+}
+
+/* Keep the footer brand and description in a clean column. */
+.site-footer .footer-brand {
+    display: block !important;
+    align-items: initial;
+}
+
+.site-footer .footer-logo {
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+
+    .hidden-intro-section {
+        padding: 82px 0 72px;
+    }
+
+    .hidden-destinations {
+        padding: 78px 0 86px;
+    }
+
+    .hidden-section-heading {
+        margin-bottom: 48px;
+    }
+
+    .hidden-destination {
+        min-height: 460px;
+        margin-bottom: 72px;
+    }
+
+    .hidden-destination-image {
+        min-height: 460px;
+    }
+
+    .hidden-stories-section {
+        padding: 88px 0;
+    }
+
+    .hidden-story {
+        margin-bottom: 78px;
+    }
+
+    .hidden-story-image {
+        min-height: 450px;
+    }
+
+    .hidden-experience-section,
+    .hidden-season-section,
+    .hidden-why-section {
+        padding: 88px 0;
+    }
+
+    .hidden-experience-heading,
+    .hidden-why-heading {
+        margin-bottom: 46px;
+    }
+
+    .hidden-final-cta {
+        padding: 82px 0;
     }
 
 }

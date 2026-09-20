@@ -56,24 +56,20 @@
     ========================================== -->
 
     <!-- Our own CSS file -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=footer-credit2">
 
 
     <!-- =========================================
          Ask Bihar CSS
     ========================================== -->
 
-    <link rel="stylesheet" href="css/ask-bihar.css">
+    <link rel="stylesheet" href="css/ask-bihar.css?v=input-responsive2">
 
 </head>
 
 <!-- ASK BIHAR AI CHATBOT -->
 
-<button
-    type="button"
-    class="ask-bihar-launcher"
-    id="askBiharLauncher"
-    aria-label="Open Ask Bihar AI"
+<button type="button" class="ask-bihar-launcher" id="askBiharLauncher" aria-label="Open Ask Bihar AI"
     title="Ask Bihar AI">
 
     <i class="bi bi-stars"></i>
@@ -81,10 +77,7 @@
 </button>
 
 
-<div
-    class="ask-bihar-window"
-    id="askBiharWindow"
-    aria-hidden="true">
+<div class="ask-bihar-window" id="askBiharWindow" aria-hidden="true">
 
     <!-- HEADER -->
 
@@ -115,11 +108,7 @@
             </div>
 
 
-            <button
-                type="button"
-                class="ask-bihar-close"
-                id="askBiharClose"
-                aria-label="Close Ask Bihar">
+            <button type="button" class="ask-bihar-close" id="askBiharClose" aria-label="Close Ask Bihar">
 
                 <i class="bi bi-x-lg"></i>
 
@@ -129,12 +118,27 @@
 
     </div>
 
+    <!-- DISTRICT CONTEXT -->
+    <div class="ask-bihar-district-context" id="askBiharDistrictContext">
+        <div class="ask-bihar-district-info">
+            <i class="bi bi-geo-alt-fill"></i>
+
+            <div>
+                <span>EXPLORING</span>
+                <strong id="askBiharDistrictName">BIHAR</strong>
+            </div>
+        </div>
+
+        <button type="button" class="ask-bihar-district-clear" id="askBiharDistrictClear" title="Clear district context"
+            aria-label="Clear district context">
+            <i class="bi bi-x"></i>
+        </button>
+    </div>
+
 
     <!-- MESSAGES -->
 
-    <div
-        class="ask-bihar-messages"
-        id="askBiharMessages">
+    <div class="ask-bihar-messages" id="askBiharMessages">
 
         <div class="ask-bihar-message ai">
 
@@ -158,37 +162,27 @@
 
     <!-- QUICK QUESTIONS -->
 
-    <div class="ask-bihar-quick">
+    <div class="ask-bihar-quick" id="askBiharQuickQuestions">
 
-        <button type="button"
-            data-question="Bodh Gaya mein kya dekhna chahiye?">
-
-            Bodh Gaya
-
+        <button type="button" class="ask-bihar-quick-btn" data-question="Bihar mein kya explore karein?">
+            <i class="bi bi-compass"></i>
+            <span>Explore Bihar</span>
         </button>
 
-
-        <button type="button"
-            data-question="Bihar ke famous foods kaun se hain?">
-
-            Bihar Food
-
+        <button type="button" class="ask-bihar-quick-btn"
+            data-question="Bihar ke famous historical places kaun se hain?">
+            <i class="bi bi-bank"></i>
+            <span>Heritage</span>
         </button>
 
-
-        <button type="button"
-            data-question="Bihar ke famous historical places batao.">
-
-            Heritage
-
+        <button type="button" class="ask-bihar-quick-btn" data-question="Bihar ka famous food kya hai?">
+            <i class="bi bi-cup-hot"></i>
+            <span>Food</span>
         </button>
 
-
-        <button type="button"
-            data-question="Bihar ke famous festivals kaun se hain?">
-
-            Festivals
-
+        <button type="button" class="ask-bihar-quick-btn" data-question="Bihar ke famous festivals kaun se hain?">
+            <i class="bi bi-stars"></i>
+            <span>Festivals</span>
         </button>
 
     </div>
@@ -200,19 +194,11 @@
 
         <div class="ask-bihar-input-wrapper">
 
-            <textarea
-                class="ask-bihar-input"
-                id="askBiharInput"
-                rows="1"
-                placeholder="Ask something about Bihar..."
+            <textarea class="ask-bihar-input" id="askBiharInput" rows="1" placeholder="Ask something about Bihar..."
                 aria-label="Ask something about Bihar"></textarea>
 
 
-            <button
-                type="button"
-                class="ask-bihar-send"
-                id="askBiharSend"
-                aria-label="Send message">
+            <button type="button" class="ask-bihar-send" id="askBiharSend" aria-label="Send message">
 
                 <i class="bi bi-arrow-up"></i>
 
@@ -2258,10 +2244,6 @@
                                 </span>
 
 
-                                <div class="personality-number">
-                                    01
-                                </div>
-
                             </div>
 
 
@@ -2317,10 +2299,6 @@
                                     c. 476 — 550
                                 </span>
 
-
-                                <div class="personality-number">
-                                    02
-                                </div>
 
                             </div>
 
@@ -2378,10 +2356,6 @@
                                 </span>
 
 
-                                <div class="personality-number">
-                                    03
-                                </div>
-
                             </div>
 
 
@@ -2437,10 +2411,6 @@
                                     1666 — 1708
                                 </span>
 
-
-                                <div class="personality-number">
-                                    04
-                                </div>
 
                             </div>
 
@@ -3144,272 +3114,6 @@
         </section>
 
 
-        <!-- /* =========================================================
-        EXPLORE BIHAR — INDEPENDENT INTERACTION
-        ========================================================= */ -->
-
-        <script>
-
-            document.addEventListener("DOMContentLoaded", function () {
-
-                const cards = document.querySelectorAll(
-                    ".experience-card[data-explore]"
-                );
-
-                const panel = document.getElementById(
-                    "exploreInfoPanel"
-                );
-
-                const title = document.getElementById(
-                    "exploreInfoTitle"
-                );
-
-                const text = document.getElementById(
-                    "exploreInfoText"
-                );
-
-                const link = document.getElementById(
-                    "exploreInfoLink"
-                );
-
-                const prevButton = document.querySelector(
-                    ".explorer-prev"
-                );
-
-                const nextButton = document.querySelector(
-                    ".explorer-next"
-                );
-
-
-                /* -----------------------------------------
-                   CHECK ELEMENTS
-                   ----------------------------------------- */
-
-                if (
-                    !cards.length ||
-                    !panel ||
-                    !title ||
-                    !text ||
-                    !link
-                ) {
-
-                    console.error(
-                        "Explore Bihar: Required elements not found."
-                    );
-
-                    return;
-                }
-
-
-                /* -----------------------------------------
-                   EXPERIENCE DATA
-                   ----------------------------------------- */
-
-                const experiences = [
-
-                    {
-                        key: "heritage",
-
-                        title: "Ancient Heritage",
-
-                        text:
-                            "Walk through ancient universities, sacred sites, historic cities and monuments that connect Bihar with some of the oldest chapters in Indian history.",
-
-                        link:
-                            "pages/historical-places.html"
-                    },
-
-
-                    {
-                        key: "hidden",
-
-                        title: "Hidden Escapes",
-
-                        text:
-                            "Discover waterfalls, forests, hills, riverside landscapes and quieter destinations that reveal a different side of Bihar.",
-
-                        link:
-                            "pages/hidden-places.html"
-                    },
-
-
-                    {
-                        key: "culture",
-
-                        title: "Living Culture",
-
-                        text:
-                            "Experience Madhubani art, traditional crafts, folk traditions, rituals and cultural expressions that continue to evolve across Bihar.",
-
-                        link:
-                            "pages/art-culture.html"
-                    },
-
-
-                    {
-                        key: "food",
-
-                        title: "Taste Bihar",
-
-                        text:
-                            "From litti chokha to khaja and traditional festive sweets, explore flavours that carry stories of Bihar's homes, streets and celebrations.",
-
-                        link:
-                            "pages/food.html"
-                    }
-
-                ];
-
-
-                let currentIndex = 0;
-
-
-                /* -----------------------------------------
-                   UPDATE EXPERIENCE
-                   ----------------------------------------- */
-
-                function updateExperience(index) {
-
-                    if (index < 0) {
-                        index = experiences.length - 1;
-                    }
-
-                    if (index >= experiences.length) {
-                        index = 0;
-                    }
-
-                    currentIndex = index;
-
-                    const experience =
-                        experiences[currentIndex];
-
-
-                    /* Update text */
-
-                    title.textContent =
-                        experience.title;
-
-                    text.textContent =
-                        experience.text;
-
-                    link.href =
-                        experience.link;
-
-
-                    /* Update active card */
-
-                    cards.forEach(function (card) {
-
-                        card.classList.remove(
-                            "explore-active"
-                        );
-
-                    });
-
-
-                    cards[currentIndex].classList.add(
-                        "explore-active"
-                    );
-
-
-                    /* Panel animation */
-
-                    panel.classList.remove(
-                        "panel-changing"
-                    );
-
-                    void panel.offsetWidth;
-
-                    panel.classList.add(
-                        "panel-visible"
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   CARD CLICK
-                   ----------------------------------------- */
-
-                cards.forEach(function (card, index) {
-
-                    card.addEventListener(
-                        "click",
-                        function (event) {
-
-                            event.preventDefault();
-
-                            updateExperience(index);
-
-                        }
-                    );
-
-                });
-
-
-                /* -----------------------------------------
-                   PREVIOUS BUTTON
-                   ----------------------------------------- */
-
-                if (prevButton) {
-
-                    prevButton.addEventListener(
-                        "click",
-                        function (event) {
-
-                            event.preventDefault();
-
-                            event.stopPropagation();
-
-                            updateExperience(
-                                currentIndex - 1
-                            );
-
-                        }
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   NEXT BUTTON
-                   ----------------------------------------- */
-
-                if (nextButton) {
-
-                    nextButton.addEventListener(
-                        "click",
-                        function (event) {
-
-                            event.preventDefault();
-
-                            event.stopPropagation();
-
-                            updateExperience(
-                                currentIndex + 1
-                            );
-
-                        }
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   INITIAL EXPERIENCE
-                   ----------------------------------------- */
-
-                updateExperience(0);
-
-
-                console.log(
-                    "Explore Bihar interaction loaded successfully."
-                );
-
-            });
-
-        </script>
-
         <!-- Travel Bihar Section -->
         <section class="travel-section" id="travel">
 
@@ -3858,39 +3562,6 @@
 
                 </div>
 
-
-                <!-- Technology Strip -->
-                <div class="about-tech-strip">
-
-                    <span>BUILT WITH</span>
-
-                    <div class="tech-item">
-                        <i class="bi bi-filetype-html"></i>
-                        HTML5
-                    </div>
-
-                    <div class="tech-item">
-                        <i class="bi bi-filetype-css"></i>
-                        CSS3
-                    </div>
-
-                    <div class="tech-item">
-                        <i class="bi bi-bootstrap"></i>
-                        Bootstrap 5
-                    </div>
-
-                    <div class="tech-item">
-                        <i class="bi bi-filetype-js"></i>
-                        JavaScript
-                    </div>
-
-                    <div class="tech-item">
-                        <i class="bi bi-phone"></i>
-                        Responsive Design
-                    </div>
-
-                </div>
-
             </div>
 
         </section>
@@ -4056,6 +3727,10 @@
                     and every journey tells a story.
                 </p>
 
+                <span class="footer-credit">
+                    Created with ❤️ by Uditanshu Kumar
+                </span>
+
             </div>
 
 
@@ -4144,7 +3819,7 @@
          CUSTOM JAVASCRIPT
     ========================================== -->
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=simple-footer1"></script>
 
     <!-- BACK TO TOP -->
     <a href="#hero" class="back-to-top" aria-label="Back to top">

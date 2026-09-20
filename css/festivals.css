@@ -62,27 +62,30 @@
 
     gap: 9px;
 
-    padding: 11px 18px;
+    min-width: 150px;
+    padding: 10px 18px;
 
-    background: #D4A017 !important;
-    color: #1B120C !important;
+    background: transparent !important;
+    color: #ffffff !important;
 
-    border: 1px solid #D4A017;
-    border-radius: 0;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
 
-    font-size: 0.65rem;
-    font-weight: 700;
+    font-size: 0.72rem;
+    font-weight: 600;
 
-    letter-spacing: 1px;
+    line-height: 1.2;
+    letter-spacing: 0;
 
     text-decoration: none !important;
-    text-transform: uppercase;
+    white-space: nowrap;
 
     transition: all 0.3s ease;
 }
 
 .festivals-navbar .nav-cta:hover {
-    background: #E5B32C !important;
+    background: #D4A017 !important;
+    border-color: #D4A017 !important;
     color: #1B120C !important;
 
     transform: translateY(-2px);
@@ -2475,4 +2478,52 @@ section.festival-final-cta a.festival-final-btn:hover i,
         transform: none !important;
     }
 
+}
+
+
+/* Festivals theme surfaces */
+
+html:not(.dark-mode) .festival-intro-section,
+html:not(.dark-mode) .festival-highlights-section,
+html:not(.dark-mode) .festival-experience-section,
+html:not(.dark-mode) .festival-calendar-section,
+html:not(.dark-mode) .festival-why-section,
+html:not(.dark-mode) .festival-highlights-section .festival-feature-card,
+html:not(.dark-mode) .festival-experience-card,
+html:not(.dark-mode) .festival-why-card {
+    background: #ffffff !important;
+}
+
+html.dark-mode .festival-intro-section,
+html.dark-mode .festival-highlights-section,
+html.dark-mode .festival-experience-section,
+html.dark-mode .festival-calendar-section,
+html.dark-mode .festival-why-section {
+    background: #12100e !important;
+    color: #f4eee5;
+}
+
+html.dark-mode .festival-highlights-section .festival-feature-card,
+html.dark-mode .festival-experience-card,
+html.dark-mode .festival-why-card {
+    background: #1b1713 !important;
+    color: #f4eee5;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+html.dark-mode .festival-intro-section h2,
+html.dark-mode .festival-section-heading h2,
+html.dark-mode .festival-experience-heading h2,
+html.dark-mode .festival-calendar-heading h2,
+html.dark-mode .festival-experience-card h3,
+html.dark-mode .festival-why-card h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .festival-intro-text,
+html.dark-mode .festival-section-heading > p,
+html.dark-mode .festival-experience-card p,
+html.dark-mode .festival-calendar-heading p,
+html.dark-mode .festival-why-card p {
+    color: #b9aea1 !important;
 }

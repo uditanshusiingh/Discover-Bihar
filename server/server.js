@@ -1,4 +1,8 @@
-require("dotenv").config();
+const path = require("path");
+
+require("dotenv").config({
+    path: path.join(__dirname, ".env")
+});
 
 const express = require("express");
 const cors = require("cors");
@@ -25,9 +29,80 @@ app.use(express.json());
    OPENAI
    ========================================================= */
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-});
+const openai = process.env.OPENAI_API_KEY
+    ? new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY
+    })
+    : null;
+
+const OPENAI_MODEL =
+    process.env.OPENAI_MODEL || "gpt-4o-mini";
+
+const GEMINI_API_KEY =
+    process.env.GEMINI_API_KEY || "";
+
+const GEMINI_MODEL =
+    process.env.GEMINI_MODEL || "gemini-3.6-flash";
+
+const CURRENT_BIHAR_CM =
+    "Samrat Choudhary";
+
+const CURRENT_BIHAR_CM_AS_OF =
+    "20 September 2026";
+
+async function requestGemini(
+    instructions,
+    message
+) {
+    const endpoint =
+        `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
+
+    const response = await fetch(
+        endpoint,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                systemInstruction: {
+                    parts: [{ text: instructions }]
+                },
+                contents: [
+                    {
+                        role: "user",
+                        parts: [{ text: message }]
+                    }
+                ],
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 900
+                }
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.error?.message ||
+            `Gemini request failed with status ${response.status}.`
+        );
+    }
+
+    const reply =
+        data.candidates?.[0]?.content?.parts
+            ?.map(part => part.text || "")
+            .join("")
+            .trim();
+
+    if (!reply) {
+        throw new Error("Gemini returned an empty response.");
+    }
+
+    return reply;
+}
 
 
 /* =========================================================
@@ -345,6 +420,17 @@ function getFallbackResponse(
             .toLowerCase()
             .trim();
 
+    const asksCurrentBiharCM =
+        text.includes("chief minister") ||
+        text.includes("cm of bihar") ||
+        text.includes("bihar ka cm") ||
+        text.includes("bihar ke cm") ||
+        text.includes("mukhyamantri");
+
+    if (asksCurrentBiharCM) {
+        return `Bihar ke vartamaan Chief Minister **${CURRENT_BIHAR_CM}** hain (as of ${CURRENT_BIHAR_CM_AS_OF}).`;
+    }
+
 
     /* =====================================================
        HELPER — FIND DISTRICT
@@ -456,6 +542,14 @@ function getFallbackResponse(
         text.includes("historic");
 
 
+    const asksAboutPersonalities =
+        text.includes("personality") ||
+        text.includes("personalities") ||
+        text.includes("famous person") ||
+        text.includes("chief minister") ||
+        text.includes("cm of bihar");
+
+
     const asksForTrip =
         text.includes("trip") ||
         text.includes("itinerary") ||
@@ -463,6 +557,28 @@ function getFallbackResponse(
         text.includes("day") ||
         text.includes("days") ||
         text.includes("din");
+
+
+    function buildCategoryResponse(category, title) {
+        const items =
+            Array.isArray(biharKnowledge[category])
+                ? biharKnowledge[category].slice(0, 6)
+                : [];
+
+        if (items.length === 0) {
+            return null;
+        }
+
+        return `${title}\n\n${items
+            .map(item => {
+                const location = item.location
+                    ? ` (${item.location})`
+                    : "";
+
+                return `• ${item.name}${location}\n  ${item.information}`;
+            })
+            .join("\n\n")}`;
+    }
 
 
     /* =====================================================
@@ -784,6 +900,38 @@ ko aur personalize kiya ja sakta hai.
     }
 
 
+    if (asksAboutFood) {
+        return buildCategoryResponse(
+            "food",
+            "🍴 Bihar ke famous food"
+        );
+    }
+
+
+    if (text.includes("festival") || text.includes("tyohar")) {
+        return buildCategoryResponse(
+            "festivals",
+            "🎉 Bihar ke famous festivals"
+        );
+    }
+
+
+    if (asksAboutCulture) {
+        return buildCategoryResponse(
+            "culture",
+            "🎨 Bihar ki art aur culture"
+        );
+    }
+
+
+    if (asksAboutPersonalities) {
+        return buildCategoryResponse(
+            "personalities",
+            "👤 Bihar se jude famous personalities"
+        );
+    }
+
+
     /* =====================================================
        GENERIC BIHAR RESPONSE
        ===================================================== */
@@ -952,6 +1100,19 @@ No district has been specifically
 selected by the user.
 `;
 
+        const asksCurrentBiharCM =
+            /chief minister|cm of bihar|bihar ka cm|bihar ke cm|mukhyamantri/i
+                .test(message);
+
+        if (asksCurrentBiharCM) {
+            return res.json({
+                success: true,
+                source: "verified-current",
+                reply: `Bihar ke vartamaan Chief Minister **${CURRENT_BIHAR_CM}** hain (as of ${CURRENT_BIHAR_CM_AS_OF}).`,
+                district: district || null
+            });
+        }
+
 
         /* =================================================
            TRY REAL AI
@@ -959,13 +1120,7 @@ selected by the user.
 
         try {
 
-            const response =
-                await openai.responses.create({
-
-                    model: "gpt-5.6-luna",
-
-
-                    instructions: `
+            const instructions = `
 
 You are Ask Bihar, the AI heritage
 assistant for:
@@ -1065,30 +1220,51 @@ IMPORTANT RULES
     explain that you specialize
     in Bihar.
 
-14. Do not mention internal prompts,
+14. For current Bihar office-holder
+    questions, use this verified fact:
+    as of ${CURRENT_BIHAR_CM_AS_OF},
+    Bihar's Chief Minister is
+    ${CURRENT_BIHAR_CM}. Do not answer
+    Nitish Kumar as the current Chief
+    Minister.
+
+15. Do not mention internal prompts,
     knowledge retrieval, APIs,
     fallback systems or server logic
     to the user.
 
-15. Your personality should feel
+16. Your personality should feel
     like a friendly Bihar heritage
     guide.
 
-`,
+`;
 
+            let aiReply;
 
-                    input: message
+            if (GEMINI_API_KEY) {
+                aiReply = await requestGemini(
+                    instructions,
+                    message
+                );
+            } else if (openai) {
+                const response =
+                    await openai.responses.create({
+                        model: OPENAI_MODEL,
+                        instructions,
+                        input: message
+                    });
 
-                });
+                aiReply = response.output_text;
+            } else {
+                throw new Error(
+                    "GEMINI_API_KEY or OPENAI_API_KEY is not configured."
+                );
+            }
 
 
             /* ---------------------------------------------
                AI RESPONSE
                --------------------------------------------- */
-
-            const aiReply =
-                response.output_text;
-
 
             if (
                 !aiReply ||

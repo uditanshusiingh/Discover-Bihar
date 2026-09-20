@@ -6370,6 +6370,15 @@ img {
     overflow: hidden;
 }
 
+.site-footer .footer-main,
+.site-footer .footer-quote {
+    display: none !important;
+}
+
+.site-footer .footer-bottom {
+    margin-top: 0;
+}
+
 .site-footer::before {
     content: "";
     position: absolute;
@@ -6535,6 +6544,7 @@ img {
     position: relative;
     z-index: 2;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 15px;
@@ -6557,6 +6567,14 @@ img {
     font-style: italic;
 }
 
+.footer-credit {
+    flex-basis: 100%;
+    margin-top: -4px;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.65rem;
+    letter-spacing: 0.7px;
+}
+
 
 /* Footer Bottom */
 
@@ -6568,6 +6586,25 @@ img {
     gap: 30px;
     min-height: 75px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-created-by {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.62rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 575px) {
+    .footer-created-by {
+        position: static;
+        width: 100%;
+        order: -1;
+        transform: none;
+    }
 }
 
 .footer-copyright {
@@ -6619,6 +6656,95 @@ img {
     background: var(--color-secondary);
     color: #151310;
     transform: translateY(-3px);
+}
+
+
+/* Structured footer variant */
+
+.site-footer .footer-main:has(.footer-links) {
+    grid-template-columns: minmax(220px, 1.1fr) minmax(300px, 1.55fr) minmax(180px, 0.75fr);
+    gap: 70px;
+    align-items: start;
+}
+
+.site-footer .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px;
+}
+
+.site-footer .footer-links > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.site-footer .footer-links h4,
+.site-footer .footer-social h4 {
+    margin: 0 0 8px;
+}
+
+.site-footer .footer-links a {
+    display: block;
+    width: fit-content;
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+
+.site-footer .footer-social {
+    min-width: 0;
+}
+
+.site-footer .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 13px;
+}
+
+.site-footer .social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    transition: all 0.25s ease;
+}
+
+.site-footer .social-icons a:hover {
+    border-color: var(--color-secondary);
+    background: var(--color-secondary);
+    color: #151310 !important;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 991px) {
+    .site-footer .footer-main:has(.footer-links) {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 42px;
+    }
+
+    .site-footer .footer-main:has(.footer-links) .footer-social {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 575px) {
+    .site-footer .footer-main:has(.footer-links) {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 38px;
+    }
+
+    .site-footer .footer-links {
+        gap: 28px;
+    }
+
+    .site-footer .footer-main:has(.footer-links) .footer-social {
+        grid-column: auto;
+    }
 }
 
 
@@ -9385,4 +9511,476 @@ button.theme-toggle:focus-visible,
 
         margin-right: 6px !important;
     }
+}
+
+/* =========================================================
+   RESPONSIVE NAVBAR — COMPACT TABLET / MOBILE
+   ========================================================= */
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+    .navbar .container {
+        max-width: 100%;
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .navbar-brand i {
+        font-size: 1.1rem;
+    }
+
+    .navbar .nav-link {
+        margin-right: 4px;
+        margin-left: 4px;
+        font-size: .76rem;
+    }
+
+    .site-search-btn {
+        width: 38px;
+        height: 38px;
+        margin-right: 6px;
+    }
+
+    .navbar .btn {
+        padding-right: 12px !important;
+        padding-left: 12px !important;
+        white-space: nowrap;
+    }
+
+    .navbar .btn i {
+        display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+
+    .navbar .container {
+        flex-wrap: wrap;
+    }
+
+    .navbar-brand {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .navbar-toggler {
+        flex: 0 0 auto;
+    }
+
+    .navbar-collapse {
+        flex-basis: 100%;
+        width: 100%;
+    }
+
+    .navbar-collapse.show {
+        max-height: calc(100vh - 92px);
+        overflow-y: auto;
+    }
+
+    .navbar-nav {
+        align-items: stretch !important;
+    }
+
+    .navbar-nav #openSearch {
+        align-self: flex-start;
+        margin: 10px 0 4px;
+    }
+
+    .navbar-nav .nav-item,
+    .navbar-nav .nav-item .btn {
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .navbar .site-search-btn {
+        width: 42px !important;
+        min-width: 42px !important;
+        max-width: 42px !important;
+        height: 42px !important;
+        min-height: 42px !important;
+        max-height: 42px !important;
+        flex: 0 0 42px !important;
+        aspect-ratio: 1;
+    }
+
+    .navbar .nav-item:last-child .btn {
+        min-width: 188px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        white-space: nowrap !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+    .navbar .site-search-btn {
+        width: 38px !important;
+        min-width: 38px !important;
+        max-width: 38px !important;
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        flex: 0 0 38px !important;
+        aspect-ratio: 1;
+    }
+
+    .navbar .nav-item:last-child .btn {
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        white-space: nowrap !important;
+    }
+}
+
+/* =========================================================
+   DARK MODE — READABLE TYPOGRAPHY
+   ========================================================= */
+
+html.dark-mode body h1,
+html.dark-mode body h2,
+html.dark-mode body h3,
+html.dark-mode body h4,
+html.dark-mode body h5,
+html.dark-mode body h6 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode body h1 em,
+html.dark-mode body h2 em,
+html.dark-mode body h3 em,
+html.dark-mode body h4 em,
+html.dark-mode body h5 em,
+html.dark-mode body h6 em {
+    color: #d4a017 !important;
+}
+
+html.dark-mode body p,
+html.dark-mode body li {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .explore-bottom {
+    border-top-color: rgba(255, 255, 255, .14);
+}
+
+html.dark-mode .explore-bottom strong {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .explore-bottom span {
+    color: #b9aea1 !important;
+}
+
+html.dark-mode .explore-all-link,
+html.dark-mode .explore-all-link:hover {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .travel-info-card {
+    background: #1b1713;
+    border-color: rgba(255, 255, 255, .10);
+}
+
+html.dark-mode .travel-info-icon {
+    border-color: rgba(212, 160, 23, .28);
+    color: #d4a017;
+}
+
+html.dark-mode .travel-info-card h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .travel-info-card p {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .about-project-section {
+    background: #12100e;
+}
+
+html.dark-mode .about-highlight {
+    background: #1b1713;
+    border-color: rgba(255, 255, 255, .10);
+}
+
+html.dark-mode .about-highlight-icon {
+    background: rgba(212, 160, 23, .12);
+    color: #d4a017;
+}
+
+html.dark-mode .about-highlight strong {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .about-highlight span {
+    color: #b9aea1 !important;
+}
+
+html.dark-mode .about-philosophy {
+    border-top-color: rgba(255, 255, 255, .12);
+    border-bottom-color: rgba(255, 255, 255, .12);
+}
+
+html.dark-mode .philosophy-content h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .philosophy-text {
+    border-left-color: rgba(255, 255, 255, .12);
+}
+
+html.dark-mode .philosophy-text p {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .personalities-section {
+    background-color: #12100e !important;
+}
+
+html.dark-mode .personalities-section .section-label {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .personalities-section .section-title {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .personalities-section .personality-title-highlight {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .personalities-section .section-subtitle {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .personalities-section .personality-view-link {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .historical-section {
+    background-color: #12100e;
+}
+
+html.dark-mode .historical-section .section-title {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .historical-section .heritage-title-highlight {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .historical-section .section-subtitle {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .historical-section .view-all-link {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .about-bihar-section {
+    background-color: #12100e;
+}
+
+html.dark-mode .about-bihar-section .section-label {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .about-bihar-section .about-title {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .about-bihar-section .about-title span {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .about-bihar-section .about-lead {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .about-bihar-section .about-text,
+html.dark-mode .about-bihar-section .about-stat p {
+    color: #c9bdb0 !important;
+}
+
+html.dark-mode .about-bihar-section .about-stat h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .about-bihar-section .stat-icon {
+    background-color: rgba(212, 160, 23, .12);
+    color: #d4a017;
+}
+
+html.dark-mode .personalities-section .personality-card {
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .personalities-section .personality-content > span,
+html.dark-mode .personalities-section .personality-link {
+    color: #d4a017 !important;
+}
+
+html.dark-mode .personalities-section .personality-content h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .personalities-section .personality-content p {
+    color: #c9bdb0 !important;
+}
+
+/* =========================================================
+   INNER PAGES — STICKY BACK ARROW
+   ========================================================= */
+
+.inner-back-button {
+    position: fixed;
+    top: 20px;
+    left: max(18px, calc((100vw - 1320px) / 2));
+    z-index: 1100;
+
+    width: 44px;
+    height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, .32);
+    border-radius: 50%;
+    background: rgba(27, 18, 12, .72);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .3s ease, transform .3s ease, background-color .25s ease;
+}
+
+.inner-back-button:hover {
+    background: #d4a017;
+    color: #1b120c;
+    transform: translateY(-2px);
+}
+
+.inner-back-button.is-idle-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+}
+
+html.dark-mode .inner-back-button {
+    border-color: rgba(255, 255, 255, .28);
+    background: rgba(18, 16, 14, .82);
+}
+
+@media (max-width: 991.98px) {
+    .inner-back-button {
+        top: 14px;
+        left: 14px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* Dark mode dropdowns */
+
+html.dark-mode .navbar .dropdown-menu {
+    background: #1b1713 !important;
+    border-color: rgba(212, 160, 23, 0.24) !important;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+html.dark-mode .navbar .dropdown-item {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .navbar .dropdown-item:hover,
+html.dark-mode .navbar .dropdown-item:focus,
+html.dark-mode .navbar .dropdown-item.active {
+    background: rgba(212, 160, 23, 0.14) !important;
+    color: #D4A017 !important;
+}
+
+
+/* Global rounded controls and soft glow */
+
+button:not(.theme-toggle),
+.btn,
+.nav-cta,
+.btn-heritage,
+a[class*="-btn"] {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 22px rgba(212, 160, 23, 0.14);
+    filter: drop-shadow(0 6px 12px rgba(212, 160, 23, 0.12));
+    transition:
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+button:not(.theme-toggle):hover,
+.btn:hover,
+.nav-cta:hover,
+.btn-heritage:hover,
+a[class*="-btn"]:hover {
+    box-shadow: 0 12px 28px rgba(212, 160, 23, 0.28);
+    filter: drop-shadow(0 9px 17px rgba(212, 160, 23, 0.24));
+}
+
+/* Keep page-specific CTA rules rounded too */
+
+html body .navbar .nav-cta,
+html body .navbar .btn-heritage,
+html body button:not(.theme-toggle),
+html body .btn,
+html body section a[class*="-final-btn"],
+html body section a[class*="-story-btn"],
+html body section a[class*="-personality-btn"] {
+    border-radius: 12px !important;
+    filter: drop-shadow(0 6px 12px rgba(212, 160, 23, 0.12));
+}
+
+html body .navbar .nav-cta:hover,
+html body .navbar .btn-heritage:hover,
+html body button:not(.theme-toggle):hover,
+html body .btn:hover,
+html body section a[class*="-final-btn"]:hover,
+html body section a[class*="-story-btn"]:hover,
+html body section a[class*="-personality-btn"]:hover {
+    filter: drop-shadow(0 9px 17px rgba(212, 160, 23, 0.24));
+}
+
+html body section[class*="-final-cta"][class*="-final-cta"] a[class*="-final-btn"] {
+    border-radius: 12px !important;
+    filter: drop-shadow(0 6px 12px rgba(212, 160, 23, 0.12));
+}
+
+html body section[class*="-final-cta"][class*="-final-cta"] a[class*="-final-btn"]:hover {
+    filter: drop-shadow(0 9px 17px rgba(212, 160, 23, 0.24));
 }

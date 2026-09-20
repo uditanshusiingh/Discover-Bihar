@@ -62,27 +62,30 @@
 
     gap: 9px;
 
-    padding: 11px 18px;
+    min-width: 150px;
+    padding: 10px 18px;
 
-    background: #D4A017 !important;
-    color: #1B120C !important;
+    background: transparent !important;
+    color: #ffffff !important;
 
-    border: 1px solid #D4A017;
-    border-radius: 0;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
 
-    font-size: 0.65rem;
-    font-weight: 700;
+    font-size: 0.72rem;
+    font-weight: 600;
 
-    letter-spacing: 1px;
+    line-height: 1.2;
+    letter-spacing: 0;
 
     text-decoration: none !important;
-    text-transform: uppercase;
+    white-space: nowrap;
 
     transition: all 0.3s ease;
 }
 
 .art-navbar .nav-cta:hover {
-    background: #E5B32C !important;
+    background: #D4A017 !important;
+    border-color: #D4A017 !important;
     color: #1B120C !important;
 
     transform: translateY(-2px);

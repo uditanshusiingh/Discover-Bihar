@@ -57,25 +57,28 @@
     justify-content: center;
     gap: 9px;
 
-    padding: 11px 18px;
+    min-width: 150px;
+    padding: 10px 18px;
 
-    background: #D4A017 !important;
-    color: #1B120C !important;
+    background: transparent !important;
+    color: #ffffff !important;
 
-    border: 1px solid #D4A017;
-    border-radius: 0;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
 
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
     text-decoration: none !important;
-    text-transform: uppercase;
+    white-space: nowrap;
 
     transition: all 0.3s ease;
 }
 
 .food-navbar .nav-cta:hover {
-    background: #E5B32C !important;
+    background: #D4A017 !important;
+    border-color: #D4A017 !important;
     color: #1B120C !important;
     transform: translateY(-2px);
 }
@@ -1876,4 +1879,48 @@ section.food-final-cta a.food-final-btn:hover i,
         transform: none !important;
     }
 
+}
+
+
+/* Food theme surfaces */
+
+html:not(.dark-mode) .food-intro-section,
+html:not(.dark-mode) .food-signature-section,
+html:not(.dark-mode) .food-culture-section,
+html:not(.dark-mode) .food-guide-section,
+html:not(.dark-mode) .food-feature-card,
+html:not(.dark-mode) .food-culture-card,
+html:not(.dark-mode) .food-guide-item {
+    background: #ffffff !important;
+}
+
+html.dark-mode .food-intro-section,
+html.dark-mode .food-signature-section,
+html.dark-mode .food-culture-section,
+html.dark-mode .food-guide-section {
+    background: #12100e !important;
+    color: #f4eee5;
+}
+
+html.dark-mode .food-feature-card,
+html.dark-mode .food-culture-card,
+html.dark-mode .food-guide-item {
+    background: #1b1713 !important;
+    color: #f4eee5;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+html.dark-mode .food-intro-section h2,
+html.dark-mode .food-section-heading h2,
+html.dark-mode .food-culture-heading h2,
+html.dark-mode .food-guide-heading h2,
+html.dark-mode .food-culture-card h3 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .food-intro-text,
+html.dark-mode .food-section-heading > p,
+html.dark-mode .food-guide-heading p,
+html.dark-mode .food-culture-card p {
+    color: #b9aea1 !important;
 }

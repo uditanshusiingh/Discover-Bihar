@@ -158,6 +158,38 @@ The website will be available through the local development server, for example:
 http://127.0.0.1:5500/
 ```
 
+### 5. Enable Ask Bihar AI
+
+Install the server dependencies and create `server/.env` from `server/.env.example`:
+
+```bash
+cd server
+npm install
+copy .env.example .env
+```
+
+Set your Gemini key in `server/.env`:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.6-flash
+```
+
+OpenAI is optional and is used only when Gemini is not configured:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
+```
+
+Start the AI API:
+
+```bash
+npm start
+```
+
+The website calls the API at `http://localhost:5000/api/ask-bihar`. Keep the API key only in `server/.env`; never expose it in frontend JavaScript.
+
 ---
 
 ## 🌐 Live Demo

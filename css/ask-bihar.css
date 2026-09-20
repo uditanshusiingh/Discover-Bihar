@@ -8,8 +8,8 @@
     bottom: 28px;
     z-index: 1500;
 
-    width: 62px;
-    height: 62px;
+    width: 54px;
+    height: 54px;
 
     border: 1px solid rgba(212, 160, 23, .55);
     border-radius: 50%;
@@ -27,7 +27,7 @@
     align-items: center;
     justify-content: center;
 
-    font-size: 23px;
+    font-size: 20px;
 
     box-shadow:
         0 14px 35px rgba(0, 0, 0, .28),
@@ -81,8 +81,8 @@
 
     z-index: 1499;
 
-    width: min(410px, calc(100vw - 32px));
-    height: min(620px, calc(100vh - 135px));
+    width: min(360px, calc(100vw - 32px));
+    height: min(540px, calc(100vh - 150px));
 
     display: flex;
     flex-direction: column;
@@ -435,6 +435,9 @@
     align-items: flex-end;
     gap: 8px;
 
+    width: 100%;
+    box-sizing: border-box;
+
     padding: 6px 6px 6px 14px;
 
     background: #faf6ef;
@@ -460,7 +463,12 @@
 .ask-bihar-input {
     flex: 1;
 
+    width: 100%;
     min-width: 0;
+    min-height: 38px;
+    padding: 9px 0;
+
+    box-sizing: border-box;
 
     max-height: 90px;
 
@@ -491,6 +499,8 @@
     height: 38px;
 
     flex: 0 0 38px;
+
+    align-self: flex-end;
 
     display: flex;
     align-items: center;
@@ -730,10 +740,10 @@ html.dark-mode
         right: 17px;
         bottom: 17px;
 
-        width: 56px;
-        height: 56px;
+        width: 50px;
+        height: 50px;
 
-        font-size: 21px;
+        font-size: 19px;
 
     }
 
@@ -743,10 +753,10 @@ html.dark-mode
         right: 10px;
         bottom: 82px;
 
-        width: calc(100vw - 20px);
+        width: calc(100vw - 32px);
 
         height:
-            min(620px, calc(100vh - 105px));
+            min(540px, calc(100vh - 125px));
 
         border-radius: 20px;
 
@@ -787,8 +797,263 @@ html.dark-mode
     }
 
     .ask-bihar-window {
-        right: 10px !important;
+        right: 28px !important;
         bottom: 147px !important;
+
+        width: calc(100vw - 56px);
+        height: min(480px, calc(100vh - 220px));
+    }
+
+}
+
+/* =========================================================
+   DISTRICT CONTEXT
+   ========================================================= */
+
+.ask-bihar-district-context {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin: 0;
+    padding: 10px 14px;
+
+    background: rgba(212, 160, 23, 0.08);
+
+    border-bottom: 1px solid rgba(212, 160, 23, 0.16);
+}
+
+
+/* Responsive launcher and chat window sizing */
+
+.ask-bihar-launcher {
+    right: clamp(12px, 2.7vw, 28px) !important;
+    bottom: clamp(16px, 9vh, 95px) !important;
+    width: clamp(46px, 5vw, 54px);
+    height: clamp(46px, 5vw, 54px);
+    font-size: clamp(17px, 2vw, 20px);
+}
+
+.ask-bihar-window {
+    right: clamp(12px, 2.7vw, 28px) !important;
+    bottom: calc(clamp(16px, 9vh, 95px) + clamp(46px, 5vw, 54px) + 16px) !important;
+    width: min(360px, calc(100vw - 24px));
+    height: min(540px, calc(100dvh - 190px));
+    max-height: calc(100dvh - 190px);
+}
+
+@media (max-width: 575.98px) {
+    .ask-bihar-launcher {
+        right: 16px !important;
+        bottom: 16px !important;
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+
+    .ask-bihar-window {
+        right: 24px !important;
+        bottom: 82px !important;
+        width: min(340px, calc(100vw - 48px));
+        height: min(480px, calc(100dvh - 104px));
+        max-height: calc(100dvh - 104px);
+        border-radius: 20px;
+    }
+}
+
+@media (max-height: 650px) and (min-width: 576px) {
+    .ask-bihar-window {
+        height: calc(100dvh - 190px);
+        max-height: calc(100dvh - 190px);
+    }
+}
+
+
+.ask-bihar-district-context.active {
+    display: flex;
+}
+
+
+.ask-bihar-district-info {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+.ask-bihar-district-info > i {
+    flex: 0 0 auto;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(212, 160, 23, 0.15);
+
+    color: #D4A017;
+
+    font-size: 13px;
+}
+
+
+.ask-bihar-district-info > div {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.ask-bihar-district-info span {
+    font-family: "Poppins", sans-serif;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+
+    color: rgba(255, 255, 255, 0.48);
+}
+
+
+.ask-bihar-district-info strong {
+    display: block;
+
+    max-width: 210px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    color: #ffffff;
+}
+
+
+.ask-bihar-district-clear {
+    flex: 0 0 auto;
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    color: rgba(255, 255, 255, 0.55);
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+.ask-bihar-district-clear:hover {
+    background: rgba(190, 70, 50, 0.22);
+
+    border-color: rgba(190, 70, 50, 0.35);
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   LIGHT MODE
+   ========================================================= */
+
+html:not(.dark-mode) .ask-bihar-district-context {
+    background: rgba(139, 69, 19, 0.045);
+
+    border-bottom-color: rgba(139, 69, 19, 0.10);
+}
+
+
+html:not(.dark-mode) .ask-bihar-district-info span {
+    color: rgba(45, 35, 28, 0.48);
+}
+
+
+html:not(.dark-mode) .ask-bihar-district-info strong {
+    color: #2d231c;
+}
+
+
+html:not(.dark-mode) .ask-bihar-district-info > i {
+    background: rgba(212, 160, 23, 0.12);
+
+    color: #8B4513;
+}
+
+
+html:not(.dark-mode) .ask-bihar-district-clear {
+    border-color: rgba(45, 35, 28, 0.10);
+
+    background: rgba(45, 35, 28, 0.04);
+
+    color: rgba(45, 35, 28, 0.50);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 575.98px) {
+
+    .ask-bihar-district-context {
+        padding: 9px 12px;
+    }
+
+
+    .ask-bihar-district-info {
+        gap: 8px;
+    }
+
+
+    .ask-bihar-district-info > i {
+        width: 28px;
+        height: 28px;
+
+        font-size: 12px;
+    }
+
+
+    .ask-bihar-district-info strong {
+        max-width: 180px;
+
+        font-size: 10px;
+    }
+
+
+    .ask-bihar-district-info span {
+        font-size: 7px;
     }
 
 }

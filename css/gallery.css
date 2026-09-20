@@ -1,3 +1,35 @@
+/* Navbar CTA */
+.gallery-navbar .nav-cta,
+.gallery-navbar .nav-cta:link,
+.gallery-navbar .nav-cta:visited,
+.gallery-navbar .nav-cta:active {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-width: 150px;
+    padding: 10px 18px;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
+    background: transparent !important;
+    color: #ffffff !important;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.gallery-navbar .nav-cta:hover {
+    border-color: #d4a017 !important;
+    background: #d4a017 !important;
+    color: #1b120c !important;
+}
+
+.gallery-navbar .nav-cta i {
+    color: inherit !important;
+}
 /* =========================================================
    DISCOVER BIHAR — GALLERY
    gallery.css
@@ -2236,4 +2268,42 @@ body.lightbox-open {
     .gallery-lightbox button {
         transition: none !important;
     }
+}
+
+
+/* Gallery theme surfaces */
+
+html:not(.dark-mode) .gallery-intro-section,
+html:not(.dark-mode) .gallery-main-section {
+    background: #ffffff !important;
+}
+
+html.dark-mode .gallery-intro-section,
+html.dark-mode .gallery-main-section {
+    background: #12100e !important;
+    color: #f4eee5;
+}
+
+html.dark-mode .gallery-intro-content h2,
+html.dark-mode .gallery-section-heading h2 {
+    color: #f4eee5 !important;
+}
+
+html.dark-mode .gallery-intro-content p,
+html.dark-mode .gallery-section-heading p {
+    color: #b9aea1 !important;
+}
+
+html.dark-mode .gallery-filter {
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark-mode .gallery-filter-btn {
+    color: #b9aea1;
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+html.dark-mode .gallery-filter-btn:hover {
+    color: #D4A017;
+    border-color: #D4A017;
 }

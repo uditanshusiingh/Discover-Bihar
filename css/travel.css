@@ -58,50 +58,45 @@
 
 /* Navbar CTA */
 
-.travel-navbar .nav-cta,
-.travel-navbar .nav-cta:link,
-.travel-navbar .nav-cta:visited,
-.travel-navbar .nav-cta:active {
-    display: inline-flex;
+.travel-navbar .nav-cta {
+    display: inline-flex !important;
 
     align-items: center;
     justify-content: center;
 
     gap: 9px;
 
-    padding: 11px 18px;
+    min-width: 150px;
+    padding: 10px 18px;
 
-    background: #D4A017 !important;
+    background: transparent !important;
+    color: #ffffff !important;
 
-    color: #1B120C !important;
+    border: 1px solid #ffffff !important;
+    border-radius: 50px;
 
-    border: 1px solid #D4A017 !important;
+    font-size: 0.72rem;
+    font-weight: 600;
 
-    border-radius: 0;
-
-    font-family: var(--font-body);
-
-    font-size: 0.61rem;
-
-    font-weight: 700;
-
-    letter-spacing: 1.2px;
+    line-height: 1.2;
+    letter-spacing: 0;
 
     text-decoration: none !important;
+    white-space: nowrap;
 
-    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
 .travel-navbar .nav-cta:hover {
-    background: #E5B32C !important;
-
+    background: #D4A017 !important;
+    border-color: #D4A017 !important;
     color: #1B120C !important;
+
+    transform: translateY(-2px);
 }
 
 .travel-navbar .nav-cta i {
-    color: #1B120C !important;
-
-    font-size: 13px;
+    color: inherit !important;
 }
 
 
@@ -110,7 +105,7 @@
 .travel-navbar .navbar-toggler {
     border: 1px solid rgba(255, 255, 255, 0.25);
 
-    border-radius: 0;
+    border-radius: 12px;
 
     padding: 7px 10px;
 
@@ -1728,6 +1723,96 @@ section.travel-final-cta a.travel-final-btn:active {
 }
 
 
+/* Footer layout */
+
+.travel-page .site-footer .footer-main {
+    grid-template-columns: minmax(220px, 1.1fr) minmax(300px, 1.55fr) minmax(180px, 0.75fr);
+    gap: 70px;
+    align-items: start;
+}
+
+.travel-page .site-footer .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px;
+}
+
+.travel-page .site-footer .footer-links > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.travel-page .site-footer .footer-links h4,
+.travel-page .site-footer .footer-social h4 {
+    margin: 0 0 8px;
+}
+
+.travel-page .site-footer .footer-links a {
+    display: block;
+    width: fit-content;
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+
+.travel-page .site-footer .footer-social {
+    min-width: 0;
+}
+
+.travel-page .site-footer .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 13px;
+}
+
+.travel-page .site-footer .social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    font-size: 0.78rem;
+    transition: all 0.25s ease;
+}
+
+.travel-page .site-footer .social-icons a:hover {
+    border-color: #D4A017;
+    background: #D4A017;
+    color: #1B120C !important;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 991px) {
+    .travel-page .site-footer .footer-main {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 42px;
+    }
+
+    .travel-page .site-footer .footer-social {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 575px) {
+    .travel-page .site-footer .footer-main {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 38px;
+    }
+
+    .travel-page .site-footer .footer-links {
+        gap: 28px;
+    }
+
+    .travel-page .site-footer .footer-social {
+        grid-column: auto;
+    }
+}
+
+
 /* =========================================================
    13. TABLET
    ========================================================= */
@@ -2200,4 +2285,150 @@ section.travel-final-cta a.travel-final-btn:active {
     .travel-final-btn:hover {
         transform: none !important;
     }
+}
+
+
+/* =========================================================
+   15. TRAVEL THEME SURFACES
+   ========================================================= */
+
+html:not(.dark-mode) .travel-essentials-section,
+html:not(.dark-mode) .travel-feature-section,
+html:not(.dark-mode) .travel-itinerary-section,
+html:not(.dark-mode) .travel-feature,
+html:not(.dark-mode) .travel-day-marker {
+    background: #ffffff;
+}
+
+html.dark-mode .travel-essentials-section,
+html.dark-mode .travel-feature-section,
+html.dark-mode .travel-itinerary-section {
+    background: #12100e !important;
+    color: #f4eee5;
+}
+
+html.dark-mode .travel-essential-card,
+html.dark-mode .travel-feature {
+    background: #1b1713 !important;
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28);
+}
+
+html.dark-mode .travel-essential-icon {
+    background: #2a211a;
+    color: #D4A017;
+}
+
+html.dark-mode .travel-section-heading h2,
+html.dark-mode .travel-feature-content h2,
+html.dark-mode .travel-itinerary-heading h2,
+html.dark-mode .travel-day-content h3,
+html.dark-mode .travel-essential-card h3 {
+    color: #f4eee5;
+}
+
+html.dark-mode .travel-section-heading p,
+html.dark-mode .travel-feature-content > p,
+html.dark-mode .travel-itinerary-heading p,
+html.dark-mode .travel-day-content > p,
+html.dark-mode .travel-essential-card p {
+    color: #b9aea1;
+}
+
+html.dark-mode .travel-feature-facts {
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+html.dark-mode .travel-day-marker {
+    background: #12100e !important;
+}
+
+html.dark-mode .travel-itinerary::before {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+html.dark-mode .travel-day-list span {
+    border-color: rgba(255, 255, 255, 0.14);
+    color: #b9aea1;
+}
+
+section.travel-final-cta a.travel-final-btn,
+.travel-final-cta .travel-final-content a.travel-final-btn {
+    border-radius: 12px !important;
+}
+
+
+/* =========================================================
+   16. COMPACT CONTENT SPACING
+   ========================================================= */
+
+.travel-page .travel-intro-section {
+    padding: 82px 0 76px;
+}
+
+.travel-page .travel-essentials-section,
+.travel-page .travel-styles-section,
+.travel-page .travel-feature-section,
+.travel-page .travel-itinerary-section,
+.travel-page .travel-tips-section {
+    padding-top: 86px;
+    padding-bottom: 86px;
+}
+
+.travel-page .travel-final-cta {
+    padding: 96px 0;
+}
+
+.travel-page .travel-section-heading,
+.travel-page .travel-styles-heading,
+.travel-page .travel-tips-heading {
+    margin-bottom: 44px;
+}
+
+.travel-page .travel-itinerary-heading {
+    margin-bottom: 52px;
+}
+
+.travel-page .travel-essential-card,
+.travel-page .travel-style-card {
+    min-height: 340px;
+}
+
+.travel-page .travel-feature-image {
+    min-height: 500px;
+}
+
+.travel-page .travel-day {
+    padding-bottom: 44px;
+}
+
+@media (max-width: 575px) {
+    .travel-page .travel-intro-section,
+    .travel-page .travel-essentials-section,
+    .travel-page .travel-styles-section,
+    .travel-page .travel-feature-section,
+    .travel-page .travel-itinerary-section,
+    .travel-page .travel-tips-section {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+
+    .travel-page .travel-final-cta {
+        padding: 76px 0;
+    }
+
+    .travel-page .travel-section-heading,
+    .travel-page .travel-styles-heading,
+    .travel-page .travel-tips-heading,
+    .travel-page .travel-itinerary-heading {
+        margin-bottom: 34px;
+    }
+}
+
+.travel-page .inner-back-button,
+.travel-page .navbar-toggler,
+.travel-page .travel-day-tab,
+.travel-page .nav-cta,
+.travel-page .travel-final-btn {
+    border-radius: 12px !important;
 }
