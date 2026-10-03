@@ -3299,6 +3299,27 @@ document.addEventListener(
                 <a href="${aboutHref}">About</a>
             </div>
         `;
+
+        /* DISCOVER BIHAR — ENSURE FLOATING BACK TO TOP DOM */
+        let backToTop = document.querySelector(".back-to-top");
+
+        if (!backToTop) {
+            backToTop = document.createElement("a");
+            backToTop.className = "back-to-top";
+            backToTop.href = "#";
+            backToTop.setAttribute("aria-label", "Back to top");
+            backToTop.setAttribute("title", "Back to top");
+            backToTop.innerHTML = '<i class="bi bi-arrow-up" aria-hidden="true"></i>';
+            document.body.appendChild(backToTop);
+        }
+
+        if (!backToTop.dataset.bound) {
+            backToTop.dataset.bound = "true";
+            backToTop.addEventListener("click", function (event) {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        }
     }
 
     if (document.readyState === "loading") {
