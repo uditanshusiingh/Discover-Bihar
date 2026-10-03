@@ -1,0 +1,77 @@
+name: Fix floating Back To Top
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-back-to-top:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply floating Back To Top fix
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          css = Path('css/style.css')
+          marker = '/* DISCOVER BIHAR — FLOATING BACK TO TOP FIX */'
+          fix = r'''
+
+          /* DISCOVER BIHAR — FLOATING BACK TO TOP FIX */
+          .back-to-top {
+              position: fixed !important;
+              right: 28px !important;
+              bottom: 28px !important;
+              width: 46px !important;
+              height: 46px !important;
+              display: flex !important;
+              align-items: center !important;
+              justify-content: center !important;
+              opacity: 1 !important;
+              visibility: visible !important;
+              pointer-events: auto !important;
+              z-index: 99999 !important;
+              margin: 0 !important;
+              transform: none !important;
+              border-radius: 50% !important;
+              cursor: pointer !important;
+          }
+
+          .back-to-top:hover {
+              transform: translateY(-4px) !important;
+          }
+
+          @media (max-width: 575px) {
+              .back-to-top {
+                  right: 18px !important;
+                  bottom: 18px !important;
+                  width: 44px !important;
+                  height: 44px !important;
+              }
+          }
+          '''
+          text = css.read_text(encoding='utf-8')
+          if marker not in text:
+              css.write_text(text.rstrip() + fix + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit and push fix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add css/style.css
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "Fix floating back to top button on all pages"
+          git push
