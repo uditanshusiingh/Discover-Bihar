@@ -1,0 +1,90 @@
+name: Fix Back To Top DOM
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-back-to-top:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure floating Back To Top survives footer normalization
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("js/script.js")
+          text = path.read_text(encoding="utf-8")
+
+          marker = "/* DISCOVER BIHAR — ENSURE FLOATING BACK TO TOP DOM */"
+          if marker in text:
+              print("Back To Top DOM fix already present.")
+              raise SystemExit(0)
+
+          needle = """        footerBottom.innerHTML = `
+            <div class=\"footer-copyright\">"""
+
+          if needle not in text:
+              raise SystemExit("Footer normalization anchor not found")
+
+          injection = """        footerBottom.innerHTML = `
+            <div class=\"footer-copyright\">"""
+
+          text = text.replace(needle, injection, 1)
+
+          end_marker = """        `;
+    }
+
+    if (document.readyState === \"loading\") {"""
+
+          replacement = """        `;
+
+        /* DISCOVER BIHAR — ENSURE FLOATING BACK TO TOP DOM */
+        let backToTop = document.querySelector(\".back-to-top\");
+
+        if (!backToTop) {
+            backToTop = document.createElement(\"a\");
+            backToTop.className = \"back-to-top\";
+            backToTop.href = \"#\";
+            backToTop.setAttribute(\"aria-label\", \"Back to top\");
+            backToTop.setAttribute(\"title\", \"Back to top\");
+            backToTop.innerHTML = '<i class=\"bi bi-arrow-up\" aria-hidden=\"true\"></i>';
+            document.body.appendChild(backToTop);
+        }
+
+        if (!backToTop.dataset.bound) {
+            backToTop.dataset.bound = \"true\";
+            backToTop.addEventListener(\"click\", function (event) {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: \"smooth\" });
+            });
+        }
+    }
+
+    if (document.readyState === \"loading\") {"""
+
+          if end_marker not in text:
+              raise SystemExit("Footer function insertion point not found")
+
+          text = text.replace(end_marker, replacement, 1)
+          path.write_text(text, encoding="utf-8")
+
+      - name: Commit fix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add js/script.js
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Fix Back To Top button DOM on all pages"
+          git push
