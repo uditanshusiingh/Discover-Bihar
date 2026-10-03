@@ -9984,3 +9984,37 @@ html body section[class*="-final-cta"][class*="-final-cta"] a[class*="-final-btn
 html body section[class*="-final-cta"][class*="-final-cta"] a[class*="-final-btn"]:hover {
     filter: drop-shadow(0 9px 17px rgba(212, 160, 23, 0.24));
 }
+
+/* DISCOVER BIHAR — FLOATING BACK TO TOP FIX */
+.back-to-top {
+    position: fixed !important;
+    right: 28px !important;
+    bottom: 28px !important;
+    width: 46px !important;
+    height: 46px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 99999 !important;
+    margin: 0 !important;
+    transform: none !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+}
+
+.back-to-top:hover {
+    transform: translateY(-4px) !important;
+}
+
+@media (max-width: 575px) {
+    .back-to-top {
+        right: 18px !important;
+        bottom: 18px !important;
+        width: 44px !important;
+        height: 44px !important;
+    }
+}
+
