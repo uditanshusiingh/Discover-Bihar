@@ -21,6 +21,7 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+
           css = Path('css/style.css')
           marker = '/* DISCOVER BIHAR — FLOATING BACK TO TOP FIX */'
           fix = r'''
@@ -61,6 +62,19 @@ jobs:
           text = css.read_text(encoding='utf-8')
           if marker not in text:
               css.write_text(text.rstrip() + fix + '\n', encoding='utf-8')
+
+          js = Path('js/script.js')
+          js_marker = '/* DISCOVER BIHAR — ENSURE FLOATING BACK TO TOP DOM */'
+          js_text = js.read_text(encoding='utf-8')
+
+          if js_marker not in js_text:
+              end_marker = '''        `;\n    }\n\n    if (document.readyState === "loading") {'''
+              replacement = '''        `;\n\n        /* DISCOVER BIHAR — ENSURE FLOATING BACK TO TOP DOM */\n        let backToTop = document.querySelector(".back-to-top");\n\n        if (!backToTop) {\n            backToTop = document.createElement("a");\n            backToTop.className = "back-to-top";\n            backToTop.href = "#";\n            backToTop.setAttribute("aria-label", "Back to top");\n            backToTop.setAttribute("title", "Back to top");\n            backToTop.innerHTML = '<i class="bi bi-arrow-up" aria-hidden="true"></i>';\n            document.body.appendChild(backToTop);\n        }\n\n        if (!backToTop.dataset.bound) {\n            backToTop.dataset.bound = "true";\n            backToTop.addEventListener("click", function (event) {\n                event.preventDefault();\n                window.scrollTo({ top: 0, behavior: "smooth" });\n            });\n        }\n    }\n\n    if (document.readyState === "loading") {'''
+
+              if end_marker not in js_text:
+                  raise SystemExit('Footer normalization insertion point not found')
+
+              js.write_text(js_text.replace(end_marker, replacement, 1), encoding='utf-8')
           PY
 
       - name: Commit and push fix
@@ -68,10 +82,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add css/style.css
+          git add css/style.css js/script.js
           if git diff --cached --quiet; then
             echo "No changes needed."
             exit 0
           fi
-          git commit -m "Fix floating back to top button on all pages"
+          git commit -m "Fix floating back to top DOM on all pages"
           git push
